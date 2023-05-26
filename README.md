@@ -50,18 +50,18 @@ CMake strongly encourages out-of-source builds. **OneLuaPro** is an CMake Multip
 ```cmd
 mkdir build
 cd build
-cmake .. -G "Visual Studio 17 2022" -A Win32
+cmake .. -G "Visual Studio 17 2022" -A <arch>
 cmake --build . --config Release
 ```
 
-Available architectures with selected `Visual Studio 17 2022` generator are `Win32`, `x64`, `ARM` and `ARM64`. Default installation directory is `C:/Apps/OneLuaPro`, where a directory structure according to [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/Directory-Variables.html) is created. 
+Available architectures `<arch>` with selected `Visual Studio 17 2022` generator are `Win32`, `x64`, `ARM` and `ARM64`. Default installation directory is `C:/Apps/OneLuaPro-<arch>`, where a directory structure according to [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/Directory-Variables.html) is created. 
 
 Currently, the `PATH` environment variable has to be extended by the user in order to make `lua` callable from any Windows command prompt. For the current Windows user and without administrative privileges permanently extend the <u>user-specific</u> part of the `PATH` variable by executing the following [two commands](https://stackoverflow.com/questions/19287379/) in the given order:
 
 ```cmd
 for /f "usebackq tokens=2,*" %A in (`reg query HKCU\Environment /v PATH`) do set my_user_path=%B
 
-setx PATH "%my_user_path%;c:\Apps\OneLuaPro\bin"
+setx PATH "%my_user_path%;c:\Apps\OneLuaPro-<arch>\bin"
 ```
 
 Open a new Windows command prompt and verify if Lua is available:
