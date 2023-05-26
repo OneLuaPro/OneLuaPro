@@ -1,6 +1,13 @@
 MIT License
 
-Copyright (c) 2023 Kritzel Kratzel
+Portions Copyright (c) 1994–2023 Lua.org, PUC-Rio
+Portions Copyright (c) 2004-2022 Diego Nehab
+Portions Copyright (c) 2011 Petr Stetiar <ynezz@true.cz>, Gaben Ltd.
+Portions Copyright (c) 2003-2010 Kepler Project
+Portions Copyright (c) 2010-2022 The LuaFileSystem authors
+Portions Copyright (c) 2013-2018 Peter Melnichenko
+                       2019 Paul Ouellette
+Portions Copyright (c) 2023 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

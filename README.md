@@ -17,13 +17,14 @@
 
 **OneLuaPro** comprises not only the Lua programming language binaries, but also a number of mature and widely-used extensions in their respective most recent version, all of which tailored to **OneLuaPro**'s requirements:
 
-| Module                                                       | Purpose                                                      | License                                                      |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [LuaSocket](https://github.com/KritzelKratzel/luasocket)     | Network support for the Lua language                         | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [librs232](https://github.com/KritzelKratzel/librs232)       | Multiplatform library for serial communications over RS-232 (serial port) | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [LuaFileSystem](https://github.com/KritzelKratzel/luafilesystem) | Complements the set of functions related to file systems offered by the standard Lua distribution | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [argparse](https://github.com/KritzelKratzel/argparse)       | Feature-rich command line parser for Lua inspired by argparse for Python | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [Luacheck](https://github.com/KritzelKratzel/luacheck)       | Static analyzer and a linter for Lua. It detects various issues such as usage of undefined global variables, unused variables and values, accessing uninitialized variables, unreachable code and more. | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| Module                                                       | Purpose                                                      | Version                               | License                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------- | ------------------------------------------------------------ |
+| [Lua](https://github.com/KritzelKratzel/lua)                 | The Lua Programming Language                                 | 5.4.6                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [LuaSocket](https://github.com/KritzelKratzel/luasocket)     | Network support for the Lua language                         | 3.1.0 with commits until Oct 8, 2022  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [librs232](https://github.com/KritzelKratzel/librs232)       | Multiplatform library for serial communications over RS-232 (serial port) | 1.0.3 with commits until Jan 15, 2021 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [LuaFileSystem](https://github.com/KritzelKratzel/luafilesystem) | Complements the set of functions related to file systems offered by the standard Lua distribution | 1.8.0 with commits until Jul 26, 2022 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [argparse](https://github.com/KritzelKratzel/argparse)       | Feature-rich command line parser for Lua inspired by argparse for Python | 0.7.1                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [Luacheck](https://github.com/KritzelKratzel/luacheck)       | Static analyzer and a linter for Lua. It detects various issues such as usage of undefined global variables, unused variables and values, accessing uninitialized variables, unreachable code and more. | 1.1.0 with commits until May 4, 2023  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 
 More will follow soon.
 
@@ -77,6 +78,17 @@ C:\Users\John Doe>
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) OneLuaPro is licensed entirely under the MIT License. 
 
 ```MIT License
+MIT License
+
+Portions Copyright (c) 1994–2023 Lua.org, PUC-Rio
+Portions Copyright (c) 2004-2022 Diego Nehab
+Portions Copyright (c) 2011 Petr Stetiar <ynezz@true.cz>, Gaben Ltd.
+Portions Copyright (c) 2003-2010 Kepler Project
+Portions Copyright (c) 2010-2022 The LuaFileSystem authors
+Portions Copyright (c) 2013-2018 Peter Melnichenko
+                       2019 Paul Ouellette
+Portions Copyright (c) 2023 Kritzel Kratzel
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights

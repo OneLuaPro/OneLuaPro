@@ -43,7 +43,7 @@
 # General definitions
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
-set(ONELUAPRO_PREFIX "C:/Apps/OneLuaPro")
+set(ONELUAPRO_PREFIX "C:/Apps/OneLuaPro-${CMAKE_GENERATOR_PLATFORM}")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 project(OneLuaPro LANGUAGES C)
