@@ -113,3 +113,14 @@ ExternalProject_Add(luacheck
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luacheck build lua argparse luafilesystem)
+
+# ------------------------------------------------------------------------------
+# lsleep
+ExternalProject_Add(lsleep
+  PREFIX ${PROJECT_NAME}/lsleep
+  GIT_REPOSITORY https://github.com/KritzelKratzel/lsleep.git
+  GIT_TAG "origin/master"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(lsleep build lua)
