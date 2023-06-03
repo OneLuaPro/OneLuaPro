@@ -124,3 +124,14 @@ ExternalProject_Add(lsleep
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(lsleep build lua)
+
+# ------------------------------------------------------------------------------
+# libffi
+ExternalProject_Add(libffi
+  PREFIX ${PROJECT_NAME}/libffi
+  GIT_REPOSITORY https://github.com/KritzelKratzel/libffi.git
+  GIT_TAG "origin/master"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(libffi build lua)
