@@ -135,3 +135,25 @@ ExternalProject_Add(libffi
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(libffi build lua)
+
+# ------------------------------------------------------------------------------
+# libusb
+ExternalProject_Add(libusb
+  PREFIX ${PROJECT_NAME}/libusb
+  GIT_REPOSITORY https://github.com/KritzelKratzel/libusb.git
+  GIT_TAG "origin/master"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(libusb build lua)
+
+# ------------------------------------------------------------------------------
+# moonusb
+ExternalProject_Add(moonusb
+  PREFIX ${PROJECT_NAME}/moonusb
+  GIT_REPOSITORY https://github.com/KritzelKratzel/moonusb.git
+  GIT_TAG "origin/master"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(moonusb build lua libusb)

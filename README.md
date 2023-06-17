@@ -30,8 +30,11 @@
 | [librs232](https://github.com/KritzelKratzel/librs232)       | Multi-platform library for serial communications over RS-232 (serial port) | 1.0.3 with commits until Jan 15, 2021 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 | [LuaFileSystem](https://github.com/KritzelKratzel/luafilesystem) | Complements the set of functions related to file systems offered by the standard Lua distribution | 1.8.0 with commits until Jul 26, 2022 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 | [argparse](https://github.com/KritzelKratzel/argparse)       | Feature-rich command line parser for Lua inspired by argparse for Python | 0.7.1                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [Luacheck](https://github.com/KritzelKratzel/luacheck)       | Static analyzer and a linter for Lua. It detects various issues such as usage of undefined global variables, unused variables and values, accessing uninitialized variables, unreachable code and more. | 1.1.0 with commits until May 4, 2023  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [Luacheck](https://github.com/KritzelKratzel/luacheck)       | Static analyzer and a linter for Lua. It detects various issues such as usage of undefined global variables, unused variables and values, accessing uninitialized variables, unreachable code and more. | 1.1.1                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 | [lsleep](https://github.com/KritzelKratzel/lsleep)           | Adds the missing `sleep()` and `usleep()` functions to Lua.  | 1.05                                  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [libffi](https://github.com/KritzelKratzel/libffi)           | A Portable Foreign Function Interface Library.               | 3.4.4                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [libusb](https://github.com/KritzelKratzel/libusb)           | A library for USB device access.                             | 1.0.26                                | [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0) |
+| [MoonUSB](https://github.com/KritzelKratzel/moonusb)         | Lua binding library for libusb, allowing applications to access and use USB devices. | 0.1                                   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 
 More will follow soon.
 
@@ -41,10 +44,10 @@ Download released zip-archive and unpack in a directory of your choice. The main
 
 ## Building and Installing OneLuaPro from Source Code
 
-A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
+A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.5.5** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
 
 - MSVC v143 - VS 2022 C++-x64/x86-Buildtools
-- C++-CMake-Tools for Windows
+- C++-CMake-Tools for Windows (Version 3.25.1-msvc1)
 - Windows 11-SDK (10.0.22621.0) 
 
 Open `Developer Command Prompt for VS 2022` and change drive and directory. Download and unpack sources or simply clone this repository:
@@ -86,20 +89,25 @@ C:\Users\John Doe>
 
 ## License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) OneLuaPro is licensed entirely under the MIT License. 
+Almost all components of **OneLuaPro** are licensed under the MIT License. `libusb` is licensed under the GNU Lesser General Public License v2.1 (see https://github.com/libusb/libusb/blob/master/COPYING for details).
 
 ```MIT License
 MIT License
-
-Portions Copyright (c) 1994–2023 Lua.org, PUC-Rio
-Portions Copyright (c) 2004-2022 Diego Nehab
-Portions Copyright (c) 2011 Petr Stetiar <ynezz@true.cz>, Gaben Ltd.
-Portions Copyright (c) 2003-2010 Kepler Project
-Portions Copyright (c) 2010-2022 The LuaFileSystem authors
-Portions Copyright (c) 2013-2018 Peter Melnichenko
-                       2019 Paul Ouellette
-Portions Copyright (c) 2013 Andrew Starks
-Portions Copyright (c) 2023 Kritzel Kratzel
+-----------------------------------------------------------------------------
+Lua           - Copyright (c) 1994–2023 Lua.org, PUC-Rio
+luasocket     - Copyright (c) 2004-2022 Diego Nehab
+librs232      - Copyright (c) 2011 Petr Stetiar <ynezz@true.cz>, Gaben Ltd.
+luafilesystem - Copyright (c) 2003-2010 Kepler Project
+                Copyright (c) 2010-2022 The LuaFileSystem authors
+argparse      - Copyright (c) 2013-2018 Peter Melnichenko
+                              2019 Paul Ouellette
+luacheck      - Copyright (c) 2013-2018 Peter Melnichenko
+                              2018-2023 The luacheck authors
+lsleep        - Copyright (c) 2013 Andrew Starks
+libffi        - Copyright (c) 1996-2022 Anthony Green, Red Hat, Inc and others.
+                              See source files for details.
+MoonUSB       - Copyright (c) 2021 Stefano Trettel
+OneLuaPro     - Copyright (c) 2023 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -118,5 +126,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+GNU Lesser General Public License v2.1
+-----------------------------------------------------------------------------
+libusb - See https://github.com/libusb/libusb/blob/master/COPYING
 ```
 
