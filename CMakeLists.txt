@@ -157,3 +157,28 @@ ExternalProject_Add(moonusb
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(moonusb build lua libusb)
+
+# ------------------------------------------------------------------------------
+# libuv - unaltered, original
+ExternalProject_Add(libuv
+  PREFIX ${PROJECT_NAME}/libuv
+  GIT_REPOSITORY https://github.com/libuv/libuv.git
+  GIT_TAG "v1.46.0"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-DBUILD_TESTING=OFF"
+  "-DLIBUV_BUILD_SHARED=OFF"
+)
+ExternalProject_Add_StepDependencies(libuv build lua)
+
+# ------------------------------------------------------------------------------
+# luv
+ExternalProject_Add(luv
+  PREFIX ${PROJECT_NAME}/luv
+  GIT_REPOSITORY https://github.com/KritzelKratzel/luv.git
+  GIT_TAG "origin/master"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(luv build lua libuv)

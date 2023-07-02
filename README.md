@@ -35,6 +35,8 @@
 | [libffi](https://github.com/KritzelKratzel/libffi)           | A Portable Foreign Function Interface Library.               | 3.4.4 with commits until Jun 21, 2023  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 | [libusb](https://github.com/KritzelKratzel/libusb)           | A library for USB device access.                             | 1.0.26 with commits until Jun 21, 2023 | [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0) |
 | [MoonUSB](https://github.com/KritzelKratzel/moonusb)         | Lua binding library for libusb, allowing applications to access and use USB devices. | 0.1                                    | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [libuv](https://github.com/libuv/libuv)                      | Cross-platform asynchronous I/O                              | 1.46.0                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [luv](https://github.com/KritzelKratzel/luv)                 | Bare libuv bindings for Lua                                  | 1.45.0 with commits until May 30, 2023 | [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) |
 
 More will follow soon.
 
@@ -89,7 +91,10 @@ C:\Users\John Doe>
 
 ## License
 
-Almost all components of **OneLuaPro** are licensed under the MIT License. `libusb` is licensed under the GNU Lesser General Public License v2.1 (see https://github.com/libusb/libusb/blob/master/COPYING for details).
+Almost all components of **OneLuaPro** are licensed under the MIT License. The following components are licensed in a different way:
+
+- `libusb` is licensed under the GNU Lesser General Public License v2.1 (see https://github.com/libusb/libusb/blob/master/COPYING for details).
+- `luv` is licensed under the Apache License 2.0 (see https://github.com/luvit/luv/blob/master/LICENSE.txt for details).
 
 ```MIT License
 MIT License
@@ -107,6 +112,7 @@ lsleep        - Copyright (c) 2013 Andrew Starks
 libffi        - Copyright (c) 1996-2022 Anthony Green, Red Hat, Inc and others.
                               See source files for details.
 MoonUSB       - Copyright (c) 2021 Stefano Trettel
+libuv         - Copyright (c) 2015-present libuv project contributors.
 OneLuaPro     - Copyright (c) 2023 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -126,6 +132,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Apache License Version 2.0
+-----------------------------------------------------------------------------
+luv - See https://github.com/luvit/luv/blob/master/LICENSE.txt
 
 GNU Lesser General Public License v2.1
 -----------------------------------------------------------------------------
