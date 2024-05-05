@@ -53,7 +53,7 @@ include(ExternalProject)
 # Lua interpreter, libs and all basic stuff
 ExternalProject_Add(lua
   PREFIX ${PROJECT_NAME}/lua
-  GIT_REPOSITORY https://github.com/KritzelKratzel/lua.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/lua.git
   GIT_TAG "origin/main"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
@@ -63,7 +63,7 @@ ExternalProject_Add(lua
 # luasocket
 ExternalProject_Add(luasocket
   PREFIX ${PROJECT_NAME}/luasocket
-  GIT_REPOSITORY https://github.com/KritzelKratzel/luasocket.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/luasocket.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -74,7 +74,7 @@ ExternalProject_Add_StepDependencies(luasocket build lua)
 # librs232
 ExternalProject_Add(librs232
   PREFIX ${PROJECT_NAME}/librs232
-  GIT_REPOSITORY https://github.com/KritzelKratzel/librs232.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/librs232.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -85,7 +85,7 @@ ExternalProject_Add_StepDependencies(librs232 build lua)
 # luafilesystem
 ExternalProject_Add(luafilesystem
   PREFIX ${PROJECT_NAME}/luafilesystem
-  GIT_REPOSITORY https://github.com/KritzelKratzel/luafilesystem.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/luafilesystem.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -96,7 +96,7 @@ ExternalProject_Add_StepDependencies(luafilesystem build lua)
 # argparse
 ExternalProject_Add(argparse
   PREFIX ${PROJECT_NAME}/argparse
-  GIT_REPOSITORY https://github.com/KritzelKratzel/argparse.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/argparse.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -107,7 +107,7 @@ ExternalProject_Add_StepDependencies(argparse build lua)
 # luacheck
 ExternalProject_Add(luacheck
   PREFIX ${PROJECT_NAME}/luacheck
-  GIT_REPOSITORY https://github.com/KritzelKratzel/luacheck.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/luacheck.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -118,7 +118,7 @@ ExternalProject_Add_StepDependencies(luacheck build lua argparse luafilesystem)
 # lsleep
 ExternalProject_Add(lsleep
   PREFIX ${PROJECT_NAME}/lsleep
-  GIT_REPOSITORY https://github.com/KritzelKratzel/lsleep.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/lsleep.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -129,7 +129,7 @@ ExternalProject_Add_StepDependencies(lsleep build lua)
 # libffi
 ExternalProject_Add(libffi
   PREFIX ${PROJECT_NAME}/libffi
-  GIT_REPOSITORY https://github.com/KritzelKratzel/libffi.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/libffi.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -140,7 +140,7 @@ ExternalProject_Add_StepDependencies(libffi build lua)
 # libusb
 ExternalProject_Add(libusb
   PREFIX ${PROJECT_NAME}/libusb
-  GIT_REPOSITORY https://github.com/KritzelKratzel/libusb.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/libusb.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -151,7 +151,7 @@ ExternalProject_Add_StepDependencies(libusb build lua)
 # moonusb
 ExternalProject_Add(moonusb
   PREFIX ${PROJECT_NAME}/moonusb
-  GIT_REPOSITORY https://github.com/KritzelKratzel/moonusb.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/moonusb.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
@@ -176,7 +176,7 @@ ExternalProject_Add_StepDependencies(libuv build lua)
 # luv
 ExternalProject_Add(luv
   PREFIX ${PROJECT_NAME}/luv
-  GIT_REPOSITORY https://github.com/KritzelKratzel/luv.git
+  GIT_REPOSITORY https://github.com/OneLuaPro/luv.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
