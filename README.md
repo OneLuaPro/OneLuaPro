@@ -12,7 +12,7 @@ Open `Developer Command Prompt for VS 2022` and change drive and directory. Down
 ```cmd
 c:
 cd c:\Temp
-git clone git@github.com:KritzelKratzel/OneLuaPro.git
+git clone https://github.com/OneLuaPro/OneLuaPro.git
 cd OneLuaPro
 ```
 
