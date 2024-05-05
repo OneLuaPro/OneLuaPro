@@ -23,20 +23,21 @@
 
 **OneLuaPro** comprises not only the Lua programming language binaries, but also a number of mature and widely-used extensions in their respective most recent version, all of which tailored to **OneLuaPro**'s requirements:
 
-| Module                                                       | Purpose                                                      | Version                               | License                                                      |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------- | ------------------------------------------------------------ |
-| [Lua](https://github.com/KritzelKratzel/lua)                 | The Lua Programming Language                                 | 5.4.6                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [LuaSocket](https://github.com/KritzelKratzel/luasocket)     | Network support for the Lua language                         | 3.1.0 with commits until Oct 8, 2022  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [librs232](https://github.com/KritzelKratzel/librs232)       | Multi-platform library for serial communications over RS-232 (serial port) | 1.0.3 with commits until Jan 15, 2021 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [LuaFileSystem](https://github.com/KritzelKratzel/luafilesystem) | Complements the set of functions related to file systems offered by the standard Lua distribution | 1.8.0 with commits until Jul 26, 2022 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [argparse](https://github.com/KritzelKratzel/argparse)       | Feature-rich command line parser for Lua inspired by argparse for Python | 0.7.1                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [Luacheck](https://github.com/KritzelKratzel/luacheck)       | Static analyzer and a linter for Lua. It detects various issues such as usage of undefined global variables, unused variables and values, accessing uninitialized variables, unreachable code and more. | 1.1.1                                 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [lsleep](https://github.com/KritzelKratzel/lsleep)           | Adds the missing `sleep()` and `usleep()` functions to Lua.  | 1.05                                  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [libffi](https://github.com/KritzelKratzel/libffi)           | A Portable Foreign Function Interface Library.               | 3.4.4 with commits until Jun 21, 2023 | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [libusb](https://github.com/KritzelKratzel/libusb)           | A library for USB device access.                             | 1.0.26 with commits until Jul 7, 2023 | [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0) |
-| [MoonUSB](https://github.com/KritzelKratzel/moonusb)         | Lua binding library for libusb, allowing applications to access and use USB devices. | 0.1                                   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [libuv](https://github.com/libuv/libuv)                      | Cross-platform asynchronous I/O                              | 1.46.0                                | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
-| [luv](https://github.com/KritzelKratzel/luv)                 | Bare libuv bindings for Lua                                  | 1.46.0 with commits until Jul 4, 2023 | [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) |
+| Module                                                       | Purpose                                                      | Version                                 | License                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------------------------- | ------------------------------------------------------------ |
+| [Lua](https://github.com/KritzelKratzel/lua)                 | The Lua Programming Language                                 | 5.4.6                                   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [LuaSocket](https://github.com/KritzelKratzel/luasocket)     | Network support for the Lua language                         | 3.1.0 with commits until Oct 27, 2023   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [librs232](https://github.com/KritzelKratzel/librs232)       | Multi-platform library for serial communications over RS-232 (serial port) | 1.0.3 with commits until Oct 12, 2023   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [LuaFileSystem](https://github.com/KritzelKratzel/luafilesystem) | Complements the set of functions related to file systems offered by the standard Lua distribution | 1.8.0 with commits until  Dec 13, 2023  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [argparse](https://github.com/KritzelKratzel/argparse)       | Feature-rich command line parser for Lua inspired by argparse for Python | 0.7.1                                   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [Luacheck](https://github.com/KritzelKratzel/luacheck)       | Static analyzer and a linter for Lua. It detects various issues such as usage of undefined global variables, unused variables and values, accessing uninitialized variables, unreachable code and more. | 1.1.1                                   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [lsleep](https://github.com/KritzelKratzel/lsleep)           | Adds the missing `sleep()` and `usleep()` functions to Lua.  | 1.05                                    | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [libffi](https://github.com/KritzelKratzel/libffi)           | A Portable Foreign Function Interface Library.               | 3.4.6 with commits until Mar 19, 2024   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [libusb](https://github.com/KritzelKratzel/libusb)           | A library for USB device access.                             | 1.0.27 with commits until Apr 20, 2024  | [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0) |
+| [MoonUSB](https://github.com/KritzelKratzel/moonusb)         | Lua binding library for libusb, allowing applications to access and use USB devices. | 0.1 with commits until Jul 25, 2023     | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [libuv](https://github.com/libuv/libuv)                      | Cross-platform asynchronous I/O                              | 1.48.0                                  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
+| [luv](https://github.com/KritzelKratzel/luv)                 | Bare libuv bindings for Lua                                  | 1.48.0-2 with commits until Mar 2, 2024 | [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) |
+| [lanes](https://github.com/OneLuaPro/lanes)                  | Lua Lanes - multithreading in Lua                            | 3.17.0 with commits until May 3, 2024   | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) |
 
 More will follow soon.
 
@@ -46,10 +47,10 @@ Download released zip-archive and unpack in a directory of your choice. The main
 
 ## Building and Installing OneLuaPro from Source Code
 
-A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.5.5** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
+A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.9.6** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
 
 - MSVC v143 - VS 2022 C++-x64/x86-Buildtools
-- C++-CMake-Tools for Windows (Version 3.25.1-msvc1)
+- C++-CMake-Tools for Windows (Version 3.28.0-msvc1)
 - Windows 11-SDK (10.0.22621.0) 
 
 Open `Developer Command Prompt for VS 2022` and change drive and directory. Download and unpack sources or simply clone this repository:
@@ -64,8 +65,7 @@ cd OneLuaPro
 CMake strongly encourages out-of-source builds. **OneLuaPro** is an CMake Multiple External Projects build for automatic download, update/patch, configure, build and install.
 
 ```cmd
-mkdir build
-cd build
+mkdir build && cd build
 cmake .. -G "Visual Studio 17 2022" -A <arch>
 cmake --build . --config Release
 ```

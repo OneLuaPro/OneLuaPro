@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2023 Kritzel Kratzel.
+# Copyright (c) 2023-2024 Kritzel Kratzel.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in 
@@ -23,7 +23,7 @@
 # ------------------------------------------------------------------------------
 # CMake for OneLuaPro
 # ------------------------------------------------------------------------------
-# Setup with Visual Studio 17 2022 generator for Win32
+# Setup with Visual Studio 17 2022 generator for x64
 # ------------------------------------------------------------------------------
 # Visual Studio is a mutlti-configuration generator
 # https://stackoverflow.com/questions/24460486/
@@ -32,10 +32,10 @@
 # ------------------------------------------------------
 # mkdir build
 # cd build
-# cmake .. -G "Visual Studio 17 2022" -A Win32
+# cmake .. -G "Visual Studio 17 2022" -A x64
 # cmake --build . --config Release
 #
-# Available architectures (-A ...) are: Win32, x64, ARM, ARM64
+# Available architectures are: Win32, x64, ARM, ARM64
 # Installation goes into C:/Apps/OneLuaPro
 # Extend Path variable manually by C:/Apps/OneLuaPro/bin
 
@@ -163,7 +163,7 @@ ExternalProject_Add_StepDependencies(moonusb build lua libusb)
 ExternalProject_Add(libuv
   PREFIX ${PROJECT_NAME}/libuv
   GIT_REPOSITORY https://github.com/libuv/libuv.git
-  GIT_TAG "v1.46.0"
+  GIT_TAG "v1.48.0"
   GIT_PROGRESS FALSE
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
@@ -182,3 +182,14 @@ ExternalProject_Add(luv
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luv build lua libuv)
+
+# ------------------------------------------------------------------------------
+# lanes
+ExternalProject_Add(lanes
+  PREFIX ${PROJECT_NAME}/lanes
+  GIT_REPOSITORY https://github.com/OneLuaPro/lanes.git
+  GIT_TAG "origin/master"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(lanes build lua)
