@@ -99,21 +99,23 @@ Almost all components of **OneLuaPro** are licensed under the MIT License. The f
 ```MIT License
 MIT License
 -----------------------------------------------------------------------------
-Lua           - Copyright (c) 1994–2023 Lua.org, PUC-Rio
+Lua           - Copyright (c) 1994–2024 Lua.org, PUC-Rio
 luasocket     - Copyright (c) 2004-2022 Diego Nehab
 librs232      - Copyright (c) 2011 Petr Stetiar <ynezz@true.cz>, Gaben Ltd.
 luafilesystem - Copyright (c) 2003-2010 Kepler Project
-                Copyright (c) 2010-2022 The LuaFileSystem authors
+                Copyright (c) 2010-2024 The LuaFileSystem authors
 argparse      - Copyright (c) 2013-2018 Peter Melnichenko
                               2019 Paul Ouellette
 luacheck      - Copyright (c) 2013-2018 Peter Melnichenko
-                              2018-2023 The luacheck authors
+                              2018-2024 The luacheck authors
 lsleep        - Copyright (c) 2013 Andrew Starks
 libffi        - Copyright (c) 1996-2022 Anthony Green, Red Hat, Inc and others.
                               See source files for details.
 MoonUSB       - Copyright (c) 2021 Stefano Trettel
 libuv         - Copyright (c) 2015-present libuv project contributors.
-OneLuaPro     - Copyright (c) 2023 Kritzel Kratzel
+lanes         - Copyright (c) 2007-2011 Asko Kauppi, <akauppi@gmail.com>
+                Copyright (c) 2010-2024 Benoit Germain, <bnt.germain@gmail.com>
+OneLuaPro     - Copyright (c) 2023-present Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
