@@ -14,6 +14,8 @@ libffi        - Copyright (c) 1996-2022 Anthony Green, Red Hat, Inc and others.
                               See source files for details.
 MoonUSB       - Copyright (c) 2021 Stefano Trettel
 libuv         - Copyright (c) 2015-present libuv project contributors.
+lanes         - Copyright (c) 2007-2011 Asko Kauppi, <akauppi@gmail.com>
+                Copyright (c) 2010-2024 Benoit Germain, <bnt.germain@gmail.com>
 OneLuaPro     - Copyright (c) 2023 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
