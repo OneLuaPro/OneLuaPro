@@ -2,6 +2,41 @@
 
 Brief summary on how to compile OneLuaPro, currently only for the Windows operating system.
 
+## Change Log
+
+```txt
+OneLuaPro Release 5.4.6.5 (?)
+- Binaries built with Visual Studio Build Tools 2022 17.9.6
+- LuaSocket		Update	3.1.0 with commits until Oct 27, 2023
+- librs232		Update	1.0.3 with commits until Oct 12, 2023
+- LuaFileSystem	Update	1.8.0 with commits until Dec 13, 2023
+- Luacheck		Update	1.1.2
+- libffi		Update	3.4.6 with commits until Mar 19, 2024
+- libusb		Update	1.0.27 with commits until Apr 20, 2024
+- MoonUSB		Update	0.1 with commits until Jul 25, 2023
+- libuv			Update	1.48.0
+- luv			Update	1.48.0-2 with commits until Mar 2, 2024
+- LuaLanes		New		3.17.0 with commits until May 3, 2024
+
+OneLuaPro Release 5.4.6.4 (Jul 8, 2023)
+- Fixed remote repository in moonusb
+- luv 			Update	1.46.0
+- libusb		Update	1.0.26 with commits until Jul 7, 2023
+
+OneLuaPro Release 5.4.6.3 (Jul 2, 2023)
+- libuv			New
+- luv			New
+
+OneLuaPro Release 5.4.6.2 (Jul 1, 2023)
+- Small fixes for libffi and libusb by merging respective remote-tracking branches
+
+OneLuaPro Release 5.4.6.1 (Jun 17, 2023)
+- Added libffi, libusb, moonusb and bumped luacheck to v1.1.1
+
+OneLuaPro Release 5.4.6.0 (May 27, 2023)
+- Initial release
+```
+
 ## Building and Installing OneLuaPro from Source Code
 
 A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.9.6** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
