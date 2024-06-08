@@ -5,6 +5,10 @@ Brief summary on how to compile OneLuaPro, currently only for the Windows operat
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.4.6.6  (Jun 8, 2024)
+----------------------------------------
+- luaping            Added with 1.0
+
 OneLuaPro Release 5.4.6.5  (May 12, 2024)
 -----------------------------------------
 - Binaries built with Visual Studio Build Tools 2022 17.9.6
