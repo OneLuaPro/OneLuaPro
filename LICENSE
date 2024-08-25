@@ -1,5 +1,5 @@
 MIT License
------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Lua           - Copyright (c) 1994–2024 Lua.org, PUC-Rio
 luasocket     - Copyright (c) 2004-2022 Diego Nehab
 librs232      - Copyright (c) 2011 Petr Stetiar <ynezz@true.cz>, Gaben Ltd.
@@ -17,6 +17,8 @@ libuv         - Copyright (c) 2015-present libuv project contributors.
 lanes         - Copyright (c) 2007-2011 Asko Kauppi, <akauppi@gmail.com>
                 Copyright (c) 2010-2024 Benoit Germain, <bnt.germain@gmail.com>
 luaping       - Copyright (c) 2024 Kritzel Kratzel
+luadaqmx      - Copyright (c) 2024 Kritzel Kratzel
+lua4882       - Copyright (c) 2024 Kritzel Kratzel
 OneLuaPro     - Copyright (c) 2023-2024 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,9 +40,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Apache License Version 2.0
------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 luv - See https://github.com/luvit/luv/blob/master/LICENSE.txt
 
 GNU Lesser General Public License v2.1
------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 libusb - See https://github.com/libusb/libusb/blob/master/COPYING
+
+National Instruments / Data Acquisition (NI-DAQmx) SDK
+-------------------------------------------------------------------------------
+Copyright (c) National Instruments 2003-2024.  All Rights Reserved.     
+https://www.ni.com/en/about-ni/legal/software-license-agreement.html
+
+National Instruments NI-488.2 API
+--------------------------------------------------------------------------------
+Copyright (c) National Instruments 2001-2007. All Rights Reserved.
+https://www.ni.com/en/about-ni/legal/software-license-agreement.html

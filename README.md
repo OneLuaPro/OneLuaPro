@@ -5,6 +5,17 @@ Brief summary on how to compile OneLuaPro, currently only for the Windows operat
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.4.7.0  (Aug 25, 2024)
+-----------------------------------------
+- Windows 10 binaries built with Visual Studio Build Tools 2022 17.11.0
+- Windows 7 binaries built with Visual Studio Build Tools 2022 17.5.5
+- lua                Updated to 5.4.7
+- luadaqmx           Added with 0.1
+- lua4882            Added with 1.0
+- Windows 10 binaries use NI-488.2 2024 Q3 and NI-DAQmx 2024 Q3
+- Windows 7 binaries use NI-488.2 19.0 and NI-DAQmx 19.0
+- OneLuaPro Win32 binaries are no longer provided.
+
 OneLuaPro Release 5.4.6.6  (Jun 8, 2024)
 ----------------------------------------
 - luaping            Added with 1.0
@@ -52,7 +63,7 @@ OneLuaPro Release 5.4.6.0 (May 27, 2023)
 
 ## Building and Installing OneLuaPro from Source Code
 
-A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.9.6** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
+A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.10.5** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
 
 - MSVC v143 - VS 2022 C++-x64/x86-Buildtools
 - C++-CMake-Tools for Windows (Version 3.28.0-msvc1)
@@ -89,7 +100,7 @@ Open a new Windows command prompt and verify if Lua is available:
 
 ```cmd
 C:\Users\John Doe>lua -v
-Lua 5.4.6  Copyright (C) 1994-2023 Lua.org, PUC-Rio
+Lua 5.4.7  Copyright (C) 1994-2024 Lua.org, PUC-Rio
 
 C:\Users\John Doe>
 ```
