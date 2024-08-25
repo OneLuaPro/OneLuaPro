@@ -30,23 +30,26 @@
 #
 # Basic instructions for out-of-source build and install
 # ------------------------------------------------------
-# mkdir build
-# cd build
+# mkdir build && cd build
 # cmake .. -G "Visual Studio 17 2022" -A x64
 # cmake --build . --config Release
 #
 # Available architectures are: Win32, x64, ARM, ARM64
-# Installation goes into C:/Apps/OneLuaPro
-# Extend Path variable manually by C:/Apps/OneLuaPro/bin
 
 # ------------------------------------------------------------------------------
 # General definitions
-cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
 
-set(ONELUAPRO_PREFIX "C:/Apps/OneLuaPro-${CMAKE_GENERATOR_PLATFORM}")
+# OneLuaPro Version
+set(ONELUAPRO_VERSION 5.4.7.0)
+
+# Bootstrap and installation path
+set(ONELUAPRO_PREFIX "C:/Apps/OneLuaPro-${ONELUAPRO_VERSION}-${CMAKE_GENERATOR_PLATFORM}")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
-project(OneLuaPro LANGUAGES C)
+project(OneLuaPro
+  LANGUAGES C
+  VERSION ${ONELUAPRO_VERSION})
 include(ExternalProject)
 
 # ------------------------------------------------------------------------------
@@ -141,7 +144,7 @@ ExternalProject_Add_StepDependencies(libffi build lua)
 ExternalProject_Add(libusb
   PREFIX ${PROJECT_NAME}/libusb
   GIT_REPOSITORY https://github.com/OneLuaPro/libusb.git
-  GIT_TAG "origin/v1.0.27"
+  GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
 )
@@ -199,7 +202,7 @@ ExternalProject_Add_StepDependencies(lanes build lua)
 ExternalProject_Add(luaping
   PREFIX ${PROJECT_NAME}/luaping
   GIT_REPOSITORY https://github.com/OneLuaPro/luaping.git
-  GIT_TAG "v1.0"
+  GIT_TAG "origin/main"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
 )
