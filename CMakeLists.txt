@@ -204,3 +204,26 @@ ExternalProject_Add(luaping
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luaping build lua)
+
+# ------------------------------------------------------------------------------
+# luadaqmx
+ExternalProject_Add(luadaqmx
+  PREFIX ${PROJECT_NAME}/luadaqmx
+  GIT_REPOSITORY https://github.com/OneLuaPro/luadaqmx.git
+  GIT_TAG "v0.1"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(luadaqmx build lua)
+
+# ------------------------------------------------------------------------------
+# lua4882
+ExternalProject_Add(lua4882
+  PREFIX ${PROJECT_NAME}/lua4882
+  GIT_REPOSITORY https://github.com/OneLuaPro/lua4882.git
+  GIT_TAG "origin/master"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(lua4882 build lua)
+
