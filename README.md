@@ -7,7 +7,7 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ```txt
 OneLuaPro Release 5.4.7.1  (Aug 29, 2024)
 -----------------------------------------
-- LPeg               Added with 1.0
+- LPeg               Added with 1.1.0
 - Windows 10 binaries built with Visual Studio Build Tools 2022 17.11.2
 - Windows 7 binaries built with Visual Studio Build Tools 2022 17.5.5
 
