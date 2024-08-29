@@ -41,7 +41,7 @@
 cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
 
 # OneLuaPro Version
-set(ONELUAPRO_VERSION 5.4.7.0)
+set(ONELUAPRO_VERSION 5.4.7.1)
 
 # Bootstrap and installation path
 set(ONELUAPRO_PREFIX "C:/Apps/OneLuaPro-${ONELUAPRO_VERSION}-${CMAKE_GENERATOR_PLATFORM}")
