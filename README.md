@@ -1,10 +1,16 @@
 # OneLuaPro
 
-Brief summary on how to compile OneLuaPro, currently only for the Windows operating system.
+This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For more information on the **OneLuaPro** distribution visit https://github.com/OneLuaPro.
 
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.4.7.1  (Aug 29, 2024)
+-----------------------------------------
+- LPeg               Added with 1.0
+- Windows 10 binaries built with Visual Studio Build Tools 2022 17.11.2
+- Windows 7 binaries built with Visual Studio Build Tools 2022 17.5.5
+
 OneLuaPro Release 5.4.7.0  (Aug 25, 2024)
 -----------------------------------------
 - Windows 10 binaries built with Visual Studio Build Tools 2022 17.11.0
