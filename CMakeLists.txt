@@ -32,7 +32,11 @@
 # ------------------------------------------------------
 # mkdir build && cd build
 # cmake .. -G "Visual Studio 17 2022" -A x64
-# cmake --build . --config Release
+# cmake --build . --config Release > 00_log.txt
+# echo %errorlevel%
+#
+# After build check return value %errorlevel% (must be 0) and content of 
+# 00_log.txt. Suggested search patterns: "error C", "warning C", ...
 #
 # Available architectures are: Win32, x64, ARM, ARM64
 
@@ -41,11 +45,17 @@
 cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
 
 # OneLuaPro Version
-set(ONELUAPRO_VERSION 5.4.7.1)
+set(LUA_VERSION_MAJOR 5)
+set(LUA_VERSION_MINOR 4)
+set(LUA_VERSION_PATCH 7)
+set(ONELUAPRO_RELEASE 2)
+set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
+set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
-# Bootstrap and installation path
+# Bootstrap and post_installation paths
 set(ONELUAPRO_PREFIX "C:/Apps/OneLuaPro-${ONELUAPRO_VERSION}-${CMAKE_GENERATOR_PLATFORM}")
 set(CMAKE_VERBOSE_MAKEFILE ON)
+set(ONELUAPRO_BOOTSTRAP "C:/Temp/ONELUAPRO_BOOTSTRAP")
 
 project(OneLuaPro
   LANGUAGES C
@@ -59,7 +69,18 @@ ExternalProject_Add(lua
   GIT_REPOSITORY https://github.com/OneLuaPro/lua.git
   GIT_TAG "origin/main"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BOOTSTRAP}"
+)
+ExternalProject_Add_Step(lua post_install
+  # After lua bootstrap copy relevant files to post_installaton location
+  COMMENT "Installing lua into ${ONELUAPRO_PREFIX}"
+  DEPENDEES install
+  # copy bin
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${ONELUAPRO_BOOTSTRAP}/bin
+  ${ONELUAPRO_PREFIX}/bin
+  # copy share/doc/lua
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${ONELUAPRO_BOOTSTRAP}/share/doc/lua
+  ${ONELUAPRO_PREFIX}/share/doc/lua
 )
 
 # ------------------------------------------------------------------------------
@@ -69,7 +90,8 @@ ExternalProject_Add(luasocket
   GIT_REPOSITORY https://github.com/OneLuaPro/luasocket.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luasocket build lua)
 
@@ -80,7 +102,8 @@ ExternalProject_Add(librs232
   GIT_REPOSITORY https://github.com/OneLuaPro/librs232.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(librs232 build lua)
 
@@ -91,7 +114,8 @@ ExternalProject_Add(luafilesystem
   GIT_REPOSITORY https://github.com/OneLuaPro/luafilesystem.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luafilesystem build lua)
 
@@ -102,7 +126,8 @@ ExternalProject_Add(argparse
   GIT_REPOSITORY https://github.com/OneLuaPro/argparse.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(argparse build lua)
 
@@ -113,7 +138,8 @@ ExternalProject_Add(luacheck
   GIT_REPOSITORY https://github.com/OneLuaPro/luacheck.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luacheck build lua argparse luafilesystem)
 
@@ -124,7 +150,8 @@ ExternalProject_Add(lsleep
   GIT_REPOSITORY https://github.com/OneLuaPro/lsleep.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(lsleep build lua)
 
@@ -135,9 +162,45 @@ ExternalProject_Add(libffi
   GIT_REPOSITORY https://github.com/OneLuaPro/libffi.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BOOTSTRAP}"
 )
 ExternalProject_Add_StepDependencies(libffi build lua)
+
+# ------------------------------------------------------------------------------
+# winflexbison
+# Build prerequisite for lua-ffi only, not included in OLP distribution
+ExternalProject_Add(winflexbison
+  PREFIX ${PROJECT_NAME}/winflexbison
+  GIT_REPOSITORY https://github.com/lexxmark/winflexbison.git
+  GIT_TAG "v2.5.25"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BOOTSTRAP}/bin"
+)
+
+# ------------------------------------------------------------------------------
+# dlfcn-win32
+# Build prerequisite for lua-ffi only, not included in OLP distribution
+ExternalProject_Add(dlfcn-win32
+  PREFIX ${PROJECT_NAME}/dlfcn-win32
+  GIT_REPOSITORY https://github.com/dlfcn-win32/dlfcn-win32.git
+  GIT_TAG "v1.4.1"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BOOTSTRAP}"
+  "-DBUILD_SHARED_LIBS=OFF"
+)
+
+# ------------------------------------------------------------------------------
+# lua-ffi
+ExternalProject_Add(lua-ffi
+  PREFIX ${PROJECT_NAME}/lua-ffi
+  GIT_REPOSITORY https://github.com/OneLuaPro/lua-ffi.git
+  GIT_TAG "origin/main"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-DCMAKE_PREFIX_PATH=${ONELUAPRO_BOOTSTRAP}"
+)
+ExternalProject_Add_StepDependencies(lua-ffi build libffi winflexbison dlfcn-win32)
 
 # ------------------------------------------------------------------------------
 # libusb
@@ -146,7 +209,7 @@ ExternalProject_Add(libusb
   GIT_REPOSITORY https://github.com/OneLuaPro/libusb.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BOOTSTRAP}"
 )
 ExternalProject_Add_StepDependencies(libusb build lua)
 
@@ -157,7 +220,8 @@ ExternalProject_Add(moonusb
   GIT_REPOSITORY https://github.com/OneLuaPro/moonusb.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(moonusb build lua libusb)
 
@@ -169,7 +233,7 @@ ExternalProject_Add(libuv
   GIT_TAG "v1.48.0"
   GIT_PROGRESS FALSE
   CMAKE_ARGS
-  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BOOTSTRAP}"
   "-DBUILD_TESTING=OFF"
   "-DLIBUV_BUILD_SHARED=OFF"
 )
@@ -182,7 +246,8 @@ ExternalProject_Add(luv
   GIT_REPOSITORY https://github.com/OneLuaPro/luv.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luv build lua libuv)
 
@@ -193,7 +258,8 @@ ExternalProject_Add(lanes
   GIT_REPOSITORY https://github.com/OneLuaPro/lanes.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(lanes build lua)
 
@@ -204,7 +270,8 @@ ExternalProject_Add(luaping
   GIT_REPOSITORY https://github.com/OneLuaPro/luaping.git
   GIT_TAG "origin/main"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luaping build lua)
 
@@ -213,9 +280,10 @@ ExternalProject_Add_StepDependencies(luaping build lua)
 ExternalProject_Add(luadaqmx
   PREFIX ${PROJECT_NAME}/luadaqmx
   GIT_REPOSITORY https://github.com/OneLuaPro/luadaqmx.git
-  GIT_TAG "v0.1"
+  GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(luadaqmx build lua)
 
@@ -226,7 +294,8 @@ ExternalProject_Add(lua4882
   GIT_REPOSITORY https://github.com/OneLuaPro/lua4882.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(lua4882 build lua)
 
@@ -237,6 +306,55 @@ ExternalProject_Add(LPeg
   GIT_REPOSITORY https://github.com/OneLuaPro/LPeg.git
   GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_PREFIX}"
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BOOTSTRAP}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
 )
 ExternalProject_Add_StepDependencies(LPeg build lua)
+
+# ------------------------------------------------------------------------------
+# wxWidgets
+ExternalProject_Add(wxWidgets
+  PREFIX ${PROJECT_NAME}/wxWidgets
+  GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets.git
+  GIT_TAG "v3.2.5"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BOOTSTRAP}"
+  "-DwxBUILD_SHARED=OFF"
+)
+ExternalProject_Add_StepDependencies(wxWidgets build lua)
+
+# ------------------------------------------------------------------------------
+# wxLua
+ExternalProject_Add(wxLua
+  PREFIX ${PROJECT_NAME}/wxLua
+  GIT_REPOSITORY https://github.com/pkulchenko/wxlua.git
+  GIT_TAG origin/master
+  GIT_PROGRESS FALSE
+  SOURCE_SUBDIR wxLua
+  CMAKE_ARGS
+  "-Wno-dev"
+  "-DCMAKE_BUILD_TYPE=Release"
+  "-DBUILD_SHARED_LIBS=FALSE"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BOOTSTRAP}"
+  "-DwxLua_LUA_LIBRARY_USE_BUILTIN=FALSE"
+  "-DwxLua_LUA_INCLUDE_DIR=${ONELUAPRO_PREFIX}/include"
+  "-DwxLua_LUA_LIBRARY=${ONELUAPRO_PREFIX}/lib/liblua.lib"
+  "-DwxWidgets_ROOT_DIR=${ONELUAPRO_BOOTSTRAP}"
+  "-DwxWidgets_CONFIGURATION=mswu"
+  "-DBUILD_USE_SOLUTION_FOLDERS=TRUE"
+)
+ExternalProject_Add_StepDependencies(wxLua build lua wxWidgets)
+ExternalProject_Add_Step(wxLua post_install
+  COMMENT "Installing xwLua into ${ONELUAPRO_PREFIX}"
+  DEPENDEES install
+  COMMAND ${CMAKE_COMMAND} -E copy
+  ${ONELUAPRO_BOOTSTRAP}/bin/wx.dll
+  ${ONELUAPRO_PREFIX}/lib/lua/${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}/
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${ONELUAPRO_BOOTSTRAP}/doc/wxLua
+  ${ONELUAPRO_PREFIX}/share/doc/wxLua
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${ONELUAPRO_BOOTSTRAP}/samples
+  ${ONELUAPRO_PREFIX}/share/doc/wxLua/samples
+)

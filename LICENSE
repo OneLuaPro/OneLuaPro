@@ -20,6 +20,7 @@ luaping       - Copyright (c) 2024 Kritzel Kratzel
 luadaqmx      - Copyright (c) 2024 Kritzel Kratzel
 lua4882       - Copyright (c) 2024 Kritzel Kratzel
 LPeg          - Copyright (c) 2007-2023 Lua.org, PUC-Rio
+lua-ffi       - Copyright (c) 2022-2024 Jianhui Zhao <zhaojh329@gmail.com>
 OneLuaPro     - Copyright (c) 2023-2024 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -47,6 +48,14 @@ luv - See https://github.com/luvit/luv/blob/master/LICENSE.txt
 GNU Lesser General Public License v2.1
 -------------------------------------------------------------------------------
 libusb - See https://github.com/libusb/libusb/blob/master/COPYING
+
+wxWindows Library Licence, Version 3.1
+--------------------------------------------------------------------------------
+wxWidgets - https://github.com/wxWidgets/wxWidgets/blob/master/docs/licence.txt
+
+wxWindows Library Licence, Version 3
+--------------------------------------------------------------------------------
+wxLua - https://github.com/pkulchenko/wxlua/blob/master/wxLua/docs/licence.txt
 
 National Instruments / Data Acquisition (NI-DAQmx) SDK
 -------------------------------------------------------------------------------
