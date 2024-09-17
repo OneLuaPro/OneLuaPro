@@ -21,7 +21,7 @@
 # SOFTWARE.
 #
 # ------------------------------------------------------------------------------
-# CMake for OneLuaPro
+# CMake for creating OneLuaPro Distribution as ZIP-archive
 # ------------------------------------------------------------------------------
 # Setup with Visual Studio 17 2022 generator for x64
 # ------------------------------------------------------------------------------
@@ -53,9 +53,10 @@ set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
 # Bootstrap and post_installation paths
-set(ONELUAPRO_PREFIX "C:/Apps/OneLuaPro-${ONELUAPRO_VERSION}-${CMAKE_GENERATOR_PLATFORM}")
-set(CMAKE_VERBOSE_MAKEFILE ON)
-set(ONELUAPRO_BUILDROOT "C:/Temp/ONELUAPRO_BUILDROOT")
+set(ONELUAPRO_DISTRO_BASEDIR "OneLuaPro-${ONELUAPRO_VERSION}-${CMAKE_GENERATOR_PLATFORM}")
+set(ONELUAPRO_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/${ONELUAPRO_DISTRO_BASEDIR}")
+set(ONELUAPRO_BUILDROOT "${CMAKE_CURRENT_BINARY_DIR}/ONELUAPRO_BUILDROOT")
+set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 project(OneLuaPro
   LANGUAGES C
@@ -65,7 +66,30 @@ project(OneLuaPro
 include(ExternalProject)
 file(GLOB ONELUAPRO_PACKAGES "packages/*.cmake")
 foreach(PKG ${ONELUAPRO_PACKAGES})
-  message(STATUS "Adding package ${PKG}")
+  get_filename_component(BASENAME ${PKG} NAME_WE)
+  message(STATUS "Adding OneLuaPro package : ${BASENAME}")
   include(${PKG})
 endforeach()
+
+# Define the desired ZIP-file containing the whole distribution
+set(ONELUAPRO_ZIP_DISTRO
+  "${CMAKE_CURRENT_BINARY_DIR}/${ONELUAPRO_DISTRO_BASEDIR}.zip")
+
+# Add a custom command the build the distribution
+add_custom_command(OUTPUT ${ONELUAPRO_ZIP_DISTRO}
+  COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_CURRENT_BINARY_DIR}/${ONELUAPRO_DISTRO_BASEDIR}.zip"
+  --format=zip "${ONELUAPRO_PREFIX}"
+  COMMENT "Generating ZIP-file : ${CMAKE_CURRENT_BINARY_DIR}/${ONELUAPRO_DISTRO_BASEDIR}.zip"
+)
+
+# Add a custom target which is always triggered
+add_custom_target(create_distro ALL DEPENDS ${ONELUAPRO_ZIP_DISTRO})
+
+# Add dependencies to this target to enforce the distro is build as last step
+foreach (PKG ${ONELUAPRO_PACKAGES})
+  get_filename_component(BASENAME ${PKG} NAME_WE)
+  add_dependencies(create_distro ${BASENAME})
+endforeach()
 # ------------------------------------------------------------------------------
+# TODO
+# https://gitlab.kitware.com/cmake/community/-/wikis/doc/cpack/PackageGenerators
