@@ -38,7 +38,7 @@
 # cpack -G ZIP
 #
 # After build check return value %errorlevel% (must be 0) and content of 
-# 00_log.txt. Suggested search patterns: "error C", "warning C", ...
+# 00_log.txt. Suggested search patterns: "fatal" "error C", "warning C", ...
 #
 # Available architectures are: Win32, x64, ARM, ARM64
 
@@ -54,21 +54,32 @@ set(ONELUAPRO_RELEASE 2)
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
-# Bootstrap and post_installation paths
-set(ONELUAPRO_DISTRO_BASEDIR "OneLuaPro-${ONELUAPRO_VERSION}-${CMAKE_GENERATOR_PLATFORM}")
-set(ONELUAPRO_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/${ONELUAPRO_DISTRO_BASEDIR}")
-set(ONELUAPRO_BUILDROOT "${CMAKE_CURRENT_BINARY_DIR}/ONELUAPRO_BUILDROOT")
-set(CMAKE_VERBOSE_MAKEFILE OFF)
+project(OneLuaPro
+  LANGUAGES C
+  VERSION ${ONELUAPRO_VERSION})
 
 # Make subdir cmake available as module search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
-if (CODE_SIGN_ID)
+# Determine win version for basedir suffix
+if ((6 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 7))
+  message(STATUS "We are building on Windows 7.")
+  set(WIN_SUFFIX "Win7")
+elseif ((10 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 11))
+  message(STATUS "We are building on Windows 10.")
+  set(WIN_SUFFIX "Win10")
+elseif ((11 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 12))
+  message(STATUS "We are building on Windows 11.")
+  set(WIN_SUFFIX "Win11")
+else()
+  message(FATAL_ERROR "Unknown Windows Version.")
 endif()
 
-project(OneLuaPro
-  LANGUAGES C
-  VERSION ${ONELUAPRO_VERSION})
+# Bootstrap and post_installation paths
+set(ONELUAPRO_DISTRO_BASEDIR "OneLuaPro-${ONELUAPRO_VERSION}-${WIN_SUFFIX}-${CMAKE_GENERATOR_PLATFORM}")
+set(ONELUAPRO_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/${ONELUAPRO_DISTRO_BASEDIR}")
+set(ONELUAPRO_BUILDROOT "${CMAKE_CURRENT_BINARY_DIR}/ONELUAPRO_BUILDROOT")
+set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 # ------------------------------------------------------------------------------
 # Scan for package files in subdir and include them
@@ -144,7 +155,6 @@ else()
   set(CPACK_PACKAGE_CHECKSUM SHA256)
 endif()
 
-
 # ------------------------------------------------------------------------------
 # NSIS Packager
 # https://cmake.org/cmake/help/latest/module/CPack.html
@@ -163,7 +173,6 @@ set(CPACK_STRIP_FILES ON)
 
 # https://cmake.org/cmake/help/latest/cpack_gen/nsis.html
 # https://nsis.sourceforge.io/Docs/Modern%20UI/Readme.html
-# set(CPACK_NSIS_INSTALL_ROOT "C:\\Apps")
 # set(CPACK_NSIS_WELCOME_TITLE_3LINES OFF)
 set(CPACK_NSIS_FINISH_TITLE_3LINES ON)
 set(CPACK_NSIS_MODIFY_PATH ON)
@@ -180,10 +189,10 @@ set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP
 set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP
   "${PROJECT_SOURCE_DIR}/logo\\\\lua-logo-olp-dist-welcome.bmp")
 set(CPACK_NSIS_BRANDING_TEXT " ")
-# set(CPACK_NSIS_IGNORE_LICENSE_PAGE OFF)
 set(CPACK_NSIS_MENU_LINKS
   "bin/lua.exe" "Lua Interpreter"
   "share/doc/lua/contents.html" "Lua Reference Manual"
+  "share/doc" "Other Manuals"
 )
 
 # ------------------------------------------------------------------------------
@@ -193,8 +202,6 @@ set(CPACK_NSIS_MENU_LINKS
 set(CPACK_WIX_UPGRADE_GUID A7B4D8D5-ECF8-43A2-A810-CF803889946E)
 set(CPACK_WIX_INSTALL_SCOPE perMachine)
 set(CPACK_WIX_PRODUCT_ICON "${PROJECT_SOURCE_DIR}/logo/lua-logo-olp-dist.bmp")
-
-
 
 # ------------------------------------------------------------------------------
 # Include packager and enforce inclusion of runtime system libs
