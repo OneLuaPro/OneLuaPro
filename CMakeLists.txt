@@ -190,7 +190,8 @@ set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP
   "${PROJECT_SOURCE_DIR}/logo\\\\lua-logo-olp-dist-welcome.bmp")
 set(CPACK_NSIS_BRANDING_TEXT " ")
 set(CPACK_NSIS_MENU_LINKS
-  "bin/lua.exe" "Lua Interpreter"
+  "opt/ZeroBraneStudio/zbstudio.exe" "ZeroBrane Studio IDE"
+  "bin/lua.exe" "Lua Command Line Interpreter"
   "share/doc/lua/contents.html" "Lua Reference Manual"
   "share/doc" "Other Manuals"
 )
