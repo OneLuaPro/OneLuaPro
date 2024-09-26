@@ -158,8 +158,8 @@ endif()
 # ------------------------------------------------------------------------------
 # NSIS Packager
 # https://cmake.org/cmake/help/latest/module/CPack.html
-set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-set(CPACK_PACKAGE_VENDOR "OneLuaPro")
+set(CPACK_PACKAGE_NAME "OneLuaPro")
+set(CPACK_PACKAGE_VENDOR "OneLuaPro Organization")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/OneLuaPro")
 set(CPACK_PACKAGE_VERSION_MAJOR ${LUA_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${LUA_VERSION_MINOR})
@@ -188,7 +188,7 @@ set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP
   "${PROJECT_SOURCE_DIR}/logo\\\\lua-logo-olp-dist-welcome.bmp")
 set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP
   "${PROJECT_SOURCE_DIR}/logo\\\\lua-logo-olp-dist-welcome.bmp")
-set(CPACK_NSIS_BRANDING_TEXT " ")
+set(CPACK_NSIS_BRANDING_TEXT "https://github.com/OneLuaPro")
 set(CPACK_NSIS_MENU_LINKS
   "opt/ZeroBraneStudio/zbstudio.exe" "ZeroBrane Studio IDE"
   "bin/lua.exe" "Lua Command Line Interpreter"
