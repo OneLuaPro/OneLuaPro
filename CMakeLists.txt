@@ -31,7 +31,7 @@
 # Basic instructions for out-of-source build and install
 # ------------------------------------------------------
 # mkdir build && cd build
-# cmake .. -G "Visual Studio 17 2022" -A x64 -DCODE_SIGN_ID=OneLuaPro_SelfSignedCert
+# cmake .. -G "Visual Studio 17 2022" -A x64 -DCODE_SIGN_ID="Open Source Developer"
 # cmake --build . --config Release > 00_log.txt
 # echo %errorlevel%
 # cpack -G NSIS64

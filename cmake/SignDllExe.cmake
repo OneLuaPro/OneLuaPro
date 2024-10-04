@@ -8,18 +8,10 @@ file(GLOB_RECURSE EXE_LIST "${ONELUAPRO_PREFIX}/*.exe")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
 include(CodeSignParams)
 
-# Sign *.exe files
-foreach(EXE ${EXE_LIST})
+# Sign *.exe and *.dll files
+if(EXE_LIST OR DLL_LIST)
   execute_process(
-    COMMAND ${signtool_EXECUTABLE} sign ${SIGN_PARAMS} ${EXE}
+    COMMAND ${signtool_EXECUTABLE} sign ${SIGN_PARAMS} ${EXE_LIST} ${DLL_LIST}
     COMMAND_ECHO NONE
   )
-endforeach()
-
-# Sign *.dll files
-foreach(DLL ${DLL_LIST})
-  execute_process(
-    COMMAND ${signtool_EXECUTABLE} sign ${SIGN_PARAMS} ${DLL}
-    COMMAND_ECHO NONE
-  )
-endforeach()
+endif()
