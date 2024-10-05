@@ -22,6 +22,7 @@ lua4882       - Copyright (c) 2024 Kritzel Kratzel
 LPeg          - Copyright (c) 2007-2023 Lua.org, PUC-Rio
 lua-ffi       - Copyright (c) 2022-2024 Jianhui Zhao <zhaojh329@gmail.com>
 ZeroBraneStudio - Copyright (c) 2011-2024 Paul Kulchenko (paul@kulchenko.com)
+api-ms-win-core-path-l1-1-0 - Copyright (c) 2022-2024 A2uria
 OneLuaPro     - Copyright (c) 2023-2024 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -49,6 +50,11 @@ luv - See https://github.com/luvit/luv/blob/master/LICENSE.txt
 GNU Lesser General Public License v2.1
 -------------------------------------------------------------------------------
 libusb - See https://github.com/libusb/libusb/blob/master/COPYING
+
+GNU General Public License v3.0
+-------------------------------------------------------------------------------
+api-ms-win-core-path-l1-1-0
+See https://github.com/A2uria/api-ms-win-core-path-l1-1-0/blob/master/LICENSE
 
 wxWindows Library Licence, Version 3.1
 --------------------------------------------------------------------------------

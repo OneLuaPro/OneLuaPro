@@ -62,18 +62,19 @@ project(OneLuaPro
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 # Determine win version for basedir suffix
-if ((6 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 7))
-  message(STATUS "We are building on Windows 7.")
-  set(WIN_SUFFIX "Win7")
-elseif ((10 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 11))
-  message(STATUS "We are building on Windows 10.")
-  set(WIN_SUFFIX "Win10")
-elseif ((11 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 12))
-  message(STATUS "We are building on Windows 11.")
-  set(WIN_SUFFIX "Win11")
-else()
-  message(FATAL_ERROR "Unknown Windows Version.")
-endif()
+#if ((6 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 7))
+#  message(STATUS "We are building on Windows 7.")
+#  set(WIN_SUFFIX "Win7")
+#elseif ((10 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 11))
+#  message(STATUS "We are building on Windows 10.")
+#  set(WIN_SUFFIX "Win10")
+#elseif ((11 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 12))
+#  message(STATUS "We are building on Windows 11.")
+#  set(WIN_SUFFIX "Win11")
+#else()
+#  message(FATAL_ERROR "Unknown Windows Version.")
+#endif()
+set(WIN_SUFFIX "Win")
 
 # Bootstrap and post_installation paths
 set(ONELUAPRO_DISTRO_BASEDIR "OneLuaPro-${ONELUAPRO_VERSION}-${WIN_SUFFIX}-${CMAKE_GENERATOR_PLATFORM}")
@@ -165,7 +166,7 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${LUA_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${LUA_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${LUA_VERSION_PATCH}.${ONELUAPRO_RELEASE})
 
-set(CPACK_PACKAGE_INSTALL_DIRECTORY ${ONELUAPRO_DISTRO_BASEDIR})
+set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CMAKE_PROJECT_NAME})
 set(CPACK_INSTALLED_DIRECTORIES ${ONELUAPRO_PREFIX} .)
 set(CPACK_PACKAGE_FILE_NAME ${ONELUAPRO_DISTRO_BASEDIR})
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
@@ -190,10 +191,27 @@ set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP
   "${PROJECT_SOURCE_DIR}/logo\\\\lua-logo-olp-dist-welcome.bmp")
 set(CPACK_NSIS_BRANDING_TEXT "https://github.com/OneLuaPro")
 set(CPACK_NSIS_MENU_LINKS
-  "opt/ZeroBraneStudio/zbstudio.exe" "ZeroBrane Studio IDE"
+  "opt/ZeroBraneStudio/zbstudio.exe" "Lua IDE - ZeroBrane Studio"
   "bin/lua.exe" "Lua Command Line Interpreter"
-  "share/doc/lua/contents.html" "Lua Reference Manual"
-  "share/doc" "Other Manuals"
+  "share/doc/lua/contents.html" "Lua Language Reference Manual"
+  "share/doc/argparse/argparse-readthedocs-io-en-latest.pdf" "Module argparse - Manual"
+  "share/doc/lanes/doc/index.html" "Module Lua Lanes - Manual"
+  "share/doc/librs232" "Module librs232 - Examples"
+  "share/doc/lpeg/lpeg.html" "Module LPeg - Manual"
+  "share/doc/lpeg/re.html" "Module LPeg.re - Manual"
+  "share/doc/lsleep/index.html" "Module lsleep - Manual"
+  "share/doc/lua4882/lua4882.pdf" "Module lua4882 - Manual"
+  "share/doc/luacheck/index.html" "Module Luacheck - Manual"
+  "share/doc/luadaqmx/luadaqmx.pdf" "Module luadaqmx - Manual"
+  "share/doc/lua-ffi" "Module lua-ffi - Examples"
+  "share/doc/luafilesystem/index.html" "Module LuaFileSystem - Manual"
+  "share/doc/luasocket/index.html" "Module LuaSocket - Manual"
+  "share/doc/luv/luv/docs.pdf" "Module LibUV - Manual"
+  "share/doc/moonusb/index.html" "Module MoonUSB - Manual"
+  "share/doc/wxLua/binding.html" "Module wxLua - Writing and Generating Binding Files"
+  "share/doc/wxLua/FAQ.html" "Module wxLua - FAQ"
+  "share/doc/wxLua/wxlua.html" "Module wxLua - User Manual"
+  "share/doc/wxLua/wxluaref.html" "Module wxLua - Reference Manual"
 )
 
 # ------------------------------------------------------------------------------
