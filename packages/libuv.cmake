@@ -3,7 +3,7 @@
 ExternalProject_Add(libuv
   PREFIX ${PROJECT_NAME}/libuv
   GIT_REPOSITORY https://github.com/libuv/libuv.git
-  GIT_TAG "v1.48.0"
+  GIT_TAG "v1.49.0"
   GIT_PROGRESS FALSE
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
