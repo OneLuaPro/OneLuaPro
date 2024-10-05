@@ -5,6 +5,19 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.4.7.2  (Oct 5, 2024)
+----------------------------------------
+- New unified install media for Windows-x64 7 to 11 (signed installer
+  and ZIP-archive)
+- Luacheck           Updated to v1.2.0 with commits until Aug 29, 2024
+- libffi             Updated to v3.4.6 with commits until Jun 28, 2024
+- lua-ffi            Added with v1.0.0 with commits until Aug 18, 2024
+- libuv              Updated to v1.49.0
+- lanes              Updated to v4.0.0 with commits until Oct 1, 2024
+- wxWidgets          Added with v3.2.6
+- wxLua              Added with v3.2.0.2 with commits until Sep 4, 2023
+- ZeroBraneStudio    Added with v2.01 with commits until May 20, 2024
+
 OneLuaPro Release 5.4.7.1  (Aug 29, 2024)
 -----------------------------------------
 - LPeg               Added with 1.1.0
@@ -69,11 +82,18 @@ OneLuaPro Release 5.4.6.0 (May 27, 2023)
 
 ## Building and Installing OneLuaPro from Source Code
 
-A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.10.5** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
+A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.11.4** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
 
 - MSVC v143 - VS 2022 C++-x64/x86-Buildtools
 - C++-CMake-Tools for Windows (Version 3.28.0-msvc1)
 - Windows 11-SDK (10.0.22621.0) 
+
+In addition install the following prerequisites:
+
+- pandoc (https://github.com/jgm/pandoc/releases)
+- doxygen (https://www.doxygen.nl/download.html)
+- National Instruments [NI-488.2](https://www.ni.com/en/support/downloads/drivers/download.ni-488-2.html) 2024 Q3 (Support for C/C++, with all dependencies)
+- National Instruments [NI-DAQmx](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html) 2024 Q3 (Support for C/C++, with all dependencies)
 
 Open `Developer Command Prompt for VS 2022` and change drive and directory. Download and unpack sources or simply clone this repository:
 
@@ -87,19 +107,31 @@ cd OneLuaPro
 CMake strongly encourages out-of-source builds. **OneLuaPro** is an CMake Multiple External Projects build for automatic download, update/patch, configure, build and install.
 
 ```cmd
-mkdir build && cd build
-cmake .. -G "Visual Studio 17 2022" -A <arch>
-cmake --build . --config Release
+mkdir build64 && cd build64
+cmake .. -G "Visual Studio 17 2022" -A x64
+cmake --build . --config Release > 00_log.txt
 ```
 
-Available architectures `<arch>` with selected `Visual Studio 17 2022` generator are `Win32`, `x64`, `ARM` and `ARM64`. Default installation directory is `C:\Apps\OneLuaPro-<arch>`, where a directory structure according to [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/Directory-Variables.html) is created. 
+Building takes some time, all terminal output is redirected into file `00_log.txt` for later inspection. A successful build is indicated by an `errorlevel` return value of `0` of the last `cmake` command.
 
-Currently, the `PATH` environment variable has to be extended by the user in order to make `lua` callable from any Windows command prompt. For the current Windows user and without administrative privileges permanently extend the <u>user-specific</u> part of the `PATH` variable by executing the following [two commands](https://stackoverflow.com/questions/19287379/) in the given order:
+```cmd
+[C:\...\John Doe]> echo %errorlevel%
+0
+```
+
+The (unsigned) installer and the zip-archive are created with the following commands. Results are placed into the current build directory.
+
+```cmd
+cpack -G NSIS64
+cpack -G ZIP
+```
+
+The installer offers the choice to update the `PATH`-variable according to the chosen installation directory. For a manual installation using the ZIP-archive the `PATH` environment variable has to be extended by the user in order to make `lua` callable from any Windows command prompt. For the current Windows user and without administrative privileges permanently extend the <u>user-specific</u> part of the `PATH` variable by executing the following [two commands](https://stackoverflow.com/questions/19287379/) in the given order:
 
 ```cmd
 for /f "usebackq tokens=2,*" %A in (`reg query HKCU\Environment /v PATH`) do set my_user_path=%B
 
-setx PATH "%my_user_path%;c:\Apps\OneLuaPro-<arch>\bin"
+setx PATH "%my_user_path%;c:\Apps\OneLuaPro-<VERSION>-Win-x64\bin"
 ```
 
 Open a new Windows command prompt and verify if Lua is available:
