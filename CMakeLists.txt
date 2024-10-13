@@ -30,7 +30,7 @@
 #
 # Basic instructions for out-of-source build and install
 # ------------------------------------------------------
-# mkdir build && cd build
+# mkdir build64 && cd build64
 # cmake .. -G "Visual Studio 17 2022" -A x64 -DCODE_SIGN_ID="Open Source Developer"
 # cmake --build . --config Release > 00_log.txt
 # echo %errorlevel%
@@ -50,7 +50,7 @@ cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
 set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 4)
 set(LUA_VERSION_PATCH 7)
-set(ONELUAPRO_RELEASE 2)
+set(ONELUAPRO_RELEASE 3)
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
@@ -200,9 +200,9 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/lpeg/lpeg.html" "Module LPeg - Manual"
   "share/doc/lpeg/re.html" "Module LPeg.re - Manual"
   "share/doc/lsleep/index.html" "Module lsleep - Manual"
-  "share/doc/lua4882/lua4882.pdf" "Module lua4882 - Manual"
+  "share/doc/lua4882/lua4882.html" "Module lua4882 - Manual"
   "share/doc/luacheck/index.html" "Module Luacheck - Manual"
-  "share/doc/luadaqmx/luadaqmx.pdf" "Module luadaqmx - Manual"
+  "share/doc/luadaqmx/luadaqmx.html" "Module luadaqmx - Manual"
   "share/doc/lua-ffi" "Module lua-ffi - Examples"
   "share/doc/luafilesystem/index.html" "Module LuaFileSystem - Manual"
   "share/doc/luasocket/index.html" "Module LuaSocket - Manual"

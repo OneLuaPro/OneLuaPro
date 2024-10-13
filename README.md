@@ -5,6 +5,17 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.4.7.3  (Oct 13, 2024)
+-----------------------------------------
+- Built with Visual Studio Build Tools 2022 17.11.5
+- Built with NI-488.2 2024 Q3 and NI-DAQmx 2024 Q3
+- libuv              Updated to v1.49.1
+- luv                Updated to v1.48.0-2 with commits until Oct 11, 2024
+- lanes              Updated to v4.0.0 with commits until Oct 9, 2024
+- luaping            Updated to v1.1
+- lua4882            Updated to v1.2
+- luadaqmx           Updated to v0.1 with commits until Oct 13, 2024
+
 OneLuaPro Release 5.4.7.2  (Oct 5, 2024)
 ----------------------------------------
 - New unified install media for Windows-x64 7 to 11 (signed installer
@@ -82,7 +93,7 @@ OneLuaPro Release 5.4.6.0 (May 27, 2023)
 
 ## Building and Installing OneLuaPro from Source Code
 
-A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.11.4** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
+A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.11.5** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
 
 - MSVC v143 - VS 2022 C++-x64/x86-Buildtools
 - C++-CMake-Tools for Windows (Version 3.28.0-msvc1)

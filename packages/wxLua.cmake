@@ -20,13 +20,22 @@ ExternalProject_Add(wxLua
 )
 ExternalProject_Add_StepDependencies(wxLua build lua wxWidgets)
 ExternalProject_Add_Step(wxLua post_install
-  COMMENT "Installing xwLua into ${ONELUAPRO_PREFIX}"
+  COMMENT "Installing wxLua into ${ONELUAPRO_PREFIX}"
   DEPENDEES install
+  # copy dll
+  COMMAND ${CMAKE_COMMAND} -E make_directory
+  ${ONELUAPRO_PREFIX}/lib/lua/${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}
   COMMAND ${CMAKE_COMMAND} -E copy
   ${ONELUAPRO_BUILDROOT}/bin/wx.dll
   ${ONELUAPRO_PREFIX}/lib/lua/${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}/
+  # copy docs
+  COMMAND ${CMAKE_COMMAND} -E make_directory
+  ${ONELUAPRO_PREFIX}/share/doc
   COMMAND ${CMAKE_COMMAND} -E copy_directory
   ${ONELUAPRO_BUILDROOT}/doc/wxLua
+  ${ONELUAPRO_PREFIX}/share/doc/wxLua
+  # copy samples
+  COMMAND ${CMAKE_COMMAND} -E make_directory
   ${ONELUAPRO_PREFIX}/share/doc/wxLua
   COMMAND ${CMAKE_COMMAND} -E copy_directory
   ${ONELUAPRO_BUILDROOT}/samples
