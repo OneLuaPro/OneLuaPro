@@ -5,6 +5,10 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.4.7.4  (Oct 14, 2024)
+-----------------------------------------
+- lua4882            Updated to v1.2.1
+
 OneLuaPro Release 5.4.7.3  (Oct 13, 2024)
 -----------------------------------------
 - Built with Visual Studio Build Tools 2022 17.11.5
