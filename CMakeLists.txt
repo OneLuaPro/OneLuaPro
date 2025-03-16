@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2023-2024 Kritzel Kratzel.
+# Copyright (c) 2023-2025 Kritzel Kratzel.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in 
@@ -50,7 +50,7 @@ cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
 set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 4)
 set(LUA_VERSION_PATCH 7)
-set(ONELUAPRO_RELEASE 4)
+set(ONELUAPRO_RELEASE 5)
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
