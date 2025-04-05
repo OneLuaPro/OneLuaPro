@@ -3,7 +3,7 @@
 ExternalProject_Add(wxLua
   PREFIX ${PROJECT_NAME}/wxLua
   GIT_REPOSITORY https://github.com/pkulchenko/wxlua.git
-  GIT_TAG origin/master
+  GIT_TAG "origin/master"
   GIT_PROGRESS FALSE
   SOURCE_SUBDIR wxLua
   CMAKE_ARGS

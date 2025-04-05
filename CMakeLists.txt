@@ -38,7 +38,8 @@
 # cpack -G ZIP
 #
 # After build check return value %errorlevel% (must be 0) and content of 
-# 00_log.txt. Suggested search patterns: "fatal" "error C", "warning C", ...
+# 00_log.txt. Suggested search patterns: "fatal", "error ", "error C",
+#                                        "warning C", ...
 #
 # Available architectures are: Win32, x64, ARM, ARM64
 
@@ -206,12 +207,13 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/lua-ffi" "Module lua-ffi - Examples"
   "share/doc/luafilesystem/index.html" "Module LuaFileSystem - Manual"
   "share/doc/luasocket/index.html" "Module LuaSocket - Manual"
-  "share/doc/luv/luv/docs.pdf" "Module LibUV - Manual"
+  "share/doc/luv/docs.html" "Module luv - Manual"
   "share/doc/moonusb/index.html" "Module MoonUSB - Manual"
   "share/doc/wxLua/binding.html" "Module wxLua - Writing and Generating Binding Files"
   "share/doc/wxLua/FAQ.html" "Module wxLua - FAQ"
   "share/doc/wxLua/wxlua.html" "Module wxLua - User Manual"
   "share/doc/wxLua/wxluaref.html" "Module wxLua - Reference Manual"
+  "share/doc/Penlight/index.html" "Module Penlight - Reference Manual"
 )
 
 # ------------------------------------------------------------------------------
