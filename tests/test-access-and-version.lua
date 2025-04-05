@@ -47,7 +47,8 @@ local modules = {
    "lua4882",
    "lpeg",
    "wx",
-   "pl.utils"
+   "pl.utils",
+   "distro"
 }
 
 printf("Testing modules ...\n")
