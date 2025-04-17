@@ -48,7 +48,8 @@ local modules = {
    "lpeg",
    "wx",
    "pl.utils",
-   "distro"
+   "distro",
+   "lcomplex"
 }
 
 printf("Testing modules ...\n")

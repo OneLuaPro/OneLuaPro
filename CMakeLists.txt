@@ -214,6 +214,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/wxLua/wxlua.html" "Module wxLua - User Manual"
   "share/doc/wxLua/wxluaref.html" "Module wxLua - Reference Manual"
   "share/doc/Penlight/index.html" "Module Penlight - Reference Manual"
+  "share/doc/lcomplex/lcomplex.html" "Module lcomplex - Manual"
 )
 
 # ------------------------------------------------------------------------------
