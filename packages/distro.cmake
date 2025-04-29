@@ -9,5 +9,6 @@ ExternalProject_Add(distro
   "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
   "-DONELUAPRO_VERSION=${ONELUAPRO_VERSION}"
+  "-DONELUAPRO_CANDIDATE=${ONELUAPRO_CANDIDATE}"
 )
 ExternalProject_Add_StepDependencies(distro build lua)
