@@ -27,6 +27,7 @@ Penlight      - Copyright (c) 2009-2016 Steve Donovan, David Manura
                               2016-2014 The Penlight authors
 lcomplex      - Copyright (c) 2018 Luiz Henrique de Figueiredo.
                           (c) 2025 Kritzel Kratzel for OneLuaPro.
+luaSGF        - Copyright (c) 2025 Kritzel Kratzel
 OneLuaPro     - Copyright (c) 2023-2024 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -77,3 +78,9 @@ National Instruments NI-488.2 API
 --------------------------------------------------------------------------------
 Copyright (c) National Instruments 2001-2007. All Rights Reserved.
 https://www.ni.com/en/about-ni/legal/software-license-agreement.html
+
+BSD 2-Clause License
+-------------------------------------------------------------------------------
+Savitzky-Golay-Filter - Copyright (c) 2012-2019, CNRS-UM LIRMM, CNRS-AIST JRL
+                        Copyright (c) 2025 Tugbars Heptaskin
+See https://github.com/Tugbars/Savitzky-Golay-Filter/blob/main/LICENSE.txt
