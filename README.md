@@ -5,8 +5,19 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
-OneLuaPro Release 5.4.7.6  (in progress)
------------------------------------------
+OneLuaPro Release 5.4.8.0  (Jun 8, 2025)
+----------------------------------------
+- Built with Visual Studio Build Tools 2022 17.14.4
+- Built with NI-488.2 2024 Q3 and NI-DAQmx 2024 Q3
+- lua                Updated to v5.4.8
+- LuaSocket          Updated to 3.1.0 with commits until May 30, 2025
+- libffi             Updated to v3.5.0 with commits until Jun 06, 2025
+- libusb             Updated to v1.0.29
+- libuv              Updated to v1.51.0
+- luv                Updated to v1.51.0-1 with commits until May 17, 2025
+- lanes              Updated to v4.0.0 with commits until Jun 05, 2025
+- wxWidgets          Updated to v3.2.8.1
+- Penlight           Added with v1.14.0 with commits until May 19, 2025
 - luaSGF             Added with v1.0
 
 OneLuaPro Release 5.4.7.5  (Apr 17, 2025)
