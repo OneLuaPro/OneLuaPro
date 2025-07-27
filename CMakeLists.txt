@@ -51,7 +51,7 @@ cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
 set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 4)
 set(LUA_VERSION_PATCH 8)
-set(ONELUAPRO_RELEASE 0)
+set(ONELUAPRO_RELEASE 1)
 set(ONELUAPRO_CANDIDATE "")	# e.g. "-RC1", leave "" for no RC
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
@@ -217,6 +217,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/Penlight/index.html" "Module Penlight - Reference Manual"
   "share/doc/lcomplex/lcomplex.html" "Module lcomplex - Manual"
   "share/doc/luaSGF/index.html" "Module luaSGF - Manual"
+  "share/doc/luaping/luaping.html" "Module luaping - Manual"
 )
 
 # ------------------------------------------------------------------------------
