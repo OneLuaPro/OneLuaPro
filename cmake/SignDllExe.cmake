@@ -12,6 +12,6 @@ include(CodeSignParams)
 if(EXE_LIST OR DLL_LIST)
   execute_process(
     COMMAND ${signtool_EXECUTABLE} sign ${SIGN_PARAMS} ${EXE_LIST} ${DLL_LIST}
-    COMMAND_ECHO NONE
+    COMMAND_ECHO NONE	# for debug: STDOUT
   )
 endif()

@@ -27,8 +27,11 @@ Penlight      - Copyright (c) 2009-2016 Steve Donovan, David Manura
                               2016-2014 The Penlight authors
 lcomplex      - Copyright (c) 2018 Luiz Henrique de Figueiredo.
                           (c) 2025 Kritzel Kratzel for OneLuaPro.
-luaSGF        - Copyright (c) 2025 Kritzel Kratzel
-OneLuaPro     - Copyright (c) 2023-2024 Kritzel Kratzel
+Savitzky-Golay-Filter - Copyright (c) 2025-2026 Tugbars
+luaSGF        - Copyright (c) 2025-2026 Kritzel Kratzel
+luacrc32c     - Copyright (c) 2026 Kritzel Kratzel
+lua-zlib      - Copyright (c) 2025 Brian Maher
+OneLuaPro     - Copyright (c) 2023-2026 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -84,3 +87,13 @@ BSD 2-Clause License
 Savitzky-Golay-Filter - Copyright (c) 2012-2019, CNRS-UM LIRMM, CNRS-AIST JRL
                         Copyright (c) 2025 Tugbars Heptaskin
 See https://github.com/Tugbars/Savitzky-Golay-Filter/blob/main/LICENSE.txt
+
+BSD 3-Clause License
+-------------------------------------------------------------------------------
+crc32c - Copyright (c) Copyright 2017-2025, The CRC32C Authors.
+See https://github.com/google/crc32c/blob/main/LICENSE
+
+zlib License
+-------------------------------------------------------------------------------
+zlib-ng - (c) 1995-2024 Jean-loup Gailly and Mark Adler
+See https://github.com/zlib-ng/zlib-ng/blob/develop/LICENSE.md

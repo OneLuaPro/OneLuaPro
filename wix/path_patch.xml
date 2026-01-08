@@ -1,0 +1,7 @@
+<CPackWiXPatch>
+  <!-- Focus on lua.exe residing in path/bin suffices.  -->
+  <CPackWiXFragment Id="CM_CP_bin.lua.exe">
+    <Environment Id="PATH" Name="PATH" Value="[INSTALL_ROOT]bin"
+                 Action="set" Part="last" System="yes" />
+  </CPackWiXFragment>
+</CPackWiXPatch>

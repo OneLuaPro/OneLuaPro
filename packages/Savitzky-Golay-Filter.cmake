@@ -7,5 +7,6 @@ ExternalProject_Add(Savitzky-Golay-Filter
   GIT_TAG "origin/main"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
-  "-DDEFS=FLOAT_DOUBLE"
+  "-DDEFS=FLOAT_DOUBLE" "-DUSE_PARALLEL_SAVGOL=OFF"
 )
+ExternalProject_Add_StepDependencies(Savitzky-Golay-Filter build lua)

@@ -5,6 +5,26 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.4.8.2 (Jan 8, 2026)
+---------------------------------------
+- Built with Visual Studio Build Tools 2022 17.14.23
+- Built with NI-488.2 2024 Q3 and NI-DAQmx 2024 Q3
+- crc32c             Added with v1.1.2 with commits until Apr 8, 2025
+- luacrc32c          Added with v1.0
+- zlib-ng            Added with v2.3.2
+- lua-zlib           Added with v1.4
+- LuaSocket          Updated to v3.1.0 with commits until Nov 14, 2025
+- LuaFileSystem      Updated to v1.9.0
+- Luacheck           Updated to v1.2.0 with commits until Aug 1, 2025
+- libffi             Updated to v3.5.2 with commits until Dec 26, 2025
+- lua-ffi            Updated to v1.1.0 with commits until Nov 9, 2025
+- libusb             Updated to v1.0.29 with commits until Jan 5, 2026
+- luv                Updated to v1.51.0-1 with commits until Jan 1, 2026
+- lanes              Updated to v4.0.0 with commits until Dec 1, 2025
+- wxWidgets          Updated to v3.2.9
+- Penlight           Updated to v1.15.0 with commits until Jan 4, 2026
+- S.-G.-Filter       Updated to v0.1 with commits until Nov 12, 2025
+
 OneLuaPro Release 5.4.8.1  (Jul 27, 2025)
 -----------------------------------------
 - Built with Visual Studio Build Tools 2022 17.14.9
@@ -17,6 +37,7 @@ OneLuaPro Release 5.4.8.1  (Jul 27, 2025)
 - lanes              Updated to v4.0.0 with commits until Jul 25, 2025
 - luaping            Updated to v1.1 with commits until Jul 27, 2025
 - Penlight           Updated v1.14.0 with comments until Jun 13, 2025
+- wxWidgets          Updated to v3.2.9
 
 OneLuaPro Release 5.4.8.0  (Jun 8, 2025)
 ----------------------------------------
@@ -199,11 +220,11 @@ Open a new Windows command prompt and verify if Lua is available:
 
 ```cmd
 C:\Users\John Doe>lua -v
-Lua 5.4.7  Copyright (C) 1994-2024 Lua.org, PUC-Rio
+Lua 5.4.8  Copyright (C) 1994-2025 Lua.org, PUC-Rio
 
 C:\Users\John Doe>
 ```
 
 ## License
 
-See `https://github.com/OneLuaPro/OneLuaPro/blob/main/LICENSE`.
+See `https://github.com/OneLuaPro/OneLuaPro/blob/main/LICENSE.txt`.

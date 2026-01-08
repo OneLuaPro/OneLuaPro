@@ -34,8 +34,7 @@
 # cmake .. -G "Visual Studio 17 2022" -A x64 -DCODE_SIGN_ID="Open Source Developer"
 # cmake --build . --config Release > 00_log.txt
 # echo %errorlevel%
-# cpack -G NSIS64
-# cpack -G ZIP
+# cpack
 #
 # After build check return value %errorlevel% (must be 0) and content of 
 # 00_log.txt. Suggested search patterns: "fatal", "error ", "error C",
@@ -51,8 +50,8 @@ cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
 set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 4)
 set(LUA_VERSION_PATCH 8)
-set(ONELUAPRO_RELEASE 1)
-set(ONELUAPRO_CANDIDATE "")	# e.g. "-RC1", leave "" for no RC
+set(ONELUAPRO_RELEASE 2)
+set(ONELUAPRO_CANDIDATE "-RC1")	# e.g. "-RC1", leave "" for no RC
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
@@ -100,6 +99,10 @@ if (CODE_SIGN_ID)
   # signtool_EXECUTABLE : The signtool command executable with full path.
   # include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/Findsigntool.cmake")
   include(Findsigntool)
+  # Export signtool_EXECUTABLE to CPack via adding "CPACK_" prefix
+  # The configuration files created by CPack.cmake will contain all the
+  # variables that begin with "CPACK_" in the current project.
+  set(CPACK_signtool_EXECUTABLE ${signtool_EXECUTABLE})
   # signtool parameters are neede twice - here as well as in SignDllExe.cmake
   include(CodeSignParams)
   if (signtool_EXECUTABLE)
@@ -149,7 +152,12 @@ if (CODE_SIGN_ID)
     # command there when we aren't signing. %1 is replaced by the name
     # of the installer or uninstaller during NSIS compilation.
     set(CPACK_NSIS_FINALIZE_CMD "\\\"${signtool_EXECUTABLE}\\\" sign ${NSIS_SIGN_PARAMS} %1")
+    # message(STATUS "CPACK_NSIS_FINALIZE_CMD = ${CPACK_NSIS_FINALIZE_CMD}")
     unset(NSIS_SIGN_PARAMS)
+    # Export CODE_SIGN_ID to CPack via adding "CPACK_" prefix
+    # The configuration files created by CPack.cmake will contain all the
+    # variables that begin with "CPACK_" in the current project.
+    set(CPACK_CODE_SIGN_ID ${CODE_SIGN_ID})
   else()
     message(FATAL_ERROR "---> No signtool-executable found! <---")
   endif()
@@ -161,6 +169,9 @@ endif()
 # ------------------------------------------------------------------------------
 # NSIS Packager
 # https://cmake.org/cmake/help/latest/module/CPack.html
+
+set(CPACK_GENERATOR "NSIS64;ZIP;WIX")
+
 set(CPACK_PACKAGE_NAME "OneLuaPro")
 set(CPACK_PACKAGE_VENDOR "OneLuaPro Organization")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/OneLuaPro")
@@ -171,7 +182,7 @@ set(CPACK_PACKAGE_VERSION_PATCH ${LUA_VERSION_PATCH}.${ONELUAPRO_RELEASE})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CMAKE_PROJECT_NAME})
 set(CPACK_INSTALLED_DIRECTORIES ${ONELUAPRO_PREFIX} .)
 set(CPACK_PACKAGE_FILE_NAME ${ONELUAPRO_DISTRO_BASEDIR})
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.txt")
 set(CPACK_STRIP_FILES ON)
 
 # https://cmake.org/cmake/help/latest/cpack_gen/nsis.html
@@ -183,6 +194,7 @@ set(CPACK_NSIS_DISPLAY_NAME ${ONELUAPRO_DISTRO_BASEDIR})
 set(CPACK_NSIS_PACKAGE_NAME ${ONELUAPRO_DISTRO_BASEDIR})
 set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/logo\\\\lua-logo-olp-dist.ico")
 set(CPACK_NSIS_MUI_UNIICON "${PROJECT_SOURCE_DIR}/logo\\\\lua-logo-olp-dist.ico")
+set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\lua.exe")
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/OneLuaPro")
 set(CPACK_NSIS_MUI_HEADERIMAGE
@@ -218,15 +230,24 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/lcomplex/lcomplex.html" "Module lcomplex - Manual"
   "share/doc/luaSGF/index.html" "Module luaSGF - Manual"
   "share/doc/luaping/luaping.html" "Module luaping - Manual"
+  "share/doc/luacrc32c/luacrc32c.html" "Module luacrc32c - Manual"
+  "share/doc/lua-zlib/lua-zlib.html" "Module lua-zlib - Manual"
 )
 
 # ------------------------------------------------------------------------------
 # WIX
 # https://cmake.org/cmake/help/latest/cpack_gen/wix.html
-# Currently not used
 set(CPACK_WIX_UPGRADE_GUID A7B4D8D5-ECF8-43A2-A810-CF803889946E)
-set(CPACK_WIX_INSTALL_SCOPE perMachine)
-set(CPACK_WIX_PRODUCT_ICON "${PROJECT_SOURCE_DIR}/logo/lua-logo-olp-dist.bmp")
+set(CPACK_WIX_INSTALL_SCOPE perMachine)	# requires admin rights
+set(CPACK_WIX_UI_DIALOG "${PROJECT_SOURCE_DIR}/logo/WixUIDialogBmp.bmp")
+set(CPACK_WIX_UI_BANNER "${PROJECT_SOURCE_DIR}/logo/WixUIBannerBmp.bmp")
+set(CPACK_WIX_PRODUCT_ICON "${PROJECT_SOURCE_DIR}/logo/lua-logo-olp-dist.ico")
+# Sign MSI-Installer
+if (CODE_SIGN_ID)
+  set(CPACK_POST_BUILD_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/SignMSI.cmake")
+endif()
+# Add XML-patch file for handling of PATH variable
+set(CPACK_WIX_PATCH_FILE "${CMAKE_CURRENT_SOURCE_DIR}/wix/path_patch.xml")
 
 # ------------------------------------------------------------------------------
 # Include packager and enforce inclusion of runtime system libs
