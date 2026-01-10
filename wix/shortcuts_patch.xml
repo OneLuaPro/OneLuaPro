@@ -1,0 +1,6 @@
+<CPackWiXPatch>
+  <!-- #PRODUCTFEATURE ist die Standard-ID für das Haupt-Feature in CPack -->
+  <CPackWiXFragment Id="#PRODUCTFEATURE">
+    <ComponentGroupRef Id="LuaShortcuts" />
+  </CPackWiXFragment>
+</CPackWiXPatch>

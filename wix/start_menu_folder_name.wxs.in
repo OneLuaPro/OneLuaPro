@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Fragment>
+    <!-- Wir definieren ProgramMenuFolder als direktes Unterverzeichnis von TARGETDIR, 
+	 lassen TARGETDIR selbst aber als Referenz (Ref), um Duplikate zu vermeiden. -->
+    <DirectoryRef Id="TARGETDIR">
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+	<Directory Id="LuaMenu" Name="@MENU_FOLDER_NAME@" />
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+
+</Wix>
