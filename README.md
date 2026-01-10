@@ -5,14 +5,15 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
-OneLuaPro Release 5.4.8.2 (Jan 8, 2026)
----------------------------------------
+OneLuaPro Release 5.4.8.2 (Jan 10, 2026)
+----------------------------------------
 - Built with Visual Studio Build Tools 2022 17.14.23
-- Built with NI-488.2 2024 Q3 and NI-DAQmx 2024 Q3
+- Built with NI-488.2 2025 Q4 and NI-DAQmx 2025 Q4
 - crc32c             Added with v1.1.2 with commits until Apr 8, 2025
 - luacrc32c          Added with v1.0
 - zlib-ng            Added with v2.3.2
 - lua-zlib           Added with v1.4
+- lua-cjson          Added with v2.1.0.9 with commit until Oct 30, 2025
 - LuaSocket          Updated to v3.1.0 with commits until Nov 14, 2025
 - LuaFileSystem      Updated to v1.9.0
 - Luacheck           Updated to v1.2.0 with commits until Aug 1, 2025

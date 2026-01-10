@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2023-2025 Kritzel Kratzel.
+# Copyright (c) 2023-2026 Kritzel Kratzel.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in 
@@ -51,7 +51,7 @@ set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 4)
 set(LUA_VERSION_PATCH 8)
 set(ONELUAPRO_RELEASE 2)
-set(ONELUAPRO_CANDIDATE "-RC1")	# e.g. "-RC1", leave "" for no RC
+set(ONELUAPRO_CANDIDATE "")	# e.g. "-RC1", leave "" for no RC
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
@@ -232,6 +232,8 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/luaping/luaping.html" "Module luaping - Manual"
   "share/doc/luacrc32c/luacrc32c.html" "Module luacrc32c - Manual"
   "share/doc/lua-zlib/lua-zlib.html" "Module lua-zlib - Manual"
+  "share/doc/lua-cjson/lua-cjson-manual.html" "Module lua-cjson - Manual"
+  "share/doc/lua-cjson/lua-cjson-manual-extras.html" "Module lua-cjson - Extras"
 )
 
 # ------------------------------------------------------------------------------
