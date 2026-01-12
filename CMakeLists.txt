@@ -62,23 +62,8 @@ project(OneLuaPro
 # Make subdir cmake available as module search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
-# Determine win version for basedir suffix
-#if ((6 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 7))
-#  message(STATUS "We are building on Windows 7.")
-#  set(WIN_SUFFIX "Win7")
-#elseif ((10 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 11))
-#  message(STATUS "We are building on Windows 10.")
-#  set(WIN_SUFFIX "Win10")
-#elseif ((11 VERSION_LESS CMAKE_SYSTEM_VERSION) AND (CMAKE_SYSTEM_VERSION VERSION_LESS 12))
-#  message(STATUS "We are building on Windows 11.")
-#  set(WIN_SUFFIX "Win11")
-#else()
-#  message(FATAL_ERROR "Unknown Windows Version.")
-#endif()
-set(WIN_SUFFIX "Win")
-
 # Bootstrap and post_installation paths
-set(ONELUAPRO_FULL_DISTRO_NAME "OneLuaPro-${ONELUAPRO_VERSION}${ONELUAPRO_CANDIDATE}-${WIN_SUFFIX}-${CMAKE_GENERATOR_PLATFORM}")
+set(ONELUAPRO_FULL_DISTRO_NAME "OneLuaPro-${ONELUAPRO_VERSION}${ONELUAPRO_CANDIDATE}-${CMAKE_GENERATOR_PLATFORM}")
 set(ONELUAPRO_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/${ONELUAPRO_FULL_DISTRO_NAME}")
 set(ONELUAPRO_BUILDROOT "${CMAKE_CURRENT_BINARY_DIR}/ONELUAPRO_BUILDROOT")
 set(CMAKE_VERBOSE_MAKEFILE OFF)
@@ -188,7 +173,8 @@ set(CPACK_STRIP_FILES ON)
 
 # https://cmake.org/cmake/help/latest/cpack_gen/nsis.html
 # https://nsis.sourceforge.io/Docs/Modern%20UI/Readme.html
-# set(CPACK_NSIS_WELCOME_TITLE_3LINES OFF)
+set(CPACK_NSIS_INSTALL_ROOT "$LOCALAPPDATA")
+set(CPACK_NSIS_DEFINES "RequestExecutionLevel user")
 set(CPACK_NSIS_FINISH_TITLE_3LINES ON)
 set(CPACK_NSIS_MODIFY_PATH ON)
 #set(CPACK_NSIS_DISPLAY_NAME ${ONELUAPRO_FULL_DISTRO_NAME})
@@ -237,13 +223,14 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/lua-zlib/lua-zlib.html" "Module lua-zlib - Manual"
   "share/doc/lua-cjson/lua-cjson-manual.html" "Module lua-cjson - Manual"
   "share/doc/lua-cjson/lua-cjson-manual-extras.html" "Module lua-cjson - Extras"
+  "share/doc/luasec/luasec.html" "Module luasec - Manual"
 )
 
 # ------------------------------------------------------------------------------
 # WIX
 # https://cmake.org/cmake/help/latest/cpack_gen/wix.html
 set(CPACK_WIX_UPGRADE_GUID A7B4D8D5-ECF8-43A2-A810-CF803889946E)
-set(CPACK_WIX_INSTALL_SCOPE perMachine)	# requires admin rights
+set(CPACK_WIX_INSTALL_SCOPE "perMachine")
 set(CPACK_WIX_UI_DIALOG "${PROJECT_SOURCE_DIR}/logo/WixUIDialogBmp.bmp")
 set(CPACK_WIX_UI_BANNER "${PROJECT_SOURCE_DIR}/logo/WixUIBannerBmp.bmp")
 set(CPACK_WIX_PRODUCT_ICON "${PROJECT_SOURCE_DIR}/logo/lua-logo-olp-dist.ico")
@@ -263,7 +250,7 @@ set(CPACK_WIX_EXTRA_SOURCES
   "${CMAKE_CURRENT_SOURCE_DIR}/wix/shortcuts.wxs"
   "${CMAKE_CURRENT_BINARY_DIR}/wix/start_menu_folder_name.wxs"
 )
-# Add XML-patch file for handling of PATH variable and accepting shortcuts
+# Add XML-patch file for handling of PATH variable and accepting shortcuts at all
 set(CPACK_WIX_PATCH_FILE
   "${CMAKE_CURRENT_SOURCE_DIR}/wix/path_patch.xml"
   "${CMAKE_CURRENT_SOURCE_DIR}/wix/shortcuts_patch.xml"
@@ -280,3 +267,11 @@ include(InstallRequiredSystemLibraries)
 # https://stackoverflow.com/questions/75915316/		# cmake set path env
 # https://cmake.org/cmake/help/latest/cpack_gen/nsis.html
 # https://stackoverflow.com/questions/72504366		# sign binaries for install
+
+
+# set(CPACK_WIX_INSTALLDIR "APPLICATIONFOLDER")
+# set(CPACK_WIX_UI_REF "WixUI_Advanced")
+# set(CPACK_WIX_PROPERTY_MSIINSTALLPERUSER "1")
+# set(CPACK_WIX_PROPERTY_ApplicationFolderName "${CPACK_PACKAGE_INSTALL_DIRECTORY}")
+# set(CPACK_WIX_PROPERTY_WixAppFolder "WixPerMachineFolder")
+# set(CPACK_WIX_PROPERTY_ALLUSERS "2")

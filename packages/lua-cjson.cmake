@@ -7,5 +7,7 @@ ExternalProject_Add(lua-cjson
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-DUSE_INTERNAL_FPCONV=ON"
+  "-DMULTIPLE_THREADS=OFF"
 )
 ExternalProject_Add_StepDependencies(lua-cjson build lua)

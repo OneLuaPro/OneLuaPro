@@ -234,6 +234,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUACJSON_EXTRAS" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- luasec Manual -->
+      <Component Id="Shortcut_LUASEC" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_LUASEC"
+                  Name="Module luasec - Manual"
+                  Target="[INSTALL_ROOT]share\doc\luasec\luasec.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASEC" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 
