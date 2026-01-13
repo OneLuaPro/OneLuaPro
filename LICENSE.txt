@@ -22,7 +22,7 @@ lua4882       - Copyright (c) 2024 Kritzel Kratzel
 LPeg          - Copyright (c) 2007-2023 Lua.org, PUC-Rio
 lua-ffi       - Copyright (c) 2022-2024 Jianhui Zhao <zhaojh329@gmail.com>
 dlfcn-win32   - Copyright (2) 2014-2025 The dlfcn-win32 authors
-ZeroBraneStudio - Copyright (c) 2011-2024 Paul Kulchenko (paul@kulchenko.com)
+ZeroBraneStudio - Copyright (c) 2011-2024 Paul Kulchenko <paul@kulchenko.com>
 api-ms-win-core-path-l1-1-0 - Copyright (c) 2022-2024 A2uria
 Penlight      - Copyright (c) 2009-2016 Steve Donovan, David Manura
                               2016-2014 The Penlight authors
@@ -34,6 +34,7 @@ luacrc32c     - Copyright (c) 2026 Kritzel Kratzel
 lua-zlib      - Copyright (c) 2025 Brian Maher
 lua-cjson     - Copyright (c) 2010-2024 Mark Pulford <mark@kyne.com.au>
 luasec        - Copyright (c) 2006-2023 Bruno Silvestre, UFG
+lua-openssl   - Copyright (c) 2011 - 2025 zhaozg, <zhaozg@gmail.com>
 OneLuaPro     - Copyright (c) 2023-2026 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

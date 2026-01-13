@@ -242,6 +242,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASEC" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- lua-openssl Manual -->
+      <Component Id="Shortcut_LUAOPENSSL" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_LUAOPENSSL"
+                  Name="Module lua-openssl - Manual"
+                  Target="[INSTALL_ROOT]share\doc\lua-openssl\index.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAOPENSSL" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 

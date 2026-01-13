@@ -224,6 +224,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/lua-cjson/lua-cjson-manual.html" "Module lua-cjson - Manual"
   "share/doc/lua-cjson/lua-cjson-manual-extras.html" "Module lua-cjson - Extras"
   "share/doc/luasec/luasec.html" "Module luasec - Manual"
+  "share/doc/lua-openssl/index.html" "Module lua-openssl - Manual"
 )
 
 # ------------------------------------------------------------------------------
