@@ -226,6 +226,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/luasec/luasec.html" "Module luasec - Manual"
   "share/doc/lua-openssl/index.html" "Module lua-openssl - Manual"
   "share/doc/ldoc/manual.html" "Module ldoc - Manual"
+  "share/doc/luasystem/api/index.html" "Module luasystem - Manual"
 )
 
 # ------------------------------------------------------------------------------

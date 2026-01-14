@@ -258,6 +258,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LDOC" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- luasystem Manual -->
+      <Component Id="Shortcut_LUASYSTEM" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_LUASYSTEM"
+                  Name="Module luasystem - Manual"
+                  Target="[INSTALL_ROOT]share\doc\luasystem\api\index.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASYSTEM" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 
