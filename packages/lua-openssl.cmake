@@ -10,4 +10,15 @@ ExternalProject_Add(lua-openssl
   "-DLUA_LIBRARIES=${ONELUAPRO_BUILDROOT}/lib/liblua.lib"
   "-DOPENSSL_ROOT_DIR=${ONELUAPRO_BUILDROOT}"
 )
-ExternalProject_Add_StepDependencies(lua-openssl build lua libressl)
+ExternalProject_Add_StepDependencies(lua-openssl build lua libressl ldoc)
+ExternalProject_Get_Property(lua-openssl SOURCE_DIR)
+set(LUA_EXE "${ONELUAPRO_PREFIX}/bin/lua.exe")
+set(LDOC_LUA "${ONELUAPRO_PREFIX}/bin/ldoc.lua")
+set(DOC_INST_DIR "${ONELUAPRO_PREFIX}/share/doc/lua-openssl")
+ExternalProject_Add_Step(lua-openssl generate_install_docs
+  COMMENT "Generate and install docs for lua-openssl..."
+  DEPENDEES install
+  WORKING_DIRECTORY "${SOURCE_DIR}"
+  # Generate docs and direcly install to desired location
+  COMMAND ${LUA_EXE} ${LDOC_LUA} src -d "${DOC_INST_DIR}" -s .ldoc.css
+)

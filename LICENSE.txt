@@ -35,6 +35,8 @@ lua-zlib      - Copyright (c) 2025 Brian Maher
 lua-cjson     - Copyright (c) 2010-2024 Mark Pulford <mark@kyne.com.au>
 luasec        - Copyright (c) 2006-2023 Bruno Silvestre, UFG
 lua-openssl   - Copyright (c) 2011 - 2025 zhaozg, <zhaozg@gmail.com>
+ldoc          - Copyright (c) 2011-2012 Steve Donovan
+                Copyright (c) 2013-2024 The LDoc authors
 OneLuaPro     - Copyright (c) 2023-2026 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
