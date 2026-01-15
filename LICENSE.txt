@@ -47,6 +47,7 @@ say           - Copyright (c) 2012 Olivine Labs, LLC.
 luassert      - Copyright (c) 2012 Olivine Labs, LLC.
                 Copyright (c) 2013-2024 The say project authors
 mediator_lua  - Copyright (c) 2012-2020 Olivine Labs, LLC.
+lua-term      - Copyright (c) 2012-2024 Rob Hoelz <rob@hoelzro.net>
 OneLuaPro     - Copyright (c) 2023-2026 Kritzel Kratzel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

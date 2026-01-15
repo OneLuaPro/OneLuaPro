@@ -306,6 +306,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="MEDIATOR" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- luaterm Manual -->
+      <Component Id="Shortcut_LUATERM" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_LUATERM"
+                  Name="Module lua-term - Manual"
+                  Target="[INSTALL_ROOT]share\doc\term\README.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUATERM" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 

@@ -232,6 +232,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/say/README.html" "Module say - Manual"
   "share/doc/luassert/README.html" "Module luassert - Manual"
   "share/doc/mediator/README.html" "Module mediator - Manual"
+  "share/doc/term/README.html" "Module lua-term - Manual"
 )
 
 # ------------------------------------------------------------------------------
