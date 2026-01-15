@@ -229,6 +229,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/luasystem/api/index.html" "Module luasystem - Manual"
   "share/doc/cliargs/README.html" "Module cliargs - Manual"
   "share/doc/dkjson/dkjson.html" "Module dkjson - Manual"
+  "share/doc/say/README.html" "Module say - Manual"
 )
 
 # ------------------------------------------------------------------------------
