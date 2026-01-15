@@ -266,6 +266,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASYSTEM" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- lua_cliargs Manual -->
+      <Component Id="Shortcut_LUACLIARGS" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_LUACLIARGS"
+                  Name="Module cliargs - Manual"
+                  Target="[INSTALL_ROOT]share\doc\cliargs\README.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUACLIARGS" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 
