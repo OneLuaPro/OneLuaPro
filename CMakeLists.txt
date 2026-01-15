@@ -230,6 +230,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/cliargs/README.html" "Module cliargs - Manual"
   "share/doc/dkjson/dkjson.html" "Module dkjson - Manual"
   "share/doc/say/README.html" "Module say - Manual"
+  "share/doc/luassert/README.html" "Module luassert - Manual"
 )
 
 # ------------------------------------------------------------------------------

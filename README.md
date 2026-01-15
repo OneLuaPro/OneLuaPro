@@ -22,6 +22,7 @@ OneLuaPro Release 5.4.8.2 (Jan 15, 2026)
 - lua_cliargs        Added with v3.0.2 with commits until Dec 18, 2023
 - dkjson             Added with v2.8
 - say                Added with v1.4.1 with commits until Aug 13, 2023
+- luassert           Added with v1.9.0 with commits until Nov 7, 2024
 - LuaSocket          Updated to v3.1.0 with commits until Nov 14, 2025
 - LuaFileSystem      Updated to v1.9.0
 - Luacheck           Updated to v1.2.0 with commits until Aug 1, 2025

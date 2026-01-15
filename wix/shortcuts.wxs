@@ -290,6 +290,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="SAY" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- luassert Manual -->
+      <Component Id="Shortcut_LUASSERT" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_LUASSERT"
+                  Name="Module luassert - Manual"
+                  Target="[INSTALL_ROOT]share\doc\luassert\README.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASSERT" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 
