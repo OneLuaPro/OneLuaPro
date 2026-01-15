@@ -314,6 +314,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUATERM" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- luautf8 Manual -->
+      <Component Id="Shortcut_LUAUTF8" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_LUAUTF8"
+                  Name="Module lua-utf8 - Manual"
+                  Target="[INSTALL_ROOT]share\doc\lua-utf8\README.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAUTF8" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 
