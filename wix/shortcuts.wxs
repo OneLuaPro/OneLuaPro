@@ -274,6 +274,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUACLIARGS" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- dkjson Manual -->
+      <Component Id="Shortcut_DKJSON" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_DKJSON"
+                  Name="Module dkjson - Manual"
+                  Target="[INSTALL_ROOT]share\doc\dkjson\dkjson.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="DKJSON" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 
