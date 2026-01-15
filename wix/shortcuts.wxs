@@ -298,6 +298,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASSERT" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- mediator Manual -->
+      <Component Id="Shortcut_MEDIATOR" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_MEDIATOR"
+                  Name="Module mediator - Manual"
+                  Target="[INSTALL_ROOT]share\doc\mediator\README.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="MEDIATOR" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 
