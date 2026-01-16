@@ -1,0 +1,11 @@
+# ------------------------------------------------------------------------------
+# inifile
+ExternalProject_Add(inifile
+  PREFIX ${PROJECT_NAME}/inifile
+  GIT_REPOSITORY https://github.com/OneLuaPro/inifile.git
+  GIT_TAG "origin/develop"
+  GIT_PROGRESS FALSE
+  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+)
+ExternalProject_Add_StepDependencies(inifile build lua)

@@ -322,6 +322,14 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAUTF8" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
+      <!-- inifile Manual -->
+      <Component Id="Shortcut_INIFILE" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_INIFILE"
+                  Name="Module inifile - Manual"
+                  Target="[INSTALL_ROOT]share\doc\inifile\README.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="INIFILE" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
     </ComponentGroup>
   </Fragment>
 

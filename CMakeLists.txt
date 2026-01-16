@@ -234,6 +234,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/mediator/README.html" "Module mediator - Manual"
   "share/doc/term/README.html" "Module lua-term - Manual"
   "share/doc/lua-utf8/README.html" "Module lua-utf8 - Manual"
+  "share/doc/inifile/README.html" "Module inifile - Manual"
 )
 
 # ------------------------------------------------------------------------------

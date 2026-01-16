@@ -108,8 +108,10 @@ See https://github.com/Tugbars/Savitzky-Golay-Filter/blob/main/LICENSE.txt
 
 BSD 3-Clause License
 -------------------------------------------------------------------------------
-crc32c - Copyright (c) Copyright 2017-2025, The CRC32C Authors.
-See https://github.com/google/crc32c/blob/main/LICENSE
+crc32c  - Copyright (c) Copyright 2017-2025, The CRC32C Authors.
+          See https://github.com/google/crc32c/blob/main/LICENSE
+inifile - Copyright (c) 2011-2024 Bart van Strien. All rights reserved.
+          See https://github.com/OneLuaPro/inifile/blob/develop/LICENSE
 
 zlib License
 -------------------------------------------------------------------------------
