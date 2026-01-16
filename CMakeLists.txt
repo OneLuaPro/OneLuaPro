@@ -204,7 +204,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/lpeg/re.html" "Module LPeg.re - Manual"
   "share/doc/lsleep/index.html" "Module lsleep - Manual"
   "share/doc/lua4882/lua4882.html" "Module lua4882 - Manual"
-  "share/doc/luacheck/index.html" "Module Luacheck - Manual"
+  "share/doc/luacheck/index.html" "Program Luacheck - Manual"
   "share/doc/luadaqmx/luadaqmx.html" "Module luadaqmx - Manual"
   "share/doc/lua-ffi" "Module lua-ffi - Examples"
   "share/doc/luafilesystem/index.html" "Module LuaFileSystem - Manual"
@@ -235,6 +235,7 @@ set(CPACK_NSIS_MENU_LINKS
   "share/doc/term/README.html" "Module lua-term - Manual"
   "share/doc/lua-utf8/README.html" "Module lua-utf8 - Manual"
   "share/doc/inifile/README.html" "Module inifile - Manual"
+  "share/doc/busted/index.html" "Program busted - Manual"
 )
 
 # ------------------------------------------------------------------------------
