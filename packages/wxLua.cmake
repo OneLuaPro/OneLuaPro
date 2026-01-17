@@ -2,8 +2,8 @@
 # wxLua
 ExternalProject_Add(wxLua
   PREFIX ${PROJECT_NAME}/wxLua
-  GIT_REPOSITORY https://github.com/pkulchenko/wxlua.git
-  GIT_TAG "origin/master"
+  GIT_REPOSITORY https://github.com/OneLuaPro/wxlua.git
+  GIT_TAG "v3.2.0.2-14-g9d9ce2b"
   GIT_PROGRESS FALSE
   SOURCE_SUBDIR wxLua
   CMAKE_ARGS

@@ -3,7 +3,7 @@
 ExternalProject_Add(lua4882
   PREFIX ${PROJECT_NAME}/lua4882
   GIT_REPOSITORY https://github.com/OneLuaPro/lua4882.git
-  GIT_TAG "origin/master"
+  GIT_TAG "v1.2.2"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"

@@ -3,7 +3,7 @@
 ExternalProject_Add(lua-ffi
   PREFIX ${PROJECT_NAME}/lua-ffi
   GIT_REPOSITORY https://github.com/OneLuaPro/lua-ffi.git
-  GIT_TAG "origin/main"
+  GIT_TAG "v1.1.0-21-g965807c"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"

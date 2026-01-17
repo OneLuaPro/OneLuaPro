@@ -3,7 +3,7 @@
 ExternalProject_Add(luacheck
   PREFIX ${PROJECT_NAME}/luacheck
   GIT_REPOSITORY https://github.com/OneLuaPro/luacheck.git
-  GIT_TAG "origin/master"
+  GIT_TAG "v1.2.0-33-ge99330f"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"

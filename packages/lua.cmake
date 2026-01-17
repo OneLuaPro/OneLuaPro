@@ -3,7 +3,7 @@
 ExternalProject_Add(lua
   PREFIX ${PROJECT_NAME}/lua
   GIT_REPOSITORY https://github.com/OneLuaPro/lua.git
-  GIT_TAG "origin/main"
+  GIT_TAG "v5.4.8"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
 )
