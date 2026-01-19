@@ -3,7 +3,7 @@
 ExternalProject_Add(lua-openssl
   PREFIX ${PROJECT_NAME}/lua-openssl
   GIT_REPOSITORY https://github.com/OneLuaPro/lua-openssl.git
-  GIT_TAG "0.11.0-1-3-gbcbeeb4"
+  GIT_TAG "0.11.0-2-5-gb4cc37c"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
   "-DLUA_INCLUDE_DIR=${ONELUAPRO_BUILDROOT}/include"

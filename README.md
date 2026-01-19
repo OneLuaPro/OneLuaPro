@@ -5,18 +5,18 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
-OneLuaPro Release 5.4.8.2 (Jan 17, 2026)
+OneLuaPro Release 5.4.8.2 (Jan 19, 2026)
 ----------------------------------------
-- Built with Visual Studio Build Tools 2022 17.14.23
-- Built with NI-488.2 2025 Q4 and NI-DAQmx 2025 Q4
+- Built with Visual Studio Build Tools 2022 17.14.24
+- Built with NI-488.2 2025 Q4 and NI-DAQmx 2025 Q4 Patch 1
 - crc32c             Added with v1.1.2 with commits until Apr 8, 2025
 - luacrc32c          Added with v1.0
 - zlib-ng            Added with v2.3.2
 - lua-zlib           Added with v1.4
-- lua-cjson          Added with v2.1.0.9 with commit until Oct 30, 2025
+- lua-cjson          Added with v2.1.0.16 with commit until Jan 19, 2026
 - LibreSSL           Added with v4.2.1
 - luasec             Added with v1.3.2 with commits until Jul 10, 2025
-- lua-openssl        Added with v0.11.0-1 with commits until Jan 17, 2026
+- lua-openssl        Added with v0.11.0-2 with commits until Jan 17, 2026
 - LDoc               Added with v1.5.0 with commits until Jul 22, 2024
 - luasystem          Added with v0.6.3 with commits until Jan 17, 2026
 - lua_cliargs        Added with v3.0.2 with commits until Dec 18, 2023
@@ -34,10 +34,10 @@ OneLuaPro Release 5.4.8.2 (Jan 17, 2026)
 - libffi             Updated to v3.5.2 with commits until Dec 26, 2025
 - lua-ffi            Updated to v1.1.0 with commits until Nov 9, 2025
 - libusb             Updated to v1.0.29 with commits until Jan 5, 2026
-- luv                Updated to v1.51.0-1 with commits until Jan 7, 2026
+- luv                Updated to v1.51.0-2 with commits until Jan 19, 2026
 - lanes              Updated to v4.0.0 with commits until Dec 1, 2025
 - wxWidgets          Updated to v3.2.9
-- Penlight           Updated to v1.15.0 with commits until Jan 8, 2026
+- Penlight           Updated to v1.15.0 with commits until Jan 19, 2026
 - S.-G.-Filter       Updated to v2.0 with commits until Nov 12, 2025
 - lua4882            Updated to v1.2.2
 - luaping            Updated to v1.1.1

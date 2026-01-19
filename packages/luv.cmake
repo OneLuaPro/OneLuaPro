@@ -3,7 +3,7 @@
 ExternalProject_Add(luv
   PREFIX ${PROJECT_NAME}/luv
   GIT_REPOSITORY https://github.com/OneLuaPro/luv.git
-  GIT_TAG "v1.51.0-1-40-g6f6ae21"
+  GIT_TAG "1.51.0-2-24-geb9176d"
   GIT_PROGRESS FALSE
   CMAKE_ARGS
   "-DUSE_ONELUAPRO=ON" 
