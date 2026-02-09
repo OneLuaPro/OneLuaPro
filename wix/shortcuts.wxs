@@ -2,14 +2,20 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
   <Fragment>
+
     <ComponentGroup Id="LuaShortcuts">
       
+      <!-- Remove StartMenu main dir in uninstall -->
+      <Component Id="Cleanup_LuaMenu" Guid="*" Directory="LuaMenu">
+	<RegistryValue Root="HKCU" Key="Software\Lua" Name="MainDirCleanup" Type="integer" Value="1" KeyPath="yes"/>
+	<RemoveFolder Id="RF_LuaMenu" Directory="LuaMenu" On="uninstall"/>
+      </Component>
+
       <!-- Lua CLI -->
       <Component Id="Shortcut_LUAEXE" Guid="*" Directory="LuaMenu">
         <Shortcut Id="SC_LUAEXE"
                   Name="Lua Command Line Interpreter"
                   Target="[INSTALL_ROOT]bin\lua.exe" />
-        <RemoveFolder Id="RF_LuaMenu" Directory="LuaMenu" On="uninstall"/>
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAEXE" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
@@ -21,321 +27,20 @@
         <RegistryValue Root="HKCU" Key="Software\Lua" Name="ZBSTUDIO" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
       
-      <!-- Lua Reference Manual -->
-      <Component Id="Shortcut_LUA_MANUAL" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUA_MANUAL"
-                  Name="Lua Language Reference Manual"
-                  Target="[INSTALL_ROOT]share\doc\lua\contents.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAMANUAL" Type="integer" Value="1" KeyPath="yes"/>
+      <!-- DistroCheck -->
+      <Component Id="Shortcut_DISTROCHECK" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_DISTROCHECK"
+                  Name="DistroCheck - Distribution Integrity Checker"
+                  Target="[INSTALL_ROOT]opt\DistroCheck\DistroCheck.exe" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="DISTROCHECK" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
-
-      <!-- argparse Manual -->
-      <Component Id="Shortcut_ARGPARSE" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_ARGPARSE"
-                  Name="Module argparse - Manual"
-                  Target="[INSTALL_ROOT]share\doc\argparse\argparse-readthedocs-io-en-latest.pdf" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="ARGPARSE" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lanes Manual -->
-      <Component Id="Shortcut_LANES" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LANES"
-                  Name="Module Lua Lanes - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lanes\doc\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LANES" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- librs232 Examples -->
-      <Component Id="Shortcut_LIBRS232" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LIBRS232"
-                  Name="Module librs232 - Examples"
-                  Target="[INSTALL_ROOT]share\doc\librs232" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LIBRS232" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- LPeg Manual -->
-      <Component Id="Shortcut_LPEG" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LPEG"
-                  Name="Module LPeg - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lpeg\lpeg.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LPEG" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- LPeg.re Manual -->
-      <Component Id="Shortcut_LPEGRE" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LPEGRE"
-                  Name="Module LPeg.re - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lpeg\re.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LPEGRE" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lsleep Manual -->
-      <Component Id="Shortcut_LSLEEP" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LSLEEP"
-                  Name="Module lsleep - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lsleep\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LSLEEP" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lua4882 Manual -->
-      <Component Id="Shortcut_LUA4882" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUA4882"
-                  Name="Module lua4882 - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lua4882\lua4882.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUA4882" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- Luacheck Manual -->
-      <Component Id="Shortcut_LUACHECK" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUACHECK"
-                  Name="Program Luacheck - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luacheck\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUACHECK" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luadaqmx Manual -->
-      <Component Id="Shortcut_LUADAQMX" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUADAQMX"
-                  Name="Module luadaqmx - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luadaqmx\luadaqmx.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUADAQMX" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lua-ffi Examples -->
-      <Component Id="Shortcut_LUAFFI" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUAFFI"
-                  Name="Module lua-ffi - Examples"
-                  Target="[INSTALL_ROOT]share\doc\lua-ffi" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAFFI" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- LuaFileSystem Manual -->
-      <Component Id="Shortcut_LFS" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LFS"
-                  Name="Module LuaFileSystem - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luafilesystem\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LFS" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- LuaSocket Manual -->
-      <Component Id="Shortcut_LUASOCKET" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUASOCKET"
-                  Name="Module LuaSocket - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luasocket\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASOCKET" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luv Manual -->
-      <Component Id="Shortcut_LUV" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUV"
-                  Name="Module luv - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luv\docs.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUV" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- MoonUSB Manual -->
-      <Component Id="Shortcut_MOONUSB" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_MOONUSB"
-                  Name="Module MoonUSB - Manual"
-                  Target="[INSTALL_ROOT]share\doc\moonusb\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="MOONUSB" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- wxLua Manuals -->
-      <Component Id="Shortcut_WXLUA_BINDING" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_WXLUA_BINDING"
-                  Name="Module wxLua - Writing and Generating Binding Files"
-                  Target="[INSTALL_ROOT]share\doc\wxLua\binding.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="WXLUA_BINDING" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <Component Id="Shortcut_WXLUA_FAQ" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_WXLUA_FAQ"
-                  Name="Module wxLua - FAQ"
-                  Target="[INSTALL_ROOT]share\doc\wxLua\FAQ.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="WXLUA_FAQ" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <Component Id="Shortcut_WXLUA_USER" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_WXLUA_USER"
-                  Name="Module wxLua - User Manual"
-                  Target="[INSTALL_ROOT]share\doc\wxLua\wxlua.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="WXLUA_USER" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <Component Id="Shortcut_WXLUA_REF" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_WXLUA_REF"
-                  Name="Module wxLua - Reference Manual"
-                  Target="[INSTALL_ROOT]share\doc\wxLua\wxluaref.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="WXLUA_REF" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- Penlight Manual -->
-      <Component Id="Shortcut_PENLIGHT" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_PENLIGHT"
-                  Name="Module Penlight - Reference Manual"
-                  Target="[INSTALL_ROOT]share\doc\Penlight\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="PENLIGHT" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lcomplex Manual -->
-      <Component Id="Shortcut_LCOMPLEX" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LCOMPLEX"
-                  Name="Module lcomplex - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lcomplex\lcomplex.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LCOMPLEX" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luaSGF Manual -->
-      <Component Id="Shortcut_LUASGF" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUASGF"
-                  Name="Module luaSGF - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luaSGF\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASGF" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luaping Manual -->
-      <Component Id="Shortcut_LUAPING" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUAPING"
-                  Name="Module luaping - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luaping\luaping.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAPING" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luacrc32c Manual -->
-      <Component Id="Shortcut_LUACRC32C" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUACRC32C"
-                  Name="Module luacrc32c - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luacrc32c\luacrc32c.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUACRC32C" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lua-zlib Manual -->
-      <Component Id="Shortcut_LUAZLIB" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUAZLIB"
-                  Name="Module lua-zlib - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lua-zlib\lua-zlib.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAZLIB" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lua-cjson Manual -->
-      <Component Id="Shortcut_LUACJSON" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUACJSON"
-                  Name="Module lua-cjson - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lua-cjson\lua-cjson-manual.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUACJSON" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lua-cjson Extras -->
-      <Component Id="Shortcut_LUACJSON_EXTRAS" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUACJSON_EXTRAS"
-                  Name="Module lua-cjson - Extras"
-                  Target="[INSTALL_ROOT]share\doc\lua-cjson\lua-cjson-manual-extras.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUACJSON_EXTRAS" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luasec Manual -->
-      <Component Id="Shortcut_LUASEC" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUASEC"
-                  Name="Module luasec - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luasec\luasec.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASEC" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lua-openssl Manual -->
-      <Component Id="Shortcut_LUAOPENSSL" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUAOPENSSL"
-                  Name="Module lua-openssl - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lua-openssl\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAOPENSSL" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- ldoc Manual -->
-      <Component Id="Shortcut_LDOC" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LDOC"
-                  Name="Module ldoc - Manual"
-                  Target="[INSTALL_ROOT]share\doc\ldoc\manual.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LDOC" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luasystem Manual -->
-      <Component Id="Shortcut_LUASYSTEM" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUASYSTEM"
-                  Name="Module luasystem - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luasystem\api\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASYSTEM" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- lua_cliargs Manual -->
-      <Component Id="Shortcut_LUACLIARGS" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUACLIARGS"
-                  Name="Module cliargs - Manual"
-                  Target="[INSTALL_ROOT]share\doc\cliargs\README.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUACLIARGS" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- dkjson Manual -->
-      <Component Id="Shortcut_DKJSON" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_DKJSON"
-                  Name="Module dkjson - Manual"
-                  Target="[INSTALL_ROOT]share\doc\dkjson\dkjson.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="DKJSON" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- say Manual -->
-      <Component Id="Shortcut_SAY" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_SAY"
-                  Name="Module say - Manual"
-                  Target="[INSTALL_ROOT]share\doc\say\README.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="SAY" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luassert Manual -->
-      <Component Id="Shortcut_LUASSERT" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUASSERT"
-                  Name="Module luassert - Manual"
-                  Target="[INSTALL_ROOT]share\doc\luassert\README.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUASSERT" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- mediator Manual -->
-      <Component Id="Shortcut_MEDIATOR" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_MEDIATOR"
-                  Name="Module mediator - Manual"
-                  Target="[INSTALL_ROOT]share\doc\mediator\README.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="MEDIATOR" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luaterm Manual -->
-      <Component Id="Shortcut_LUATERM" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUATERM"
-                  Name="Module lua-term - Manual"
-                  Target="[INSTALL_ROOT]share\doc\term\README.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUATERM" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- luautf8 Manual -->
-      <Component Id="Shortcut_LUAUTF8" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_LUAUTF8"
-                  Name="Module lua-utf8 - Manual"
-                  Target="[INSTALL_ROOT]share\doc\lua-utf8\README.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="LUAUTF8" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- inifile Manual -->
-      <Component Id="Shortcut_INIFILE" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_INIFILE"
-                  Name="Module inifile - Manual"
-                  Target="[INSTALL_ROOT]share\doc\inifile\README.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="INIFILE" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-
-      <!-- busted Manual -->
-      <Component Id="Shortcut_BUSTED" Guid="*" Directory="LuaMenu">
-        <Shortcut Id="SC_BUSTED"
-                  Name="Program busted - Manual"
-                  Target="[INSTALL_ROOT]share\doc\busted\index.html" />
-        <RegistryValue Root="HKCU" Key="Software\Lua" Name="BUSTED" Type="integer" Value="1" KeyPath="yes"/>
+      
+      <!-- Help Center -->
+      <Component Id="Shortcut_HELP_CENTER" Guid="*" Directory="LuaMenu">
+        <Shortcut Id="SC_HELP_CENTER"
+                  Name="OneLuaPro Help Center"
+                  Target="[INSTALL_ROOT]share\doc\index.html" />
+        <RegistryValue Root="HKCU" Key="Software\Lua" Name="HELP_CENTER" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
 
     </ComponentGroup>

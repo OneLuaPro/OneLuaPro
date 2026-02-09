@@ -51,7 +51,13 @@ lua-term      - Copyright (c) 2012-2024 Rob Hoelz <rob@hoelzro.net>
 lua-utf8      - Copyright (c) 2014-2025 Xavier Wang
 busted        - Copyright (c) 2012-2020 Olivine Labs, LLC.
                 Copyright (c) 2020-2026 The busted project authors
-OneLuaPro     - Copyright (c) 2023-2026 Kritzel Kratzel
+distro        - Copyright (c) 2025-2026 The OneLuaPro project authors
+lunit         - Copyright (c) 2004-2010 Michael Roth
+                Copyright (c) 2011-2018 Doug Currie
+sqlean        - Copyright (c) 2021-2026 Anton Zhiyanov
+lsqlite3      - Copyright (c) 2002-2016 Tiago Dionizio, Doug Currie
+                Copyright (c) 2021-2025 Javier Guerra Giraldez
+OneLuaPro     - Copyright (c) 2023-2026 The OneLuaPro project authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -253,4 +259,12 @@ LibreSSL License
  * copied and put under another distribution licence
  * [including the GNU Public Licence.]
  */
+
+SQLite Copyright Notice
+-------------------------------------------------------------------------------
+The SQLite engine included in this project is dedicated to the public domain by
+the authors (https://www.sqlite.org). "May you do good and not evil. May you 
+find forgiveness for yourself and forgive others. May you share freely, never
+taking more than you give."
+
 

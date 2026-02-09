@@ -5,6 +5,14 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.4.8.3 (Feb 9, 2026)
+----------------------------------------
+- Introduced OneLuaPro Help Center as central documentation hub
+- lunit              Added with v0.8.1
+- sqlean             Added with v0.28.0 with commits until Feb 4, 2026
+- SQLite             Added with v3.51.2
+- lsqlite3           Added with v0.9.6-0
+
 OneLuaPro Release 5.4.8.2 (Jan 19, 2026)
 ----------------------------------------
 - Built with Visual Studio Build Tools 2022 17.14.24

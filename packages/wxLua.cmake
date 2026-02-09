@@ -1,9 +1,10 @@
 # ------------------------------------------------------------------------------
 # wxLua
+set(WXLUA_VER "v3.2.0.2-15-gf60e451")
 ExternalProject_Add(wxLua
   PREFIX ${PROJECT_NAME}/wxLua
   GIT_REPOSITORY https://github.com/OneLuaPro/wxlua.git
-  GIT_TAG "v3.2.0.2-14-g9d9ce2b"
+  GIT_TAG ${WXLUA_VER}
   GIT_PROGRESS FALSE
   SOURCE_SUBDIR wxLua
   CMAKE_ARGS
@@ -40,4 +41,21 @@ ExternalProject_Add_Step(wxLua post_install
   COMMAND ${CMAKE_COMMAND} -E copy_directory
   ${ONELUAPRO_BUILDROOT}/samples
   ${ONELUAPRO_PREFIX}/share/doc/wxLua/samples
+)
+# Help Center registration
+# 1. User Manual
+set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
+  "wxLua;wxLua/wxlua.html;wxLua User Manual;🖥️;GUI Development;${WXLUA_VER}"
+)
+# 2. Reference Manual
+set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
+  "wxLua;wxLua/wxluaref.html;wxLua API Reference;🖥️;GUI Development;${WXLUA_VER}"
+)
+# 3. Binding Guide
+set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
+  "wxLua;wxLua/binding.html;Writing & Generating Bindings;🖥️;GUI Development;${WXLUA_VER}"
+)
+# 4. FAQ
+set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
+  "wxLua;wxLua/FAQ.html;wxLua Frequently Asked Questions;🖥️;GUI Development;${WXLUA_VER}"
 )

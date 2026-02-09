@@ -1,0 +1,164 @@
+/* Grundlayout - Erweitert auf 1400px für das Kachel-Grid */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #24292e;
+    background-color: #f6f8fa; /* Leichtes Grau für besseren Kontrast zur weißen Card */
+    max-width: 1400px; 
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Header-Layout (Neu hinzugefügt für das Dashboard) */
+.header { display: flex; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #0969da; }
+.header img { height: 60px; width: auto; margin-right: 20px; }
+.header h1 { margin: 0; font-size: 28px; border-bottom: none; padding-bottom: 0; }
+.header-text p { margin: 5px 0 0 0; color: #57606a; font-size: 0.95em; }
+
+/* Typografie */
+h1, h2, h3, h4 { margin-top: 24px; margin-bottom: 16px; font-weight: 600; line-height: 1.25; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+
+/* Links */
+a { color: #0366d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Instruktionen Box */
+.usage-instructions {
+    margin: 20px 0 40px 0;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 0.9em;
+    color: #57606a;
+}
+.usage-instructions p { margin: 0 0 10px 0; color: #24292e; font-weight: 600; }
+.usage-instructions ul { margin: 0; padding-left: 20px; list-style-type: disc; }
+.usage-instructions li { margin-bottom: 6px; }
+
+/* Code-Styling */
+code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27,31,35,0.05);
+    border-radius: 3px;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+}
+.usage-instructions code { color: #cf222e; background: #f1f3f5; }
+
+/* Grid System */
+.category-title {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: #57606a;
+    border-bottom: 1px solid #d0d7de;
+    padding-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 15px 20px;
+    margin-bottom: 30px;
+}
+
+/* Kachel Design */
+.card { 
+    position: relative; 
+    display: flex; 
+    align-items: stretch; 
+    background: white; 
+    border: 1px solid #d0d7de; 
+    border-radius: 6px; 
+    padding: 0; 
+    overflow: visible;
+    transition: 0.2s; 
+}
+.card:hover { border-color: #0969da; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transform: translateY(-2px); }
+
+.card-link { display: flex; align-items: center; padding: 15px; text-decoration: none; color: inherit; flex-grow: 1; }
+
+.card-link:hover {
+    text-decoration: none;
+}
+
+.icon {
+    font-size: 24px;
+    margin-right: 15px;
+    background: #f0f2f5;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+}
+.info strong { display: block; color: #0969da; font-size: 0.95em; line-height: 1.2; }
+.info small { color: #57606a; font-size: 0.8em; margin-top: 4px; display: block; }
+
+/* Der Copy-Button */
+.copy-btn {
+    background: none;
+    border: none;
+    border-left: 1px solid #d0d7de;
+    cursor: pointer;
+    padding: 0 15px;
+    font-size: 1.1em;
+    opacity: 0.3;
+    transition: all 0.2s;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.copy-btn:hover { opacity: 1; color: #0969da; background-color: #f6f8fa; }
+.copy-btn:active { transform: scale(0.9); }
+
+/* Feedback Badge */
+.copy-badge {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2da44e;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: fadeInOut 1.2s ease-in-out;
+    z-index: 100;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, 10px); }
+    20% { opacity: 1; transform: translate(-50%, 0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.version-tag {
+    margin-left: 4px;
+    font-weight: normal;
+    /* opacity: 0.8; /\* Macht die Version etwas dezenter als den Modulnamen *\/ */
+}
+
+/* Footer */
+.footer { 
+    margin-top: 60px; 
+    padding-top: 20px; 
+    border-top: 1px solid #d0d7de; 
+    color: #57606a; 
+    font-size: 0.85em; 
+    display: flex; 
+    justify-content: space-between; 
+}

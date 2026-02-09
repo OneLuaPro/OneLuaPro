@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2023-2026 Kritzel Kratzel.
+# Copyright (c) 2023-2026 The OneLuaPro project authors
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in 
@@ -21,7 +21,7 @@
 # SOFTWARE.
 #
 # ------------------------------------------------------------------------------
-# CMake for creating OneLuaPro Distribution as signed installer and ZIP-archive
+# CMake Superbuild for OneLuaPro Distribution as signed installer and ZIP-archive
 # ------------------------------------------------------------------------------
 # Setup with Visual Studio 17 2022 generator for x64
 # ------------------------------------------------------------------------------
@@ -44,19 +44,19 @@
 
 # ------------------------------------------------------------------------------
 # General definitions
-cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.31 FATAL_ERROR)
 
 # OneLuaPro Version
 set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 4)
 set(LUA_VERSION_PATCH 8)
-set(ONELUAPRO_RELEASE 2)
+set(ONELUAPRO_RELEASE 3)
 set(ONELUAPRO_CANDIDATE "")	# e.g. "-RC1", leave "" for no RC
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
 project(OneLuaPro
-  LANGUAGES C
+  LANGUAGES NONE
   VERSION ${ONELUAPRO_VERSION})
 
 # Make subdir cmake available as module search path
@@ -71,6 +71,7 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 # ------------------------------------------------------------------------------
 # Scan for package files in subdir and include them
 include(ExternalProject)
+set_property(GLOBAL PROPERTY ONELUAPRO_DOC_LIST "")
 file(GLOB ONELUAPRO_PACKAGES "packages/*.cmake")
 foreach(PKG ${ONELUAPRO_PACKAGES})
   get_filename_component(BASENAME ${PKG} NAME_WE)
@@ -78,6 +79,7 @@ foreach(PKG ${ONELUAPRO_PACKAGES})
   include(${PKG})
 endforeach()
 
+# ------------------------------------------------------------------------------
 if (CODE_SIGN_ID)
   # Findsigntool will define the following variables:
   # signtool_FOUND : True if the system has the signtool executable.
@@ -137,7 +139,6 @@ if (CODE_SIGN_ID)
     # command there when we aren't signing. %1 is replaced by the name
     # of the installer or uninstaller during NSIS compilation.
     set(CPACK_NSIS_FINALIZE_CMD "\\\"${signtool_EXECUTABLE}\\\" sign ${NSIS_SIGN_PARAMS} %1")
-    # message(STATUS "CPACK_NSIS_FINALIZE_CMD = ${CPACK_NSIS_FINALIZE_CMD}")
     unset(NSIS_SIGN_PARAMS)
     # Export CODE_SIGN_ID to CPack via adding "CPACK_" prefix
     # The configuration files created by CPack.cmake will contain all the
@@ -150,6 +151,149 @@ else()
   # We're not signing the package so provide a checksum file.
   set(CPACK_PACKAGE_CHECKSUM SHA256)
 endif()
+
+# ------------------------------------------------------------------------------
+# Generate SHA256 digests of the full OneLuaPro installation and compile them
+# into a DLL as resource. 
+# Read out all collected build targets
+get_directory_property(ALL_EXTERNAL_PROJECTS BUILDSYSTEM_TARGETS)
+if (CODE_SIGN_ID)
+  # force code signing of all EXE and DLL before hashing
+  list(APPEND ALL_EXTERNAL_PROJECTS signDllExe)
+endif()
+# Create empty dummy project and make it dependent on all ALL_EXTERNAL_PROJECTS.
+# This dummy project is the door-opener for the attached external project added
+# steps.
+ExternalProject_Add(finalize_install
+  DOWNLOAD_COMMAND ""
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND ""
+  INSTALL_COMMAND ""
+  DEPENDS ${ALL_EXTERNAL_PROJECTS}
+)
+# Add first step to dummy project to create the SHA256 checksums and to compile
+# them into a DLL
+ExternalProject_Add_Step(finalize_install generate_checksums
+  COMMAND ${CMAKE_COMMAND} -DTARGET_DIR=${ONELUAPRO_PREFIX}
+  -DSAVETO_DIR=${CMAKE_CURRENT_BINARY_DIR}
+  -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/GenerateHashes.cmake"
+  DEPENDEES install
+  COMMENT "Generating SHA256 checksums for all installed data ..."
+)
+if (CODE_SIGN_ID)
+  # Add second step to dummy project for signing the created DLL containing all
+  # checksums
+  ExternalProject_Add_Step(finalize_install sign_checksum
+    COMMAND ${CMAKE_COMMAND}
+    -DONELUAPRO_PREFIX=${ONELUAPRO_PREFIX}
+    -Dsigntool_EXECUTABLE=${signtool_EXECUTABLE}
+    -DCODE_SIGN_ID=${CODE_SIGN_ID}
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/SignChksumDll.cmake
+    DEPENDEES generate_checksums
+    COMMENT "Signing chksum.dll ..."
+  )
+endif()
+
+# ------------------------------------------------------------------------------
+# Aggreate Documentation into Help Center
+# Setup documentation assets directory
+string(TIMESTAMP BUILD_DATE "%Y-%m-%d %H:%M")
+file(MAKE_DIRECTORY "${ONELUAPRO_PREFIX}/share/doc/assets")
+# Copy branding assets
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/logo/lua-logo-olp-dist.png" 
+  DESTINATION "${ONELUAPRO_PREFIX}/share/doc/assets")
+file(COPY "${CMAKE_SOURCE_DIR}/cmake/doc-gen/oneluapro.css" 
+  DESTINATION "${ONELUAPRO_PREFIX}/share/doc/assets")
+# Generate Dashboard Content
+get_property(OLP_DOCS GLOBAL PROPERTY ONELUAPRO_DOC_LIST)
+list(LENGTH OLP_DOCS _doc_count)
+if(_doc_count GREATER 0)
+  # 1. Collect all categories
+  set(_categories "")
+  math(EXPR _doc_max "${_doc_count} - 1")
+  foreach(_i RANGE 0 ${_doc_max} 6)
+    math(EXPR _cat_idx "${_i} + 4")
+    list(GET OLP_DOCS ${_cat_idx} _cat)
+    list(APPEND _categories ${_cat})
+  endforeach()
+  list(REMOVE_DUPLICATES _categories)
+  list(SORT _categories)
+
+  # 2. Generate HTML per Category
+  set(HUB_CONTENT "")
+  foreach(_current_cat IN LISTS _categories)
+    string(APPEND HUB_CONTENT "<h2 class='category-title'>${_current_cat}</h2>\n<div class='grid'>\n")
+
+    # Collect all entries for the current category to sort them individually
+    set(_entries_in_cat "")
+    foreach(_i RANGE 0 ${_doc_max} 6)
+      math(EXPR _cat_idx "${_i} + 4")
+      list(GET OLP_DOCS ${_cat_idx} _cat)
+      
+      if(_cat STREQUAL _current_cat)
+        math(EXPR _l_idx "${_i} + 2")
+        list(GET OLP_DOCS ${_l_idx} _label)
+        
+        # Use a custom separator (e.g., '###') to avoid CMake list splitting
+        list(APPEND _entries_in_cat "${_label}###${_i}")
+      endif()
+    endforeach()
+
+    # Sort entries alphabetically by label, ignoring case
+    list(SORT _entries_in_cat CASE INSENSITIVE)
+
+    # Move "Lua" entry to the top if it exists
+    set(_lua_entry "")
+    foreach(_entry IN LISTS _entries_in_cat)
+      # Check for exact prefix "Lua###"
+      if(_entry MATCHES "^Lua Core Reference###")
+        set(_lua_entry "${_entry}")
+        break()
+      endif()
+    endforeach()
+    if(_lua_entry)
+      list(REMOVE_ITEM _entries_in_cat "${_lua_entry}")
+      list(INSERT _entries_in_cat 0 "${_lua_entry}")
+    endif()
+
+    # Generate HTML from the sorted temporary list
+    foreach(_entry IN LISTS _entries_in_cat)
+      # Extract the original index by getting everything after the last '###'
+      string(REGEX REPLACE ".*###" "" _i "${_entry}")      
+
+      list(GET OLP_DOCS ${_i} _name)
+      math(EXPR _p "${_i} + 1")
+      list(GET OLP_DOCS ${_p} _path)
+      math(EXPR _l "${_i} + 2")
+      list(GET OLP_DOCS ${_l} _label)
+      math(EXPR _ic "${_i} + 3")
+      list(GET OLP_DOCS ${_ic} _icon)
+      math(EXPR _v  "${_i} + 5")
+      list(GET OLP_DOCS ${_v} _version)
+
+      string(APPEND HUB_CONTENT 
+        "<div class='card'>\n"
+        "  <a href='${_path}' class='card-link' target='_blank' rel='noopener noreferrer'>\n"
+        "    <span class='icon'>${_icon}</span>\n"
+        "    <div class='info'>\n"
+        "      <strong>${_label}</strong>\n"
+        "      <small>${_name} <span class='version-tag'>${_version}</span></small>\n"
+        "    </div>\n"
+        "  </a>\n"
+        "  <button class='copy-btn' onclick=\"copyToClipboard(event, '${_path}')\" title='Copy folder path to clipboard'>\n"
+        "    <span class='btn-icon'>📁</span>\n"
+        "  </button>\n"
+        "</div>\n")
+    endforeach()
+    
+    string(APPEND HUB_CONTENT "</div>\n")
+  endforeach()
+endif()
+
+# Create Documentation Launch Pad
+configure_file(cmake/doc-gen/hub.html.in
+  "${ONELUAPRO_PREFIX}/share/doc/index.html"
+  @ONLY)
 
 # ------------------------------------------------------------------------------
 # NSIS Packager
@@ -195,47 +339,9 @@ set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP
 set(CPACK_NSIS_BRANDING_TEXT "https://github.com/OneLuaPro")
 set(CPACK_NSIS_MENU_LINKS
   "opt/ZeroBraneStudio/zbstudio.exe" "Lua IDE - ZeroBrane Studio"
+  "opt/DistroCheck/DistroCheck.exe" "DistroCheck - Distribution Integrity Checker"
   "bin/lua.exe" "Lua Command Line Interpreter"
-  "share/doc/lua/contents.html" "Lua Language Reference Manual"
-  "share/doc/argparse/argparse-readthedocs-io-en-latest.pdf" "Module argparse - Manual"
-  "share/doc/lanes/doc/index.html" "Module Lua Lanes - Manual"
-  "share/doc/librs232" "Module librs232 - Examples"
-  "share/doc/lpeg/lpeg.html" "Module LPeg - Manual"
-  "share/doc/lpeg/re.html" "Module LPeg.re - Manual"
-  "share/doc/lsleep/index.html" "Module lsleep - Manual"
-  "share/doc/lua4882/lua4882.html" "Module lua4882 - Manual"
-  "share/doc/luacheck/index.html" "Program Luacheck - Manual"
-  "share/doc/luadaqmx/luadaqmx.html" "Module luadaqmx - Manual"
-  "share/doc/lua-ffi" "Module lua-ffi - Examples"
-  "share/doc/luafilesystem/index.html" "Module LuaFileSystem - Manual"
-  "share/doc/luasocket/index.html" "Module LuaSocket - Manual"
-  "share/doc/luv/docs.html" "Module luv - Manual"
-  "share/doc/moonusb/index.html" "Module MoonUSB - Manual"
-  "share/doc/wxLua/binding.html" "Module wxLua - Writing and Generating Binding Files"
-  "share/doc/wxLua/FAQ.html" "Module wxLua - FAQ"
-  "share/doc/wxLua/wxlua.html" "Module wxLua - User Manual"
-  "share/doc/wxLua/wxluaref.html" "Module wxLua - Reference Manual"
-  "share/doc/Penlight/index.html" "Module Penlight - Reference Manual"
-  "share/doc/lcomplex/lcomplex.html" "Module lcomplex - Manual"
-  "share/doc/luaSGF/index.html" "Module luaSGF - Manual"
-  "share/doc/luaping/luaping.html" "Module luaping - Manual"
-  "share/doc/luacrc32c/luacrc32c.html" "Module luacrc32c - Manual"
-  "share/doc/lua-zlib/lua-zlib.html" "Module lua-zlib - Manual"
-  "share/doc/lua-cjson/lua-cjson-manual.html" "Module lua-cjson - Manual"
-  "share/doc/lua-cjson/lua-cjson-manual-extras.html" "Module lua-cjson - Extras"
-  "share/doc/luasec/luasec.html" "Module luasec - Manual"
-  "share/doc/lua-openssl/index.html" "Module lua-openssl - Manual"
-  "share/doc/ldoc/manual.html" "Module ldoc - Manual"
-  "share/doc/luasystem/api/index.html" "Module luasystem - Manual"
-  "share/doc/cliargs/README.html" "Module cliargs - Manual"
-  "share/doc/dkjson/dkjson.html" "Module dkjson - Manual"
-  "share/doc/say/README.html" "Module say - Manual"
-  "share/doc/luassert/README.html" "Module luassert - Manual"
-  "share/doc/mediator/README.html" "Module mediator - Manual"
-  "share/doc/term/README.html" "Module lua-term - Manual"
-  "share/doc/lua-utf8/README.html" "Module lua-utf8 - Manual"
-  "share/doc/inifile/README.html" "Module inifile - Manual"
-  "share/doc/busted/index.html" "Program busted - Manual"
+  "share/doc/index.html" "OneLuaPro Help Center"  
 )
 
 # ------------------------------------------------------------------------------
@@ -262,7 +368,8 @@ set(CPACK_WIX_EXTRA_SOURCES
   "${CMAKE_CURRENT_SOURCE_DIR}/wix/shortcuts.wxs"
   "${CMAKE_CURRENT_BINARY_DIR}/wix/start_menu_folder_name.wxs"
 )
-# Add XML-patch file for handling of PATH variable and accepting shortcuts at all
+# Add XML-patch file for handling of PATH variable, accepting shortcuts at all
+# and for creating a sub-dir in Start Menu for all Module's documentation
 set(CPACK_WIX_PATCH_FILE
   "${CMAKE_CURRENT_SOURCE_DIR}/wix/path_patch.xml"
   "${CMAKE_CURRENT_SOURCE_DIR}/wix/shortcuts_patch.xml"
@@ -279,11 +386,3 @@ include(InstallRequiredSystemLibraries)
 # https://stackoverflow.com/questions/75915316/		# cmake set path env
 # https://cmake.org/cmake/help/latest/cpack_gen/nsis.html
 # https://stackoverflow.com/questions/72504366		# sign binaries for install
-
-
-# set(CPACK_WIX_INSTALLDIR "APPLICATIONFOLDER")
-# set(CPACK_WIX_UI_REF "WixUI_Advanced")
-# set(CPACK_WIX_PROPERTY_MSIINSTALLPERUSER "1")
-# set(CPACK_WIX_PROPERTY_ApplicationFolderName "${CPACK_PACKAGE_INSTALL_DIRECTORY}")
-# set(CPACK_WIX_PROPERTY_WixAppFolder "WixPerMachineFolder")
-# set(CPACK_WIX_PROPERTY_ALLUSERS "2")

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>OneLuaPro Help Center</title>
+    <!-- Verknüpfung zur externen CSS-Datei -->
+    <link rel="stylesheet" href="assets/oneluapro.css">
+  </head>
+  <body>
+    <header class="header">
+      <img src="assets/lua-logo-olp-dist.png" alt="OneLuaPro Logo">
+      <div class="header-text">
+        <h1>OneLuaPro Help Center</h1>
+        <p>Documentation and Reference Manuals | Version: @ONELUAPRO_VERSION@</p>
+      </div>
+    </header>
+
+
+<section class="usage-instructions">
+      <p><strong>How to use:</strong></p>
+      <ul>
+        <li>Click a <strong>tile</strong> to open the specific documentation in a <strong>new browser tab</strong> (maintaining its original historical style).</li>
+        <li>Click the <strong>folder icon (📁)</strong> to copy the installation path. Use it to <code>cd</code> in your terminal or paste it into the file manager's address bar.</li>
+        <li>Individual module folders may contain additional <strong>examples or test benches</strong>.</li>
+      </ul>
+    </section>
+    
+    <!-- Content Area: CMake wird diesen Platzhalter füllen -->
+    @HUB_CONTENT@
+
+    <footer class="footer">
+      <div>
+        <strong>OneLuaPro Distribution</strong> &bull; Built on @BUILD_DATE@
+      </div>
+      <div>
+        Version @ONELUAPRO_VERSION@ &bull; 
+        <a href="https://github.com/OneLuaPro" style="color: #0969da; text-decoration: none;">GitHub</a>
+      </div>
+    </footer>
+
+    <script>
+      /**
+       * Kopiert den Verzeichnispfad der Zieldatei in die Zwischenablage.
+       * @param {Event} event - Das Klick-Event
+       * @param {string} relativePath - Der relative Pfad zur Datei (von der index.html aus)
+       */
+      function copyToClipboard(event, relativePath) {
+	  event.preventDefault();
+	  event.stopPropagation();
+
+	  const btn = event.currentTarget;
+    
+	  // BUG-FIX: Wenn der Button gerade animiert, ignoriere weitere Klicks
+	  if (btn.getAttribute('data-copying') === 'true') return;
+    
+	  const iconSpan = btn.querySelector('.btn-icon');
+	  const originalIcon = iconSpan.innerText;
+
+	  // Pfad-Logik
+	  let currentUrl = decodeURIComponent(window.location.pathname);
+	  if (currentUrl.startsWith('/') && currentUrl.charAt(2) === ':') {
+              currentUrl = currentUrl.substring(1);
+	  }
+	  const baseDir = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+	  let fullPath = (baseDir + '/' + relativePath).replace(/\//g, '\\');
+	  const absoluteDirectory = fullPath.substring(0, fullPath.lastIndexOf('\\'));
+
+	  navigator.clipboard.writeText(absoluteDirectory).then(() => {
+              // Status setzen
+              btn.setAttribute('data-copying', 'true');
+              iconSpan.innerText = "✅";
+        
+              const badge = document.createElement('span');
+              badge.innerText = 'Copied!';
+              badge.className = 'copy-badge';
+              btn.appendChild(badge);
+
+              setTimeout(() => {
+		  iconSpan.innerText = originalIcon;
+		  if (badge.parentNode) {
+                      badge.parentNode.removeChild(badge);
+		  }
+		  // Status zurücksetzen -> Klicks wieder erlaubt
+		  btn.removeAttribute('data-copying');
+              }, 1200);
+	  });
+      }
+    </script>
+  </body>
+</html>
