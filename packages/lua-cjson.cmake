@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # lua-cjson
-set(LUA_CJSON_VER "2.1.0.16-10-gf369ca1")
+set(LUA_CJSON_VER "2.1.0.16-13-g5a84afa")
 ExternalProject_Add(lua-cjson
   PREFIX ${PROJECT_NAME}/lua-cjson
   GIT_REPOSITORY https://github.com/OneLuaPro/lua-cjson.git

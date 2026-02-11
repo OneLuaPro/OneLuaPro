@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # LPeg
-set(LPEG_VER "v1.1.1")
+set(LPEG_VER "v1.1.0-4-g4190cdb")
 ExternalProject_Add(LPeg
   PREFIX ${PROJECT_NAME}/LPeg
   GIT_REPOSITORY https://github.com/OneLuaPro/LPeg.git

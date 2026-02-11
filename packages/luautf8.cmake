@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # luautf8
-set(LUA_UTF8_VER "0.2.0-2-g9d0c813")
+set(LUA_UTF8_VER "0.2.0-6-gb891069")
 ExternalProject_Add(luautf8
   PREFIX ${PROJECT_NAME}/luautf8
   GIT_REPOSITORY https://github.com/OneLuaPro/luautf8.git

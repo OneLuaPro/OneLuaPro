@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Lua bindings for Savitzky-Golay-Filter
 # luaSGF
-set(LUASGF_VER "v1.0")
+set(LUASGF_VER "v2.0.0")
 ExternalProject_Add(luaSGF
   PREFIX ${PROJECT_NAME}/luaSGF
   GIT_REPOSITORY https://github.com/OneLuaPro/luaSGF.git

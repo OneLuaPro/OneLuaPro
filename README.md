@@ -5,13 +5,38 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
-OneLuaPro Release 5.4.8.3 (Feb 9, 2026)
+OneLuaPro Release 5.4.8.3 (Feb 11, 2026)
 ----------------------------------------
-- Introduced OneLuaPro Help Center as central documentation hub
-- lunit              Added with v0.8.1
-- sqlean             Added with v0.28.0 with commits until Feb 4, 2026
-- SQLite             Added with v3.51.2
+- Built with Visual Studio Build Tools 2022 17.14.26
+- Built with NI-488.2 2025 Q4 and NI-DAQmx 2025 Q4 Patch 1
+- Introducing "DistroCheck" tool for checking OneLuaPro integrity
+- Introducing "OneLuaPro Help Center" as central documentation hub
+- Replaced all *.bat-files in bin/ with executables
+- lunit              Added with 0.8.1-1-g61e9b3a
+- argparse           Updated to v0.7.1-13-gdebe947
+- busted             Updated to v2.3.0-5-g4bbf32a
+- distro             Updated to v2.0.0
+- ldoc               Updated to v1.5.0-14-gc5e6601
+- librs232           Updated to v1.0.3-118-g1171731
+- libusb             Updated to v1.0.29-60-gf385e44f
+- libuv              Updated to v1.52.0
+- LPeg               Updated to v1.1.0-4-g4190cdb
+- lsleep             Updated to v1.05-5-g9e4bdf2
 - lsqlite3           Added with v0.9.6-0
+- lua                Updated to v5.4.8-1-gfdac66f
+- luacheck           Updated to v1.2.0-34-ge583448
+- lua-cjson          Updated to v2.1.0.16-13-g5a84afa
+- lua-ffi            Updated to v1.1.0-22-gb95c731
+- lua-openssl        Updated to v0.11.0-3-9-gad322f2
+- luasec             Updated to v1.3.2-4-g3219920
+- luasystem          Updated to v0.6.3-8-gfd8c2b3
+- luautf8            Updated to v0.2.0-6-gb891069
+- Penlight           Updated to v1.15.0-15-gda98756
+- Savitzky-Golay-Filter Updated to v2.0-14-gb9af1a1
+- luaSFG             Updated to v2.0.0
+- sqlean             Added with v0.28.1-6-gaa945e2
+- SQLite             Added with v3.51.2
+- zlib-ng            Updated to v2.3.3
 
 OneLuaPro Release 5.4.8.2 (Jan 19, 2026)
 ----------------------------------------

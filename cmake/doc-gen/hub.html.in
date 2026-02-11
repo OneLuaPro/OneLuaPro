@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>OneLuaPro Help Center</title>
-    <!-- Verknüpfung zur externen CSS-Datei -->
+    <!-- Link to external CSS-file -->
     <link rel="stylesheet" href="assets/oneluapro.css">
   </head>
   <body>
@@ -16,16 +16,22 @@
     </header>
 
 
-<section class="usage-instructions">
+    <section class="usage-instructions">
       <p><strong>How to use:</strong></p>
       <ul>
         <li>Click a <strong>tile</strong> to open the specific documentation in a <strong>new browser tab</strong> (maintaining its original historical style).</li>
         <li>Click the <strong>folder icon (📁)</strong> to copy the installation path. Use it to <code>cd</code> in your terminal or paste it into the file manager's address bar.</li>
         <li>Individual module folders may contain additional <strong>examples or test benches</strong>.</li>
       </ul>
+      <p class="version-info">
+	Package version numbers follow the <code>v[Base]-[Commits]-[Hash]</code> format: 
+	The first part indicates the <strong>stable base version</strong>, followed by the 
+	<strong>number of additional changes</strong> since the last release, and a 
+	<strong>short identifier (hash)</strong> of the exact source code.
+      </p>
     </section>
     
-    <!-- Content Area: CMake wird diesen Platzhalter füllen -->
+    <!-- Content Area -->
     @HUB_CONTENT@
 
     <footer class="footer">
@@ -40,9 +46,9 @@
 
     <script>
       /**
-       * Kopiert den Verzeichnispfad der Zieldatei in die Zwischenablage.
-       * @param {Event} event - Das Klick-Event
-       * @param {string} relativePath - Der relative Pfad zur Datei (von der index.html aus)
+       * Copies path into clipboard
+       * @param {Event} event
+       * @param {string} relativePath
        */
       function copyToClipboard(event, relativePath) {
 	  event.preventDefault();
@@ -50,13 +56,11 @@
 
 	  const btn = event.currentTarget;
     
-	  // BUG-FIX: Wenn der Button gerade animiert, ignoriere weitere Klicks
 	  if (btn.getAttribute('data-copying') === 'true') return;
     
 	  const iconSpan = btn.querySelector('.btn-icon');
 	  const originalIcon = iconSpan.innerText;
 
-	  // Pfad-Logik
 	  let currentUrl = decodeURIComponent(window.location.pathname);
 	  if (currentUrl.startsWith('/') && currentUrl.charAt(2) === ':') {
               currentUrl = currentUrl.substring(1);
@@ -66,7 +70,6 @@
 	  const absoluteDirectory = fullPath.substring(0, fullPath.lastIndexOf('\\'));
 
 	  navigator.clipboard.writeText(absoluteDirectory).then(() => {
-              // Status setzen
               btn.setAttribute('data-copying', 'true');
               iconSpan.innerText = "✅";
         
@@ -80,7 +83,6 @@
 		  if (badge.parentNode) {
                       badge.parentNode.removeChild(badge);
 		  }
-		  // Status zurücksetzen -> Klicks wieder erlaubt
 		  btn.removeAttribute('data-copying');
               }, 1200);
 	  });

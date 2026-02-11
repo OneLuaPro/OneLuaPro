@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # lua-openssl
-set(LUA_OPENSSL_VER "0.11.0-2-5-gb4cc37c")
+set(LUA_OPENSSL_VER "0.11.0-3-9-gad322f2")
 ExternalProject_Add(lua-openssl
   PREFIX ${PROJECT_NAME}/lua-openssl
   GIT_REPOSITORY https://github.com/OneLuaPro/lua-openssl.git
@@ -24,5 +24,5 @@ ExternalProject_Add_Step(lua-openssl generate_install_docs
 )
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
-  "lua-openssl;lua-openssl/index.html;Cryptography & SSL/TLS Toolkit;🌐;Networking & Security;${LUA_OPENSSL_VER}"
+  "lua-openssl;lua-openssl/topics/readme.md.html;Cryptography & SSL/TLS Toolkit;🌐;Networking & Security;${LUA_OPENSSL_VER}"
 )
