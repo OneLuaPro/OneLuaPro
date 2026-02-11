@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # lanes
-set(LANES_VER "v4.0.0-pre-8899daf")
+set(LANES_VER "v4.0.0-pre-df58a33")
 ExternalProject_Add(lanes
   PREFIX ${PROJECT_NAME}/lanes
   GIT_REPOSITORY https://github.com/OneLuaPro/lanes.git
@@ -12,5 +12,5 @@ ExternalProject_Add(lanes
 ExternalProject_Add_StepDependencies(lanes build lua)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
-  "Lanes;lanes/doc/index.html;Parallel Execution Framework;🧪;Software Engineering & Testing;${LANES_VER}"
+  "Lanes;lanes/index.html;Parallel Execution Framework;🧪;Software Engineering & Testing;${LANES_VER}"
 )

@@ -12,6 +12,6 @@ ExternalProject_Add(lsleep
 ExternalProject_Add_StepDependencies(lsleep build lua)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
-  "lsleep;lsleep/index.html;High Resolution Sleep;💎;Core & Language;${LSLEEP_VER}"
+  "lsleep;lsleep/topics/readme.md.html;High Resolution Sleep;💎;Core & Language;${LSLEEP_VER}"
 )
 

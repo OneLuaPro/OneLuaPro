@@ -12,8 +12,8 @@ OneLuaPro Release 5.4.8.3 (Feb 11, 2026)
 - Introducing "DistroCheck" tool for checking OneLuaPro integrity
 - Introducing "OneLuaPro Help Center" as central documentation hub
 - Replaced all *.bat-files in bin/ with executables
-- lunit              Added with 0.8.1-1-g61e9b3a
-- argparse           Updated to v0.7.1-13-gdebe947
+- lunit              Added with v0.8.1-1-g61e9b3a
+- argparse           Updated to v0.7.1-14-g395f616
 - busted             Updated to v2.3.0-5-g4bbf32a
 - distro             Updated to v2.0.0
 - ldoc               Updated to v1.5.0-14-gc5e6601
@@ -24,7 +24,7 @@ OneLuaPro Release 5.4.8.3 (Feb 11, 2026)
 - lsleep             Updated to v1.05-5-g9e4bdf2
 - lsqlite3           Added with v0.9.6-0
 - lua                Updated to v5.4.8-1-gfdac66f
-- luacheck           Updated to v1.2.0-34-ge583448
+- luacheck           Updated to v1.2.0-35-g7580037
 - lua-cjson          Updated to v2.1.0.16-13-g5a84afa
 - lua-ffi            Updated to v1.1.0-22-gb95c731
 - lua-openssl        Updated to v0.11.0-3-9-gad322f2
@@ -34,7 +34,7 @@ OneLuaPro Release 5.4.8.3 (Feb 11, 2026)
 - Penlight           Updated to v1.15.0-15-gda98756
 - Savitzky-Golay-Filter Updated to v2.0-14-gb9af1a1
 - luaSFG             Updated to v2.0.0
-- sqlean             Added with v0.28.1-6-gaa945e2
+- sqlean             Added with 0.28.1-9-gd134592
 - SQLite             Added with v3.51.2
 - zlib-ng            Updated to v2.3.3
 

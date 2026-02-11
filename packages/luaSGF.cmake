@@ -13,5 +13,5 @@ ExternalProject_Add(luaSGF
 ExternalProject_Add_StepDependencies(luaSGF build lua Savitzky-Golay-Filter)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
-  "luaSGF;luaSGF/index.html;Savitzky-Golay Signal Filter;📊;Data Processing & Formats;${LUASGF_VER}"
+  "luaSGF;luaSGF/topics/readme.md.html;Savitzky-Golay Signal Filter;📊;Data Processing & Formats;${LUASGF_VER}"
 )
