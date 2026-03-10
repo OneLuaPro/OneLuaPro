@@ -1,15 +1,23 @@
 # ------------------------------------------------------------------------------
 # libressl
 ExternalProject_Add(libressl
-  URL https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.2.1.tar.gz
-  URL_HASH SHA256=6d5c2f58583588ea791f4c8645004071d00dfa554a5bf788a006ca1eb5abd70b
-  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-  DOWNLOAD_NO_PROGRESS TRUE
   PREFIX ${PROJECT_NAME}/libressl
+  GIT_REPOSITORY https://github.com/OneLuaPro/libressl.git
+  GIT_TAG "v4.2.1-1-gc88f4da"
+  GIT_SHALLOW TRUE
+  GIT_PROGRESS FALSE
   CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
   "-DLIBRESSL_TESTS=OFF"
   "-DBUILD_SHARED_LIBS=OFF"
+  "-G${CMAKE_GENERATOR}"
+  "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
+  "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
+  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_EXE_LINKER_FLAGS=${SUPERBUILD_EXE_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_STATIC_LINKER_FLAGS=${SUPERBUILD_STATIC_LINKER_FLAGS}"
+  ${GENERATOR_ARGS}
 )
+# ------------------------------------------------------------------------------
 ExternalProject_Add_Step(libressl post_install
   COMMENT "Installing libressl executables into ${ONELUAPRO_PREFIX}/share/doc/luasec/samples/certs"
   DEPENDEES install

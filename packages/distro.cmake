@@ -1,6 +1,7 @@
 # ------------------------------------------------------------------------------
 # distro
-set(DISTRO_VER "v2.0.0")
+# set(DISTRO_VER "origin/master")
+set(DISTRO_VER "v2.1.0")
 ExternalProject_Add(distro
   PREFIX ${PROJECT_NAME}/distro
   GIT_REPOSITORY https://github.com/OneLuaPro/distro.git
@@ -11,8 +12,18 @@ ExternalProject_Add(distro
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
   "-DONELUAPRO_VERSION=${ONELUAPRO_VERSION}"
   "-DONELUAPRO_CANDIDATE=${ONELUAPRO_CANDIDATE}"
+  "-G${CMAKE_GENERATOR}"
+  "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
+  "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
+  "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
+  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_CXX_FLAGS=${SUPERBUILD_CXX_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_EXE_LINKER_FLAGS=${SUPERBUILD_EXE_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_SHARED_LINKER_FLAGS=${SUPERBUILD_SHARED_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_STATIC_LINKER_FLAGS=${SUPERBUILD_STATIC_LINKER_FLAGS}"
+  ${GENERATOR_ARGS}
 )
-ExternalProject_Add_StepDependencies(distro build lua wxLua)
+add_dependencies(distro lua wxLua)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
   "distro;distro/README.html;Distribution Management Module;🛠️;Development Tools;${DISTRO_VER}"

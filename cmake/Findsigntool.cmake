@@ -98,7 +98,12 @@ if (WIN32 AND NOT signtool_EXECUTABLE)
   # else()
   #   set(arch ${CMAKE_HOST_SYSTEM_PROCESSOR})
   # endif()
-  set(arch ${CMAKE_GENERATOR_PLATFORM})
+  # set(arch ${CMAKE_GENERATOR_PLATFORM})
+  if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(arch "x64")
+  else()
+    set(arch "x86")
+  endif()
   
   # Look for latest signtool
   foreach(winver 11 10 7)

@@ -1,0 +1,48 @@
+diff --git a/build/cmake/init.cmake b/build/cmake/init.cmake
+index 2ad16342f3..9c02fabb5e 100644
+--- a/build/cmake/init.cmake
++++ b/build/cmake/init.cmake
+@@ -58,7 +58,7 @@ if(MSVC)
+         message(WARNING "wxUSE_STD_IOSTREAM combined with wxBUILD_USE_STATIC_RUNTIME will fail to link when using std::cout or similar functions")
+     endif()
+ 
+-    if(wxBUILD_OPTIMISE)
++    if(wxBUILD_OPTIMISE AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+         set(MSVC_LINKER_RELEASE_FLAGS " /LTCG /OPT:REF /OPT:ICF")
+         wx_string_append(CMAKE_EXE_LINKER_FLAGS_RELEASE "${MSVC_LINKER_RELEASE_FLAGS}")
+         wx_string_append(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${MSVC_LINKER_RELEASE_FLAGS}")
+@@ -66,6 +66,25 @@ if(MSVC)
+         set(MSVC_COMPILER_RELEASE_FLAGS " /Ox /Oi /Ot /Oy /GS- /Gy /GL /Gw")
+         wx_string_append(CMAKE_CXX_FLAGS_RELEASE "${MSVC_COMPILER_RELEASE_FLAGS}")
+         wx_string_append(CMAKE_C_FLAGS_RELEASE "${MSVC_COMPILER_RELEASE_FLAGS}")
++    elseif(wxBUILD_OPTIMISE AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "IntelLLVM")
++	set(MSVC_LINKER_RELEASE_FLAGS " /OPT:REF /OPT:ICF")
++        wx_string_append(CMAKE_EXE_LINKER_FLAGS_RELEASE "${MSVC_LINKER_RELEASE_FLAGS}")
++        wx_string_append(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${MSVC_LINKER_RELEASE_FLAGS}")
++        wx_string_append(CMAKE_STATIC_LINKER_FLAGS_RELEASE "")
++        set(MSVC_COMPILER_RELEASE_FLAGS " /Ox /Oi /Ot /Oy /GS- /Gy /Gw /EHsc")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-deprecated-non-prototype")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-unused")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-extern-initializer")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-deprecated-copy")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-inconsistent-missing-override")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-microsoft-exception-spec")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-tautological-constant-out-of-range-compare")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-sign-compare")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-delete-non-abstract-non-virtual-dtor")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-unknown-pragmas")
++	wx_string_append(MSVC_COMPILER_RELEASE_FLAGS " /clang:-Wno-missing-field-initializers")
++        wx_string_append(CMAKE_CXX_FLAGS_RELEASE "${MSVC_COMPILER_RELEASE_FLAGS}")
++        wx_string_append(CMAKE_C_FLAGS_RELEASE "${MSVC_COMPILER_RELEASE_FLAGS}")
+     endif()
+ 
+     if(NOT wxBUILD_STRIPPED_RELEASE)
+@@ -154,7 +173,7 @@ set(wxPLATFORM_LIB_DIR)
+ 
+ if(WIN32)
+     # TODO: include compiler version in wxCOMPILER_PREFIX for official builds
+-    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
++    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "IntelLLVM")
+         set(wxCOMPILER_PREFIX "vc")
+     elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+         set(wxCOMPILER_PREFIX "gcc")

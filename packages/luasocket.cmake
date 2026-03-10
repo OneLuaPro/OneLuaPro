@@ -1,17 +1,26 @@
 # ------------------------------------------------------------------------------
 # luasocket
-set(LUASOCKET_VER "v3.1.0-71-gcb1c0e5")
+#set(LUASOCKET_VER "origin/master")
+set(LUASOCKET_VER "v3.1.0-72-gd6bd8b5")
 ExternalProject_Add(luasocket
   PREFIX ${PROJECT_NAME}/luasocket
   GIT_REPOSITORY https://github.com/OneLuaPro/luasocket.git
   GIT_TAG ${LUASOCKET_VER}
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
+  CMAKE_ARGS
+  "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-G${CMAKE_GENERATOR}"
+  "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
+  "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
+  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_EXE_LINKER_FLAGS=${SUPERBUILD_EXE_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_SHARED_LINKER_FLAGS=${SUPERBUILD_SHARED_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_STATIC_LINKER_FLAGS=${SUPERBUILD_STATIC_LINKER_FLAGS}"
+  ${GENERATOR_ARGS}
 )
-ExternalProject_Add_StepDependencies(luasocket build lua)
+add_dependencies(luasocket lua)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
   "luasocket;luasocket/index.html;Network Support (TCP/UDP/HTTP);🌐;Networking & Security;${LUASOCKET_VER}"
 )
-

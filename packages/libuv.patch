@@ -1,0 +1,52 @@
+diff --git a/src/win/util.c b/src/win/util.c
+index fec07b26..deb56a53 100644
+--- a/src/win/util.c
++++ b/src/win/util.c
+@@ -440,15 +440,38 @@ int uv_clock_gettime(uv_clock_id clock_id, uv_timespec64_t* ts) {
+       ts->tv_nsec = t % 1000000000;
+       return 0;
+     case UV_CLOCK_REALTIME:
+-      GetSystemTimePreciseAsFileTime(&ft);
+-      /* In 100-nanosecond increments from 1601-01-01 UTC because why not? */
+-      t = (int64_t) ft.dwHighDateTime << 32 | ft.dwLowDateTime;
+-      /* Convert to UNIX epoch, 1970-01-01. Still in 100 ns increments. */
+-      t -= 116444736000000000ll;
+-      /* Now convert to seconds and nanoseconds. */
+-      ts->tv_sec = t / 10000000;
+-      ts->tv_nsec = t % 10000000 * 100;
+-      return 0;
++      {
++	/* Define function pointer type for the high-precision API */
++	typedef void (WINAPI *GET_SYSTEM_TIME_PRECISE_FUNC)(LPFILETIME);
++	static GET_SYSTEM_TIME_PRECISE_FUNC pGetSystemTimePreciseAsFileTime = NULL;
++	static int initialized = 0;
++
++	/* Dynamically check for the function to maintain Windows 7 compatibility */
++	if (!initialized) {
++	  HANDLE hKernel32 = GetModuleHandleW(L"kernel32.dll");
++	  if (hKernel32) {
++	    pGetSystemTimePreciseAsFileTime = (GET_SYSTEM_TIME_PRECISE_FUNC)
++	      GetProcAddress(hKernel32, "GetSystemTimePreciseAsFileTime");
++	  }
++	  initialized = 1;
++	}
++
++	/* Fallback: Use high-precision clock on Windows 8+
++	 * or standard precision clock on Windows 7 and earlier. */
++	if (pGetSystemTimePreciseAsFileTime)
++	  pGetSystemTimePreciseAsFileTime(&ft);
++	else
++	  GetSystemTimeAsFileTime(&ft);
++
++	/* In 100-nanosecond increments from 1601-01-01 UTC because why not? */
++	t = (int64_t) ft.dwHighDateTime << 32 | ft.dwLowDateTime;
++	/* Convert to UNIX epoch, 1970-01-01. Still in 100 ns increments. */
++	t -= 116444736000000000ll;
++	/* Now convert to seconds and nanoseconds. */
++	ts->tv_sec = t / 10000000;
++	ts->tv_nsec = t % 10000000 * 100;
++	return 0;
++      }
+   }
+ 
+   return UV_EINVAL;

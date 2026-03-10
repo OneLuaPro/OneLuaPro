@@ -8,8 +8,10 @@ ExternalProject_Add(cliargs
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-G${CMAKE_GENERATOR}"
+  ${GENERATOR_ARGS}
 )
-ExternalProject_Add_StepDependencies(cliargs build lua)
+add_dependencies(cliargs lua)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
   "cliargs;cliargs/README.html;Command-Line Argument Parsing;🛠️;Development Tools;${CLIARGS_VER}"

@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2023-2026 The OneLuaPro project authors
+# Copyright (c) 2023-2026 The OneLuaPro project authors.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in 
@@ -28,8 +28,17 @@
 # Visual Studio is a mutlti-configuration generator
 # https://stackoverflow.com/questions/24460486/
 #
-# Basic instructions for out-of-source build and install
-# ------------------------------------------------------
+# Basic instructions for out-of-source build and install with Intel LLVM
+# ----------------------------------------------------------------------
+# mkdir build64 && cd build64
+# cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icx .. -DCODE_SIGN_ID="Open Source Developer"
+# cmake --build . > 00_log.txt
+# echo %errorlevel%
+# cpack
+#
+# 
+# Basic instructions for out-of-source build and install with MSVC
+# ----------------------------------------------------------------
 # mkdir build64 && cd build64
 # cmake .. -G "Visual Studio 17 2022" -A x64 -DCODE_SIGN_ID="Open Source Developer"
 # cmake --build . --config Release > 00_log.txt
@@ -48,22 +57,81 @@ cmake_minimum_required(VERSION 3.31 FATAL_ERROR)
 
 # OneLuaPro Version
 set(LUA_VERSION_MAJOR 5)
-set(LUA_VERSION_MINOR 4)
-set(LUA_VERSION_PATCH 8)
-set(ONELUAPRO_RELEASE 3)
+set(LUA_VERSION_MINOR 5)
+set(LUA_VERSION_PATCH 0)
+set(ONELUAPRO_RELEASE 0)
 set(ONELUAPRO_CANDIDATE "")	# e.g. "-RC1", leave "" for no RC
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
-project(OneLuaPro
-  LANGUAGES NONE
-  VERSION ${ONELUAPRO_VERSION})
+# ------------------------------------------------------------------------------
+# Define project, use languages here only to get default flags
+project(OneLuaPro LANGUAGES C CXX VERSION ${ONELUAPRO_VERSION})
+
+# ------------------------------------------------------------------------------
+# Statically link the MSVC runtime library (MT/MTd) to eliminate DLL dependencies
+# (like VCRUNTIME140.dll) This creates a standalone executable that runs on
+# machines without the Visual C++ Redistributable. Used by MSVC and IntelLLVM,
+# ignored by all others.
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+# set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+
+# ------------------------------------------------------------------------------
+# Preps for MSVC/IntelLLVM
+set(GENERATOR_ARGS "")
+# MSVC - Visual Studio - Multi-Config Generator
+if(CMAKE_GENERATOR_PLATFORM)
+  list(APPEND GENERATOR_ARGS "-DCMAKE_GENERATOR_PLATFORM=${CMAKE_GENERATOR_PLATFORM}")
+endif()
+# IntelLLVM - Ninja - Single Config Generator
+if(NOT CMAKE_CONFIGURATION_TYPES)
+  list(APPEND GENERATOR_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
+endif()
+# Build options
+option(WITH_IPO "Compile with Interprocedural Optimization" OFF)
+set(SUPERBUILD_IPO_OPTS "")
+# Prepare compiler flags - get defaults
+set(SUPERBUILD_C_FLAGS "${CMAKE_C_FLAGS}")
+set(SUPERBUILD_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+set(SUPERBUILD_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+set(SUPERBUILD_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
+set(SUPERBUILD_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS}")
+#
+if(CMAKE_CXX_COMPILER_ID MATCHES "IntelLLVM")
+  set(SUPERBUILD_C_FLAGS "${SUPERBUILD_C_FLAGS} /O2 /QxHost /EHsc")
+  set(SUPERBUILD_CXX_FLAGS "${SUPERBUILD_CXX_FLAGS} /O2 /QxHost /EHsc")
+  set(SUPERBUILD_EXE_LINKER_FLAGS "${SUPERBUILD_EXE_LINKER_FLAGS} /Qlibs-static")
+  set(SUPERBUILD_SHARED_LINKER_FLAGS "${SUPERBUILD_SHARED_LINKER_FLAGS} /Qlibs-static")
+  if(WITH_IPO)
+    set(SUPERBUILD_IPO_OPTS "/Qipo /Qopt-report:2")
+  endif()
+elseif(MSVC)
+  if(WITH_IPO)
+    set(SUPERBUILD_IPO_OPTS "")
+  endif()
+  # FIXME - add flags here later, if necessary
+else()
+  message(FATAL_ERROR "ERROR: Compiler Vendor still unknown.")
+endif()
+message(STATUS "SUPERBUILD_C_FLAGS = ${SUPERBUILD_C_FLAGS}")
+message(STATUS "SUPERBUILD_CXX_FLAGS = ${SUPERBUILD_CXX_FLAGS}")
+message(STATUS "SUPERBUILD_IPO_OPTS = ${SUPERBUILD_IPO_OPTS}")
+message(STATUS "SUPERBUILD_EXE_LINKER_FLAGS = ${SUPERBUILD_EXE_LINKER_FLAGS}")
+message(STATUS "SUPERBUILD_SHARED_LINKER_FLAGS = ${SUPERBUILD_SHARED_LINKER_FLAGS}")
+message(STATUS "SUPERBUILD_STATIC_LINKER_FLAGS = ${SUPERBUILD_STATIC_LINKER_FLAGS}")
 
 # Make subdir cmake available as module search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 # Bootstrap and post_installation paths
-set(ONELUAPRO_FULL_DISTRO_NAME "OneLuaPro-${ONELUAPRO_VERSION}${ONELUAPRO_CANDIDATE}-${CMAKE_GENERATOR_PLATFORM}")
+if (WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+  set(ONELUAPRO_ARCH "x64")
+elseif (WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 4)
+  set(ONELUAPRO_ARCH "Win32")
+else()
+  message(FATAL_ERROR "Unknown architecture.")
+endif()
+set(ONELUAPRO_FULL_DISTRO_NAME "OneLuaPro-${ONELUAPRO_VERSION}${ONELUAPRO_CANDIDATE}-${ONELUAPRO_ARCH}")
 set(ONELUAPRO_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/${ONELUAPRO_FULL_DISTRO_NAME}")
 set(ONELUAPRO_BUILDROOT "${CMAKE_CURRENT_BINARY_DIR}/ONELUAPRO_BUILDROOT")
 set(CMAKE_VERBOSE_MAKEFILE OFF)
@@ -378,7 +446,12 @@ set(CPACK_WIX_PATCH_FILE
 # ------------------------------------------------------------------------------
 # Include packager and enforce inclusion of runtime system libs
 include(CPack)
-include(InstallRequiredSystemLibraries)
+if(CMAKE_MSVC_RUNTIME_LIBRARY MATCHES "DLL$")
+  message(STATUS "Dynamic runtime detected (DLL): Including System Runtime Libraries.")
+  include(InstallRequiredSystemLibraries)
+else()
+  message(STATUS "Static runtime detected (/MT): Skipping InstallRequiredSystemLibraries.")
+endif()
 
 # ------------------------------------------------------------------------------
 # General Info

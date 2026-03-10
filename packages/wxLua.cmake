@@ -1,6 +1,7 @@
 # ------------------------------------------------------------------------------
 # wxLua
-set(WXLUA_VER "v3.2.0.2-15-gf60e451")
+#set(WXLUA_VER "origin/master")
+set(WXLUA_VER "v3.2.0.2-18-gc5e0cbb")
 ExternalProject_Add(wxLua
   PREFIX ${PROJECT_NAME}/wxLua
   GIT_REPOSITORY https://github.com/OneLuaPro/wxlua.git
@@ -9,7 +10,6 @@ ExternalProject_Add(wxLua
   SOURCE_SUBDIR wxLua
   CMAKE_ARGS
   "-Wno-dev"
-  "-DCMAKE_BUILD_TYPE=Release"
   "-DBUILD_SHARED_LIBS=FALSE"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
   "-DwxLua_LUA_LIBRARY_USE_BUILTIN=FALSE"
@@ -18,8 +18,17 @@ ExternalProject_Add(wxLua
   "-DwxWidgets_ROOT_DIR=${ONELUAPRO_BUILDROOT}"
   "-DwxWidgets_CONFIGURATION=mswu"
   "-DBUILD_USE_SOLUTION_FOLDERS=TRUE"
+  "-G${CMAKE_GENERATOR}"
+  "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
+  "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
+  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS}"
+  "-DCMAKE_CXX_FLAGS=${SUPERBUILD_CXX_FLAGS}"
+  "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
+  "-DCMAKE_SHARED_LINKER_FLAGS=${SUPERBUILD_SHARED_LINKER_FLAGS}"
+  "-DCMAKE_EXE_LINKER_FLAGS=${SUPERBUILD_EXE_LINKER_FLAGS}"
+  ${GENERATOR_ARGS}
 )
-ExternalProject_Add_StepDependencies(wxLua build lua wxWidgets)
+add_dependencies(wxLua lua wxWidgets)
 ExternalProject_Add_Step(wxLua post_install
   COMMENT "Installing wxLua into ${ONELUAPRO_PREFIX}"
   DEPENDEES install

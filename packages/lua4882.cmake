@@ -1,6 +1,7 @@
 # ------------------------------------------------------------------------------
 # lua4882
-set(LUA4882_VER "v1.2.2")
+#set(LUA4882_VER "origin/master")
+set(LUA4882_VER "v1.2.3")
 ExternalProject_Add(lua4882
   PREFIX ${PROJECT_NAME}/lua4882
   GIT_REPOSITORY https://github.com/OneLuaPro/lua4882.git
@@ -8,10 +9,16 @@ ExternalProject_Add(lua4882
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-G${CMAKE_GENERATOR}"
+  "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
+  "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
+  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_EXE_LINKER_FLAGS=${SUPERBUILD_EXE_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_SHARED_LINKER_FLAGS=${SUPERBUILD_SHARED_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  ${GENERATOR_ARGS}
 )
-ExternalProject_Add_StepDependencies(lua4882 build lua)
+add_dependencies(lua4882 lua)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
   "lua4882;lua4882/lua4882.html;GPIB Instrumentation Interface;🔌;Hardware & System Interfaces;${LUA4882_VER}"
 )
-

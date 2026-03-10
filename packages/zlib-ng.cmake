@@ -1,5 +1,9 @@
 # ------------------------------------------------------------------------------
 # zlib-ng - unaltered, original
+set(INTEL_EXTRA_FLAGS "")
+if (CMAKE_C_COMPILER_ID MATCHES "IntelLLVM")
+  set(INTEL_EXTRA_FLAGS "-Wno-overriding-option")
+endif()
 ExternalProject_Add(zlib-ng
   PREFIX ${PROJECT_NAME}/zlib-ng
   GIT_REPOSITORY https://github.com/zlib-ng/zlib-ng.git
@@ -10,4 +14,11 @@ ExternalProject_Add(zlib-ng
   "-DBUILD_SHARED_LIBS=OFF"
   "-DBUILD_TESTING=OFF"
   "-DZLIB_COMPAT=ON"
+  "-G${CMAKE_GENERATOR}"
+  "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
+  "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
+  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS} ${INTEL_EXTRA_FLAGS}" # no IPO with IntelLLVM
+  "-DCMAKE_EXE_LINKER_FLAGS=${SUPERBUILD_EXE_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_STATIC_LINKER_FLAGS=${SUPERBUILD_STATIC_LINKER_FLAGS}"
+  ${GENERATOR_ARGS}
 )

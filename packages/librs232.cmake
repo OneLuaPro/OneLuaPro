@@ -1,6 +1,7 @@
 # ------------------------------------------------------------------------------
 # librs232
-set(LIBRS232_VER "v1.0.3-118-g1171731")
+#set(LIBRS232_VER "origin/master")
+set(LIBRS232_VER "v1.0.3-119-gda35def")
 ExternalProject_Add(librs232
   PREFIX ${PROJECT_NAME}/librs232
   GIT_REPOSITORY https://github.com/OneLuaPro/librs232.git
@@ -8,8 +9,15 @@ ExternalProject_Add(librs232
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-G${CMAKE_GENERATOR}"
+  "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
+  "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
+  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_EXE_LINKER_FLAGS=${SUPERBUILD_EXE_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_SHARED_LINKER_FLAGS=${SUPERBUILD_SHARED_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  ${GENERATOR_ARGS}
 )
-ExternalProject_Add_StepDependencies(librs232 build lua)
+add_dependencies(librs232 lua)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
   "librs232;librs232/librs232.html;Serial Communication (RS-232);🔌;Hardware & System Interfaces;${LIBRS232_VER}"

@@ -5,6 +5,60 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.5.0.0 (Mar 10, 2026)
+----------------------------------------
+- Built with Visual Studio Build Tools 2022 17.14.27
+- Built with Intel C++ Essentials 2025.3.1
+- Built with NI-488.2 2025 Q4 and NI-DAQmx 2026 Q1
+- busted             Updated to v2.3.0-7-g03e3bbc
+- lua_cliargs        Updated to v3.0.2-7-gc4cf5f0
+- crc32c             Updated to v1.1.2-12-g10693bf
+- distro             Updated to v2.1.0
+- dkjson             Updated to v2.8-1-gf1b7c93
+- dlfcn-win32        Updated to v1.4.2-19-g614073d
+- inifile            Updated to v1.1-2-gf7b742d
+- lanes              Updated to v4.0.0-40-g39b1c1c
+- lcomplex           Updated to v1.1.0
+- ldoc               Updated to v1.5.0-23-g38be0fa
+- libffi             Updated to v3.5.2-32-g90b5f66
+- libressl           Updated to v4.2.1-1-gc88f4da
+- librs232           Updated to v1.0.3-119-gda35def
+- libusb             Updated to v1.0.30-rc1-26-g52eccd19
+- libuv              Updated to v1.52.1
+- LPeg               Updated to v1.1.0-6-g645d404
+- lsleep             Updated to v1.05-6-g531d702
+- lsqlite            Updated to v0.9.6-1
+- lua                Updated to v5.5.0-5-g4154493
+- lua4882            Updated to v1.2.3
+- luacheck           Updated to v1.2.0-38-ge47db4a
+- lua-cjson          Updated to v2.1.0.16-16-g7eee8b5
+- luacrc32c          Updated to v1.0.1
+- luadaqmx           Updated to v0.1.2
+- lua-ffi            Updated to v1.1.0-24-gbc3fc37
+- luafilesystem      Updated to v1.9.0-10-g707cb06
+- lua-openssl        Updated to v0.11.0-3-25-gd068708
+- luaping            Updated to v1.1.2
+- luasec             Updated to v1.3.2-5-gc02dd57
+- luaSGF             Updated to v2.0.1
+- luasocket          Updated to v3.1.0-72-gd6bd8b5
+- luassert           Updated to v1.9.0-13-g0e2569d
+- luasystem          Updated to v0.7.0-7-gf61f8f5
+- lua-term           Updated to v0.8-7-g75066e0
+- lua-utf8           Updated to v0.2.1-7-g3ae0b91
+- lua-zlib           Updated to v1.4-6-gdb5b875
+- luv                Updated to v1.51.0-2-41-g509022a
+- mediator_lua       Updated to v1.1.2-0-8-gefa5daf
+- moonusb            Updated to v0.1-30-gebc05a5
+- Penlight           Updated to v1.15.0-19-g9ece351
+- Savitzky-Golay-Filter Updated to v2.0-16-gabed543
+- say                Updated to v1.4.1-2-ge4436ea
+- sqlean             Updated to v0.28.1-11-gd3ea8f4
+- wxLanesBridge      Updated to v1.0.1
+- wxLua              Updated to v3.2.0.2-18-gc5e0cbb
+- wxWidgets          Updated to v3.2.10
+- ZeroBraneStudio    Updated to v2.01-12-g14b97a19
+- api-ms-win-core-path-l1-1-0 Removed from distribution
+
 OneLuaPro Release 5.4.8.3 (Feb 11, 2026)
 ----------------------------------------
 - Built with Visual Studio Build Tools 2022 17.14.26
@@ -214,18 +268,20 @@ OneLuaPro Release 5.4.6.0 (May 27, 2023)
 
 ## Building and Installing OneLuaPro from Source Code
 
-A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022, Version 17.11.5** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
+A complete Microsoft Visual Studio Installation is optional but not strictly necessary. Simply install **Buildtools for Visual Studio 2022** from https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022 and select  the following suggested components for download and installation:
 
+- git for Windows
 - MSVC v143 - VS 2022 C++-x64/x86-Buildtools
-- C++-CMake-Tools for Windows (Version 3.28.0-msvc1)
+- C++-CMake-Tools for Windows
 - Windows 11-SDK (10.0.22621.0) 
+- Intel C++ Essentials (https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html)
+- pandoc (https://github.com/jgm/pandoc/releases)
+- doxygen (https://www.doxygen.nl/download.html)
 
 In addition install the following prerequisites:
 
-- pandoc (https://github.com/jgm/pandoc/releases)
-- doxygen (https://www.doxygen.nl/download.html)
-- National Instruments [NI-488.2](https://www.ni.com/en/support/downloads/drivers/download.ni-488-2.html) 2024 Q3 (Support for C/C++, with all dependencies)
-- National Instruments [NI-DAQmx](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html) 2024 Q3 (Support for C/C++, with all dependencies)
+- National Instruments [NI-488.2](https://www.ni.com/en/support/downloads/drivers/download.ni-488-2.html) (Support for C/C++, with all dependencies)
+- National Instruments [NI-DAQmx](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html) (Support for C/C++, with all dependencies)
 
 Open `Developer Command Prompt for VS 2022` and change drive and directory. Download and unpack sources or simply clone this repository:
 
@@ -236,12 +292,12 @@ git clone https://github.com/OneLuaPro/OneLuaPro.git
 cd OneLuaPro
 ```
 
-CMake strongly encourages out-of-source builds. **OneLuaPro** is an CMake Multiple External Projects build for automatic download, update/patch, configure, build and install.
+CMake strongly encourages out-of-source builds. **OneLuaPro** is an CMake super-build for automatic download, update/patch, configure, build and install.
 
 ```cmd
 mkdir build64 && cd build64
-cmake .. -G "Visual Studio 17 2022" -A x64
-cmake --build . --config Release > 00_log.txt
+cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icx ..
+cmake --build . > 00_log.txt
 ```
 
 Building takes some time, all terminal output is redirected into file `00_log.txt` for later inspection. A successful build is indicated by an `errorlevel` return value of `0` of the last `cmake` command.
@@ -256,6 +312,7 @@ The (unsigned) installer and the zip-archive are created with the following comm
 ```cmd
 cpack -G NSIS64
 cpack -G ZIP
+cpack -G WIX
 ```
 
 The installer offers the choice to update the `PATH`-variable according to the chosen installation directory. For a manual installation using the ZIP-archive the `PATH` environment variable has to be extended by the user in order to make `lua` callable from any Windows command prompt. For the current Windows user and without administrative privileges permanently extend the <u>user-specific</u> part of the `PATH` variable by executing the following [two commands](https://stackoverflow.com/questions/19287379/) in the given order:
@@ -270,7 +327,7 @@ Open a new Windows command prompt and verify if Lua is available:
 
 ```cmd
 C:\Users\John Doe>lua -v
-Lua 5.4.8  Copyright (C) 1994-2025 Lua.org, PUC-Rio
+Lua 5.5.0  Copyright (C) 1994-2025 Lua.org, PUC-Rio
 
 C:\Users\John Doe>
 ```

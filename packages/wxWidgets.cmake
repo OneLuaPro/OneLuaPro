@@ -1,13 +1,26 @@
 # ------------------------------------------------------------------------------
 # wxWidgets
+#
+# NOTICE: All compiler and linker flags are set inside wxWidgets
+#
 ExternalProject_Add(wxWidgets
   PREFIX ${PROJECT_NAME}/wxWidgets
   GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets.git
-  GIT_TAG "v3.2.9"
+  GIT_TAG "v3.2.10"
+  GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
+  PATCH_COMMAND git apply -p1 "${CMAKE_CURRENT_SOURCE_DIR}/packages/wxWidgets.patch"
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
   "-DwxBUILD_SHARED=OFF"
+  "-DwxBUILD_PRECOMP=OFF"
+  "-DwxBUILD_MSVC_MULTIPROC=ON"
+  "-DwxBUILD_OPTIMISE=ON"
+  "-G${CMAKE_GENERATOR}"
+  "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
+  "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"
+  "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
+  ${GENERATOR_ARGS}
 )
 ExternalProject_Add_Step(wxWidgets post_install
   # There is a difference beween wxWidgets v3.2.8.1 and v3.2.9 in the sense of
