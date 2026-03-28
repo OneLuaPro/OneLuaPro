@@ -1,12 +1,17 @@
 # ------------------------------------------------------------------------------
-# libffi
-ExternalProject_Add(libffi
-  PREFIX ${PROJECT_NAME}/libffi
-  GIT_REPOSITORY https://github.com/OneLuaPro/libffi.git
-  # GIT_TAG "origin/master"
-  GIT_TAG "v3.5.2-34-g26c59e0"
+# nghttp2 - unaltered, original
+ExternalProject_Add(nghttp2
+  PREFIX ${PROJECT_NAME}/nghttp2
+  GIT_REPOSITORY https://github.com/nghttp2/nghttp2.git
+  GIT_TAG "v1.68.1"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
+  CMAKE_ARGS
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
+  "-DBUILD_SHARED_LIBS=OFF"
+  "-DBUILD_STATIC_LIBS=ON"
+  "-DENABLE_LIB_ONLY=ON"
+  "-DBUILD_TESTING=OFF"
+  "-DCMAKE_POLICY_DEFAULT_CMP0091=NEW"
   "-G${CMAKE_GENERATOR}"
   "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
   "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"

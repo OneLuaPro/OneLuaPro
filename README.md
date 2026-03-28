@@ -5,6 +5,30 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.5.0.1 (Mar 28, 2026)
+----------------------------------------
+- Compiled for dynamic dispatch (automatic CPU detection)
+- Built with Visual Studio Build Tools 2022 17.14.29
+- Built with Intel C++ Essentials 2025.3.1
+- Built with NI-488.2 2025 Q4 and NI-DAQmx 2026 Q1
+- busted             Updated to v2.3.0-9-gfddc67b
+- lanes              Updated to v4.0.0-42-g70389ef
+- libffi             Updated to v3.5.2-34-g26c59e0
+- libusb             Updated to v1.0.30-rc1-38-gaea2f056
+- luacheck           Updated to v1.2.0-40-g68c84bd
+- lua-ffi            Updated to v1.1.0-31-ga8ae836
+- luv                Updated to v1.52.1-0-30-gb115c8a
+- SQLite             Downgraded to v3.51.3
+- sqlean             Updated to v0.28.1-12-g4141d89
+- lsqlite3           Updated to v0.9.6-2
+- brotli             Added with v1.2.0
+- zstd               Added with v1.5.7
+- nghttp2            Added with v1.68.1
+- ngtcp2             Added with v1.21.0
+- nghttp3            Added with v1.15.0
+- curl               Added with v8.19.0
+- Lua-cURLv3         Added with v0.3.13-6-gbd885bd
+
 OneLuaPro Release 5.5.0.0 (Mar 10, 2026)
 ----------------------------------------
 - Built with Visual Studio Build Tools 2022 17.14.27

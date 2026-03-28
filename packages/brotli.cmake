@@ -1,12 +1,13 @@
 # ------------------------------------------------------------------------------
-# libffi
-ExternalProject_Add(libffi
-  PREFIX ${PROJECT_NAME}/libffi
-  GIT_REPOSITORY https://github.com/OneLuaPro/libffi.git
-  # GIT_TAG "origin/master"
-  GIT_TAG "v3.5.2-34-g26c59e0"
+# brotli - unaltered, original
+ExternalProject_Add(brotli
+  PREFIX ${PROJECT_NAME}/brotli
+  GIT_REPOSITORY https://github.com/google/brotli.git
+  GIT_TAG "v1.2.0"
   GIT_PROGRESS FALSE
-  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
+  CMAKE_ARGS
+  "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
+  "-DBUILD_SHARED_LIBS=OFF"
   "-G${CMAKE_GENERATOR}"
   "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
   "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"

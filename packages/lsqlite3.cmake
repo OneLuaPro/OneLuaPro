@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # lsqlite3
-set(LSQLITE3_VER "v0.9.6-1")
+set(LSQLITE3_VER "v0.9.6-2")
 ExternalProject_Add(lsqlite3
   PREFIX ${PROJECT_NAME}/lsqlite3
   GIT_REPOSITORY https://github.com/OneLuaPro/lsqlite3.git

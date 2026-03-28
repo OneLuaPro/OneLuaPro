@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # lanes
 #set(LANES_VER "origin/master")
-set(LANES_VER "v4.0.0-40-g39b1c1c")
+set(LANES_VER "v4.0.0-42-g70389ef")
 ExternalProject_Add(lanes
   PREFIX ${PROJECT_NAME}/lanes
   GIT_REPOSITORY https://github.com/OneLuaPro/lanes.git

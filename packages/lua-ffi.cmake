@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # lua-ffi
 #set(LUA_FFI_VER "origin/main")
-set(LUA_FFI_VER "v1.1.0-24-gbc3fc37")
+set(LUA_FFI_VER "v1.1.0-31-ga8ae836")
 ExternalProject_Add(lua-ffi
   PREFIX ${PROJECT_NAME}/lua-ffi
   GIT_REPOSITORY https://github.com/OneLuaPro/lua-ffi.git
@@ -21,5 +21,5 @@ ExternalProject_Add(lua-ffi
 add_dependencies(lua-ffi libffi winflexbison dlfcn-win32)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
-  "lua-ffi;lua-ffi/lua-ffi.html;C Foreign Function Interface;🔌;Hardware & System Interfaces;${LUA_FFI_VER}"
+  "lua-ffi;lua-ffi/USAGE.html;C Foreign Function Interface;🔌;Hardware & System Interfaces;${LUA_FFI_VER}"
 )

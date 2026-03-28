@@ -1,6 +1,6 @@
 MIT License
 -------------------------------------------------------------------------------
-Lua           - Copyright (c) 1994–2024 Lua.org, PUC-Rio
+Lua           - Copyright (c) 1994–2025 Lua.org, PUC-Rio
 luasocket     - Copyright (c) 2004-2022 Diego Nehab
 librs232      - Copyright (c) 2011 Petr Stetiar <ynezz@true.cz>, Gaben Ltd.
 luafilesystem - Copyright (c) 2003-2010 Kepler Project
@@ -56,6 +56,11 @@ lunit         - Copyright (c) 2004-2010 Michael Roth
 sqlean        - Copyright (c) 2021-2026 Anton Zhiyanov
 lsqlite3      - Copyright (c) 2002-2016 Tiago Dionizio, Doug Currie
                 Copyright (c) 2021-2025 Javier Guerra Giraldez
+brotli        - Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors
+nghttp2       - Copyright (c) 2012, 2014, 2015, 2016 Tatsuhiro Tsujikawa
+                Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors
+ngtcp2        - Copyright (c) 2016 ngtcp2 contributors
+nghttp3       - Copyright (c) 2019 nghttp3 contributors
 OneLuaPro     - Copyright (c) 2023-2026 The OneLuaPro project authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -114,6 +119,9 @@ crc32c  - Copyright (c) Copyright 2017-2025, The CRC32C Authors.
           See https://github.com/google/crc32c/blob/main/LICENSE
 inifile - Copyright (c) 2011-2024 Bart van Strien. All rights reserved.
           See https://github.com/OneLuaPro/inifile/blob/develop/LICENSE
+zstd    - Copyright (c) Meta Platforms, Inc. and affiliates. All rights
+          reserved.
+	  See https://github.com/facebook/zstd/blob/dev/LICENSE
 
 zlib License
 -------------------------------------------------------------------------------
@@ -261,4 +269,25 @@ the authors (https://www.sqlite.org). "May you do good and not evil. May you
 find forgiveness for yourself and forgive others. May you share freely, never
 taking more than you give."
 
+curl COPYRIGHT AND PERMISSION NOTICE
+-------------------------------------------------------------------------------
+Copyright (c) 1996 - 2026, Daniel Stenberg, <daniel@haxx.se>, and many
+contributors, see the THANKS file.
 
+All rights reserved.
+
+Permission to use, copy, modify, and distribute this software for any purpose
+with or without fee is hereby granted, provided that the above copyright
+notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+OR OTHER DEALINGS IN THE SOFTWARE.
+
+Except as contained in this notice, the name of a copyright holder shall not
+be used in advertising or otherwise to promote the sale, use or other dealings
+in this Software without prior written authorization of the copyright holder.

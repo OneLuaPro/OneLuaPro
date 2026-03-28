@@ -31,7 +31,7 @@
 # Basic instructions for out-of-source build and install with Intel LLVM
 # ----------------------------------------------------------------------
 # mkdir build64 && cd build64
-# cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icx .. -DCODE_SIGN_ID="Open Source Developer"
+# cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icx .. -DCODE_SIGN_ID="Open Source Developer" -DWITH_IPO=OFF
 # cmake --build . > 00_log.txt
 # echo %errorlevel%
 # cpack
@@ -59,7 +59,7 @@ cmake_minimum_required(VERSION 3.31 FATAL_ERROR)
 set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 5)
 set(LUA_VERSION_PATCH 0)
-set(ONELUAPRO_RELEASE 0)
+set(ONELUAPRO_RELEASE 1)
 set(ONELUAPRO_CANDIDATE "")	# e.g. "-RC1", leave "" for no RC
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
@@ -88,6 +88,9 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
   list(APPEND GENERATOR_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 endif()
 # Build options
+# Warning: IPO leads to extremely long build time. IPO is enforced for the Lua
+#          interpreter executables and DLL and typically not needed for the rest
+#          of the distribution (exeptions may apply).
 option(WITH_IPO "Compile with Interprocedural Optimization" OFF)
 set(SUPERBUILD_IPO_OPTS "")
 # Prepare compiler flags - get defaults
@@ -98,8 +101,11 @@ set(SUPERBUILD_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
 set(SUPERBUILD_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS}")
 #
 if(CMAKE_CXX_COMPILER_ID MATCHES "IntelLLVM")
-  set(SUPERBUILD_C_FLAGS "${SUPERBUILD_C_FLAGS} /O2 /QxHost /EHsc")
-  set(SUPERBUILD_CXX_FLAGS "${SUPERBUILD_CXX_FLAGS} /O2 /QxHost /EHsc")
+  # Creates a fat binary with best balance between performance and CPU-support
+  set(SUPERBUILD_OPT_FLAGS "/O2 /fp:precise /arch:AVX /QaxCORE-AVX2,CORE-AVX512")
+  ### set(SUPERBUILD_OPT_FLAGS "/O2")
+  set(SUPERBUILD_C_FLAGS "${SUPERBUILD_C_FLAGS} ${SUPERBUILD_OPT_FLAGS} /EHsc")
+  set(SUPERBUILD_CXX_FLAGS "${SUPERBUILD_CXX_FLAGS} ${SUPERBUILD_OPT_FLAGS} /EHsc")
   set(SUPERBUILD_EXE_LINKER_FLAGS "${SUPERBUILD_EXE_LINKER_FLAGS} /Qlibs-static")
   set(SUPERBUILD_SHARED_LINKER_FLAGS "${SUPERBUILD_SHARED_LINKER_FLAGS} /Qlibs-static")
   if(WITH_IPO)
@@ -146,6 +152,22 @@ foreach(PKG ${ONELUAPRO_PACKAGES})
   message(STATUS "Adding OneLuaPro package : ${BASENAME}")
   include(${PKG})
 endforeach()
+
+
+# include("packages/lua.cmake")
+# include("packages/Penlight.cmake")
+# include("packages/luafilesystem.cmake")
+# include("packages/zlib-ng.cmake")
+# include("packages/libressl.cmake")
+# include("packages/brotli.cmake")
+# include("packages/zstd.cmake")
+# include("packages/nghttp2.cmake")
+# include("packages/nghttp3.cmake")
+# include("packages/ngtcp2.cmake")
+# include("packages/curl.cmake")
+# include("packages/ldoc.cmake")
+# include("packages/Lua-cURLv3.cmake")
+
 
 # ------------------------------------------------------------------------------
 if (CODE_SIGN_ID)
@@ -416,6 +438,9 @@ set(CPACK_NSIS_MENU_LINKS
 # WIX
 # https://cmake.org/cmake/help/latest/cpack_gen/wix.html
 set(CPACK_WIX_UPGRADE_GUID A7B4D8D5-ECF8-43A2-A810-CF803889946E)
+set(CPACK_WIX_MAJOR_UPGRADE_ATTRIBUTES
+    "AllowSameVersionUpgrades=yes;DowngradeErrorMessage=A version of OneLuaPro is already installed. Please uninstall it first."
+)
 set(CPACK_WIX_INSTALL_SCOPE "perMachine")
 set(CPACK_WIX_UI_DIALOG "${PROJECT_SOURCE_DIR}/logo/WixUIDialogBmp.bmp")
 set(CPACK_WIX_UI_BANNER "${PROJECT_SOURCE_DIR}/logo/WixUIBannerBmp.bmp")
