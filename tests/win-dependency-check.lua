@@ -24,7 +24,7 @@ local system_whitelist = {
    ["bcrypt.dll"] = true,   ["wintrust.dll"] = true, ["ntdll.dll"] = true,
    ["dbghelp.dll"] = true,  ["userenv.dll"] = true,  ["opengl32.dll"] = true,
    ["oleacc.dll"] = true,   ["wsock32.dll"] = true,  ["wldap32.dll"] = true,
-   ["normaliz.dll"] = true, ["secur32.dll"] = true,
+   ["normaliz.dll"] = true, ["secur32.dll"] = true,  ["msvbvm60.dll"] = true,
    --3rd party libs
    ["nicaiu.dll"] = true,
 }

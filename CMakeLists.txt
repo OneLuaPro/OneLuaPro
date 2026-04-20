@@ -59,7 +59,7 @@ cmake_minimum_required(VERSION 3.31 FATAL_ERROR)
 set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 5)
 set(LUA_VERSION_PATCH 0)
-set(ONELUAPRO_RELEASE 1)
+set(ONELUAPRO_RELEASE 2)
 set(ONELUAPRO_CANDIDATE "")	# e.g. "-RC1", leave "" for no RC
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
@@ -153,28 +153,11 @@ foreach(PKG ${ONELUAPRO_PACKAGES})
   include(${PKG})
 endforeach()
 
-
-# include("packages/lua.cmake")
-# include("packages/Penlight.cmake")
-# include("packages/luafilesystem.cmake")
-# include("packages/zlib-ng.cmake")
-# include("packages/libressl.cmake")
-# include("packages/brotli.cmake")
-# include("packages/zstd.cmake")
-# include("packages/nghttp2.cmake")
-# include("packages/nghttp3.cmake")
-# include("packages/ngtcp2.cmake")
-# include("packages/curl.cmake")
-# include("packages/ldoc.cmake")
-# include("packages/Lua-cURLv3.cmake")
-
-
 # ------------------------------------------------------------------------------
 if (CODE_SIGN_ID)
   # Findsigntool will define the following variables:
   # signtool_FOUND : True if the system has the signtool executable.
   # signtool_EXECUTABLE : The signtool command executable with full path.
-  # include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/Findsigntool.cmake")
   include(Findsigntool)
   # Export signtool_EXECUTABLE to CPack via adding "CPACK_" prefix
   # The configuration files created by CPack.cmake will contain all the

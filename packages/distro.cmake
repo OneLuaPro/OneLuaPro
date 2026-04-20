@@ -26,7 +26,7 @@ ExternalProject_Add(distro
 add_dependencies(distro lua wxLua)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
-  "distro;distro/README.html;Distribution Management Module;🛠️;Development Tools;${DISTRO_VER}"
+  "distro;distro/README.html;Distribution Management Module;🛡️;Maintenance & System;${DISTRO_VER}"
 )
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 

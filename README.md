@@ -5,6 +5,16 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.5.0.2 (Apr 20, 2026)
+----------------------------------------
+- Compiled for dynamic dispatch (automatic CPU detection)
+- Built with Visual Studio Build Tools 2022 17.14.30
+- Built with Intel C++ Essentials 2025.3.1
+- Built with NI-488.2 2026 Q2 and NI-DAQmx 2026 Q2
+- luacom             Added with v1.4.1-93-g16aebd4
+- vscode-lua-cmake   Added with v3.18.2-0
+- local-lua-debugger-vscode Added with v0.4.0
+
 OneLuaPro Release 5.5.0.1 (Mar 28, 2026)
 ----------------------------------------
 - Compiled for dynamic dispatch (automatic CPU detection)
@@ -302,16 +312,48 @@ A complete Microsoft Visual Studio Installation is optional but not strictly nec
 - pandoc (https://github.com/jgm/pandoc/releases)
 - doxygen (https://www.doxygen.nl/download.html)
 
+For creating MSI-installer packages the WIX-installer framework for `CPack` is necessary:
+
+- .NET (https://dotnet.microsoft.com/en-us/download)
+- WiX Toolset. Install with `dotnet tool install --global wix`
+
+For building, packaging and signing of the supplied [VSCode](https://code.visualstudio.com/) extensions the following tools are necessary:
+
+- Node.js (https://nodejs.org/en/download), without "Tools for Native Modules"
+- VS Code Extensions Manager. Install globally with `npm install -g @vscode/vsce`
+- Code Signing CLI. Install with `dotnet tool install --global sign --prerelease`
+
 In addition install the following prerequisites:
 
 - National Instruments [NI-488.2](https://www.ni.com/en/support/downloads/drivers/download.ni-488-2.html) (Support for C/C++, with all dependencies)
 - National Instruments [NI-DAQmx](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html) (Support for C/C++, with all dependencies)
 
-Open `Developer Command Prompt for VS 2022` and change drive and directory. Download and unpack sources or simply clone this repository:
+Open `Developer Command Prompt for VS 2022`, source the Intel oneAPI compiler settings, change drive and directory. Download and unpack sources or simply clone this repository:
 
 ```cmd
-c:
-cd c:\Temp
+**********************************************************************
+** Visual Studio 2022 Developer Command Prompt v17.14.29
+** Copyright (c) 2025 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+
+[C:\...\BuildTools]> "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
+:: initializing oneAPI environment...
+   Initializing Visual Studio command-line environment...
+   Visual Studio version 17.14.29 environment configured.
+   "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\"
+   Visual Studio command-line environment initialized for: 'x64'
+:  compiler -- latest
+:  dev-utilities -- latest
+:  dpcpp-ct -- latest
+:  dpl -- latest
+:  mkl -- latest
+:  ocloc -- latest
+:  tbb -- latest
+:  umf -- latest
+:: oneAPI environment initialized ::
+
+[C:\...\BuildTools]> cd c:\Temp
 git clone https://github.com/OneLuaPro/OneLuaPro.git
 cd OneLuaPro
 ```
@@ -352,6 +394,7 @@ Open a new Windows command prompt and verify if Lua is available:
 ```cmd
 C:\Users\John Doe>lua -v
 Lua 5.5.0  Copyright (C) 1994-2025 Lua.org, PUC-Rio
+OneLuaPro  Copyright (C) 2023-2026 The OneLuaPro project authors
 
 C:\Users\John Doe>
 ```

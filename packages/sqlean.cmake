@@ -36,5 +36,5 @@ ExternalProject_Add_Step(sqlean post_install
 )
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
-  "sqlean;sqlean/sqlean.html;SQLite Database Interface Extras;📊;Data Processing & Formats;${SQLEAN_VER}"
+  "sqlean;sqlean/sqlean.html;SQLite Database Interface Extras;🗄️;Database Interfaces;${SQLEAN_VER}"
 )
