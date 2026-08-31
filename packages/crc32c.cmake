@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# crc32c - unaltered, original
+# crc32c
 ExternalProject_Add(crc32c
   PREFIX ${PROJECT_NAME}/crc32c
   GIT_REPOSITORY https://github.com/OneLuaPro/crc32c.git

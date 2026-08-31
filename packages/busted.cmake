@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # busted
 # set(BUSTED_VER "origin/master")
-set(BUSTED_VER "v2.3.0-9-gfddc67b")
+set(BUSTED_VER "v2.3.0-13-g3dde98c")
 ExternalProject_Add(busted
   PREFIX ${PROJECT_NAME}/busted
   GIT_REPOSITORY https://github.com/OneLuaPro/busted.git

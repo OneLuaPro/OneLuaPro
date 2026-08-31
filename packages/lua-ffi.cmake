@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # lua-ffi
 #set(LUA_FFI_VER "origin/main")
-set(LUA_FFI_VER "v1.1.0-31-ga8ae836")
+set(LUA_FFI_VER "v1.3.0-27-g5a97f18")
 ExternalProject_Add(lua-ffi
   PREFIX ${PROJECT_NAME}/lua-ffi
   GIT_REPOSITORY https://github.com/OneLuaPro/lua-ffi.git

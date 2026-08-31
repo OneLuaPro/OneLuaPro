@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # say
 #set(SAY_VER "origin/master")
-set(SAY_VER "v1.4.1-2-ge4436ea")
+set(SAY_VER "v1.4.1-8-gec0f5cf")
 ExternalProject_Add(say
   PREFIX ${PROJECT_NAME}/say
   GIT_REPOSITORY https://github.com/OneLuaPro/say.git

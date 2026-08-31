@@ -18,11 +18,3 @@ ExternalProject_Add(zstd
   "-DCMAKE_STATIC_LINKER_FLAGS=${SUPERBUILD_STATIC_LINKER_FLAGS}"
   ${GENERATOR_ARGS}
 )
-ExternalProject_Add_Step(zstd post_install
-  # Rename static lib after install
-  COMMENT "Renaming zstd_static.lib into zstd.lib ..."
-  DEPENDEES install
-  # rename
-  COMMAND ${CMAKE_COMMAND} -E rename ${ONELUAPRO_BUILDROOT}/lib/zstd_static.lib
-  ${ONELUAPRO_BUILDROOT}/lib/zstd.lib
-)

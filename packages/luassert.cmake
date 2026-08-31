@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # luassert
 #set(LUASSERT_VER "origin/master")
-set(LUASSERT_VER "v1.9.0-13-g0e2569d")
+set(LUASSERT_VER "v1.9.0-19-ga67e478")
 ExternalProject_Add(luassert
   PREFIX ${PROJECT_NAME}/luassert
   GIT_REPOSITORY https://github.com/OneLuaPro/luassert.git

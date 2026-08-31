@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # lunit
 #set(LUNIT_VER "origin/master")
-set(LUNIT_VER "0.8.1-1-g61e9b3a")
+set(LUNIT_VER "0.8.2-2-g862e0c3")
 ExternalProject_Add(lunit
   PREFIX ${PROJECT_NAME}/lunit
   GIT_REPOSITORY https://github.com/OneLuaPro/lunit.git

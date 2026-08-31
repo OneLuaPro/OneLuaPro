@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # librs232
 #set(LIBRS232_VER "origin/master")
-set(LIBRS232_VER "v1.0.3-119-gda35def")
+set(LIBRS232_VER "v1.0.4-0")
 ExternalProject_Add(librs232
   PREFIX ${PROJECT_NAME}/librs232
   GIT_REPOSITORY https://github.com/OneLuaPro/librs232.git

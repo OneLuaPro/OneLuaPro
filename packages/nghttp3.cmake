@@ -3,7 +3,7 @@
 ExternalProject_Add(nghttp3
   PREFIX ${PROJECT_NAME}/nghttp3
   GIT_REPOSITORY https://github.com/ngtcp2/nghttp3.git
-  GIT_TAG "v1.15.0"
+  GIT_TAG "v1.18.0"
   GIT_PROGRESS FALSE
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"

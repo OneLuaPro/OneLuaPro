@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Penlight
 #set(PENLIGHT_VER "origin/master")
-set(PENLIGHT_VER "1.15.0-19-g9ece351")
+set(PENLIGHT_VER "1.15.0-32-g2bf88a8")
 ExternalProject_Add(Penlight
   PREFIX ${PROJECT_NAME}/Penlight
   GIT_REPOSITORY https://github.com/OneLuaPro/Penlight.git

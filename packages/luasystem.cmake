@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # luasystem
-set(LUASYSTEM_VER "v0.7.0-7-gf61f8f5")
+set(LUASYSTEM_VER "v0.7.1-13-g6a58a4a")
 ExternalProject_Add(luasystem
   PREFIX ${PROJECT_NAME}/luasystem
   GIT_REPOSITORY https://github.com/OneLuaPro/luasystem.git

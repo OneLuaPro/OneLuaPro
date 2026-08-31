@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # lua-openssl
 #set(LUA_OPENSSL_VER "origin/master")
-set(LUA_OPENSSL_VER "0.11.0-3-25-gd068708")
+set(LUA_OPENSSL_VER "0.11.1-1-38-gde06c29")
 ExternalProject_Add(lua-openssl
   PREFIX ${PROJECT_NAME}/lua-openssl
   GIT_REPOSITORY https://github.com/OneLuaPro/lua-openssl.git

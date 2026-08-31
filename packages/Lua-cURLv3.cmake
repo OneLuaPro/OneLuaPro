@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Lua-cURLv3
 #set(LUA_CURLV3_VER "origin/master")
-set(LUA_CURLV3_VER "v0.3.13-6-gbd885bd")
+set(LUA_CURLV3_VER "v0.3.13-7-g33a0976")
 ExternalProject_Add(Lua-cURLv3
   PREFIX ${PROJECT_NAME}/Lua-cURLv3
   GIT_REPOSITORY https://github.com/OneLuaPro/Lua-cURLv3.git

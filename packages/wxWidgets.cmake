@@ -6,7 +6,7 @@
 ExternalProject_Add(wxWidgets
   PREFIX ${PROJECT_NAME}/wxWidgets
   GIT_REPOSITORY https://github.com/wxWidgets/wxWidgets.git
-  GIT_TAG "v3.2.10"
+  GIT_TAG "v3.2.11"
   GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
   PATCH_COMMAND git apply -p1 "${CMAKE_CURRENT_SOURCE_DIR}/packages/wxWidgets.patch"

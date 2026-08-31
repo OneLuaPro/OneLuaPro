@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # argparse
-set(ARGPARSE_VER "0.7.1-14-g395f616")
+set(ARGPARSE_VER "0.7.2-10-g5f03dcf")
 ExternalProject_Add(argparse
   PREFIX ${PROJECT_NAME}/argparse
   GIT_REPOSITORY https://github.com/OneLuaPro/argparse.git

@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # luasec
 #set(LUASEC_VER "origin/master")
-set(LUASEC_VER "v1.3.2-5-gc02dd57")
+set(LUASEC_VER "v1.3.2-17-gcb9e38c")
 ExternalProject_Add(luasec
   PREFIX ${PROJECT_NAME}/luasec
   GIT_REPOSITORY https://github.com/OneLuaPro/luasec.git

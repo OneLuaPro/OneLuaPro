@@ -1,6 +1,6 @@
 MIT License
 -------------------------------------------------------------------------------
-Lua           - Copyright (c) 1994–2025 Lua.org, PUC-Rio
+Lua           - Copyright (c) 1994–2026 Lua.org, PUC-Rio
 luasocket     - Copyright (c) 2004-2022 Diego Nehab
 librs232      - Copyright (c) 2011 Petr Stetiar <ynezz@true.cz>, Gaben Ltd.
 luafilesystem - Copyright (c) 2003-2010 Kepler Project
@@ -21,23 +21,23 @@ luadaqmx      - Copyright (c) 2024-2026 Kritzel Kratzel
 lua4882       - Copyright (c) 2024-2026 Kritzel Kratzel
 LPeg          - Copyright (c) 2007-2023 Lua.org, PUC-Rio
 lua-ffi       - Copyright (c) 2022-2024 Jianhui Zhao <zhaojh329@gmail.com>
-dlfcn-win32   - Copyright (2) 2014-2025 The dlfcn-win32 authors
+dlfcn-win32   - Copyright (2) 2014-2026 The dlfcn-win32 authors
 ZeroBraneStudio - Copyright (c) 2011-2024 Paul Kulchenko <paul@kulchenko.com>
 Penlight      - Copyright (c) 2009-2016 Steve Donovan, David Manura
                               2016-2014 The Penlight authors
-lcomplex      - Copyright (c) 2018 Luiz Henrique de Figueiredo.
-                          (c) 2025 Kritzel Kratzel for OneLuaPro.
+lcomplex      - Copyright (c) 2018 Luiz Henrique de Figueiredo
+                          (c) 2025-2026 Kritzel Kratzel
 Savitzky-Golay-Filter - Copyright (c) 2025-2026 Tugbars
 luaSGF        - Copyright (c) 2025-2026 Kritzel Kratzel
 luacrc32c     - Copyright (c) 2026 Kritzel Kratzel
-lua-zlib      - Copyright (c) 2025 Brian Maher
+lua-zlib      - Copyright (c) 2025-2026 Brian Maher
 lua-cjson     - Copyright (c) 2010-2024 Mark Pulford <mark@kyne.com.au>
 luasec        - Copyright (c) 2006-2023 Bruno Silvestre, UFG
-lua-openssl   - Copyright (c) 2011 - 2025 zhaozg, <zhaozg@gmail.com>
+lua-openssl   - Copyright (c) 2011-2026 zhaozg, <zhaozg@gmail.com>
 ldoc          - Copyright (c) 2011-2012 Steve Donovan
                 Copyright (c) 2013-2024 The LDoc authors
 luasystem     - Copyright (c) 2016-2024 Oscar Lim
-                Copyright (c) 2024-2025 The luasystem project authors
+                Copyright (c) 2024-2026 The luasystem project authors
 lua_cliargs   - Copyright (c) 2012-2015 Ahmad Amireh
                 Copyright (c) 2015-2023 The lua_cliargs project authors
 dkjson        - Copyright (c) 2010-2024 David Heiko Kolf
@@ -47,7 +47,7 @@ luassert      - Copyright (c) 2012 Olivine Labs, LLC.
                 Copyright (c) 2013-2024 The say project authors
 mediator_lua  - Copyright (c) 2012-2020 Olivine Labs, LLC.
 lua-term      - Copyright (c) 2012-2024 Rob Hoelz <rob@hoelzro.net>
-lua-utf8      - Copyright (c) 2014-2025 Xavier Wang
+lua-utf8      - Copyright (c) 2014-2026 Xavier Wang
 busted        - Copyright (c) 2012-2020 Olivine Labs, LLC.
                 Copyright (c) 2020-2026 The busted project authors
 distro        - Copyright (c) 2025-2026 The OneLuaPro project authors
@@ -55,7 +55,7 @@ lunit         - Copyright (c) 2004-2010 Michael Roth
                 Copyright (c) 2011-2018 Doug Currie
 sqlean        - Copyright (c) 2021-2026 Anton Zhiyanov
 lsqlite3      - Copyright (c) 2002-2016 Tiago Dionizio, Doug Currie
-                Copyright (c) 2021-2025 Javier Guerra Giraldez
+                Copyright (c) 2021-2026 Javier Guerra Giraldez
 brotli        - Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors
 nghttp2       - Copyright (c) 2012, 2014, 2015, 2016 Tatsuhiro Tsujikawa
                 Copyright (c) 2012, 2014, 2015, 2016 nghttp2 contributors
@@ -69,6 +69,9 @@ vscode-lua    - Copyright (c) 2019-2026 sumneko
 local-lua-dbg - Copyright (c) 2019-2022 Tom Blind
                 Copyright (c) 2023-2025 Ismoh
                 Copyright (c) 2026      The OneLuaPro project authors
+libyaml       - Copyright (c) 2006-2016 Kirill Simonov
+		Copyright (c) 2017-2020 Ingy doet Net
+		Copyright (c) 2020-2026 The YAML project authors
 OneLuaPro     - Copyright (c) 2023-2026 The OneLuaPro project authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -107,7 +110,7 @@ wxLua - https://github.com/pkulchenko/wxlua/blob/master/wxLua/docs/licence.txt
 
 National Instruments / Data Acquisition (NI-DAQmx) SDK
 -------------------------------------------------------------------------------
-Copyright (c) National Instruments 2003-2025.  All Rights Reserved.
+Copyright (c) National Instruments 2003-2026.  All Rights Reserved.
 https://www.ni.com/en/about-ni/legal/software-license-agreement.html
 
 National Instruments NI-488.2 API
@@ -118,12 +121,12 @@ https://www.ni.com/en/about-ni/legal/software-license-agreement.html
 BSD 2-Clause License
 -------------------------------------------------------------------------------
 Savitzky-Golay-Filter - Copyright (c) 2012-2019, CNRS-UM LIRMM, CNRS-AIST JRL
-                        Copyright (c) 2025 Tugbars Heptaskin
+                        Copyright (c) 2025-2026 Tugbars Heptaskin
 See https://github.com/Tugbars/Savitzky-Golay-Filter/blob/main/LICENSE.txt
 
 BSD 3-Clause License
 -------------------------------------------------------------------------------
-crc32c  - Copyright (c) Copyright 2017-2025, The CRC32C Authors.
+crc32c  - Copyright (c) Copyright 2017-2026, The CRC32C Authors.
           See https://github.com/google/crc32c/blob/main/LICENSE
 inifile - Copyright (c) 2011-2024 Bart van Strien. All rights reserved.
           See https://github.com/OneLuaPro/inifile/blob/develop/LICENSE

@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # dkjson
 # set(DKJSON_VER "origin/master")
-set(DKJSON_VER "v2.8-1-gf1b7c93")
+set(DKJSON_VER "v2.11")
 ExternalProject_Add(dkjson
   PREFIX ${PROJECT_NAME}/dkjson
   GIT_REPOSITORY https://github.com/OneLuaPro/dkjson.git

@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # luacheck
 #set(LUACHECK_VER "origin/master")
-set(LUACHECK_VER "v1.2.0-40-g68c84bd")
+set(LUACHECK_VER "v1.2.0-44-gd0e4660")
 ExternalProject_Add(luacheck
   PREFIX ${PROJECT_NAME}/luacheck
   GIT_REPOSITORY https://github.com/OneLuaPro/luacheck.git

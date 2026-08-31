@@ -3,7 +3,7 @@
 ExternalProject_Add(libressl
   PREFIX ${PROJECT_NAME}/libressl
   GIT_REPOSITORY https://github.com/OneLuaPro/libressl.git
-  GIT_TAG "v4.2.1-1-gc88f4da"
+  GIT_TAG "v4.3.2"
   GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"

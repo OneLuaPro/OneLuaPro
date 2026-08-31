@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # cliargs
-set(CLIARGS_VER "v3.0.2-7-gc4cf5f0")
+set(CLIARGS_VER "v3.0.2-14-gdb1aaf6")
 ExternalProject_Add(cliargs
   PREFIX ${PROJECT_NAME}/cliargs
   GIT_REPOSITORY https://github.com/OneLuaPro/lua_cliargs.git

@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # luasocket
 #set(LUASOCKET_VER "origin/master")
-set(LUASOCKET_VER "v3.1.0-72-gd6bd8b5")
+set(LUASOCKET_VER "v3.1.0-76-g7a8bda7")
 ExternalProject_Add(luasocket
   PREFIX ${PROJECT_NAME}/luasocket
   GIT_REPOSITORY https://github.com/OneLuaPro/luasocket.git

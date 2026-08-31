@@ -5,6 +5,46 @@ This is the head repository of [OneLuaPro](https://github.com/OneLuaPro). For mo
 ## Change Log
 
 ```txt
+OneLuaPro Release 5.5.1.0 (Aug 31, 2026)
+----------------------------------------
+- Compiled for dynamic dispatch (automatic CPU detection)
+- Built with Visual Studio Build Tools 2022 17.14.39
+- Built with Intel oneAPI Toolkit 2026.1.0.191
+- Built with NI-488.2 2026 Q3 and NI-DAQmx 2026 Q3
+- libyaml            Added with v0.2.6-rc.1
+- lyaml              Added with v6.2.9-0
+- ldoc               Updated to v1.5.0-27-g5ab93b2
+- luafilesystem      Updated to v1.9.0-17-g9fff3d6
+- Penlight           Updated to v1.15.0-32-g2bf88a8
+- argparse           Updated to v0.7.2-10-g5f03dcf
+- lua_cliargs        Updated to v3.0.2-14-gdb1aaf6
+- dkjson             Updated to v2.11
+- libffi             Updated to v3.8.0-28-g25787509
+- libressl           Updated to v4.3.2
+- lua-cjson          Updated to v2.1.0.19-14-gcc07b69
+- libusb             Updated to v1.0.30-168-g0d6c6748
+- luv                Updated to v1.52.1-0-38-g9e86223
+- curl               Updated to v8.21.0
+- librs232           Updated to v1.0.4-0
+- luasocket          Updated to v3.1.0-76-g7a8bda7
+- luacheck           Updated to v1.2.0-44-gd0e4660
+- busted             Updated to v2.3.0-13-g3dde98c
+- lua-ffi            Updated to v1.3.0-27-g5a97f18
+- luasec             Updated to v1.3.2-17-gcb9e38c
+- lua-openssl        Updated to v0.11.1-1-38-gde06c29
+- luassert           Updated to v1.9.0-19-ga67e478
+- luasystem          Updated to v0.7.1-13-g6a58a4a
+- luautf8            Updated to v0.2.1-25-g5b25f4c
+- lunit              Updated to v0.8.2-2-g862e0c3
+- nghttp2            Updated to v1.70.0
+- nghttp3            Updated to v1.18.0
+- say                Updated to v1.4.1-8-gec0f5cf
+- wxWidgets          Updated to v3.2.11
+- vscode-lua-cmake   Updated to v3.19.1-0
+- SQLite             Updated to v3.53.4
+- sqlean             Updated to v0.28.4-16-gf7c1358
+- lsqlite3           Updated to v0.9.7-0
+
 OneLuaPro Release 5.5.0.2 (Apr 20, 2026)
 ----------------------------------------
 - Compiled for dynamic dispatch (automatic CPU detection)
@@ -37,7 +77,7 @@ OneLuaPro Release 5.5.0.1 (Mar 28, 2026)
 - ngtcp2             Added with v1.21.0
 - nghttp3            Added with v1.15.0
 - curl               Added with v8.19.0
-- Lua-cURLv3         Added with v0.3.13-6-gbd885bd
+- Lua-cURLv3         Added with v0.3.13-7-g33a0976
 
 OneLuaPro Release 5.5.0.0 (Mar 10, 2026)
 ----------------------------------------

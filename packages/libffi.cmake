@@ -4,7 +4,7 @@ ExternalProject_Add(libffi
   PREFIX ${PROJECT_NAME}/libffi
   GIT_REPOSITORY https://github.com/OneLuaPro/libffi.git
   # GIT_TAG "origin/master"
-  GIT_TAG "v3.5.2-34-g26c59e0"
+  GIT_TAG "v3.8.0-28-g25787509"
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
   "-G${CMAKE_GENERATOR}"

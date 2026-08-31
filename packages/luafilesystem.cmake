@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # luafilesystem
 #set(LUAFILESYSTEM_VER "origin/master")
-set(LUAFILESYSTEM_VER "v1_9_0-10-g707cb06")
+set(LUAFILESYSTEM_VER "v1_9_0-17-g9fff3d6")
 ExternalProject_Add(luafilesystem
   PREFIX ${PROJECT_NAME}/luafilesystem
   GIT_REPOSITORY https://github.com/OneLuaPro/luafilesystem.git

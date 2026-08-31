@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Lua interpreter, libs and all basic stuff
 #set(LUA_VER "origin/main")
-set(LUA_VER "v5.5.0-5-g4154493")
+set(LUA_VER "v5.5.1-0")
 # Enforce IPO with Intel compiler for Lua interpreter binaries
 if(CMAKE_C_COMPILER_ID STREQUAL "IntelLLVM" AND NOT SUPERBUILD_IPO_OPTS)
   set(LUA_IPO_OPTS "/Qipo /Qopt-report:2")

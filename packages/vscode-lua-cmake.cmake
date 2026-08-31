@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # vscode-lua-cmake
 #set(VSCODE_LUA_CMAKE_VER "origin/master")
-set(VSCODE_LUA_CMAKE_VER "v3.18.2-0")
+set(VSCODE_LUA_CMAKE_VER "v3.19.1-0")
 ExternalProject_Add(vscode-lua-cmake
   PREFIX ${PROJECT_NAME}/vscode-lua-cmake
   GIT_REPOSITORY https://github.com/OneLuaPro/vscode-lua-cmake.git
@@ -11,6 +11,7 @@ ExternalProject_Add(vscode-lua-cmake
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
   "-DCODE_SIGN_ID=${CODE_SIGN_ID}"
   "-DSIGN_PACKAGE=ON"
+  "-DSIGN_EXECUTABLE=ON"
   "-G${CMAKE_GENERATOR}"
   "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
   "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}"

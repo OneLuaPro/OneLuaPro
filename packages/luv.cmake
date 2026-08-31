@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # luv
 #set(LUV_VER "origin/master")
-set(LUV_VER "1.52.1-0-30-gb115c8a")
+set(LUV_VER "1.52.1-0-38-g9e86223")
 ExternalProject_Add(luv
   PREFIX ${PROJECT_NAME}/luv
   GIT_REPOSITORY https://github.com/OneLuaPro/luv.git
