@@ -1,0 +1,254 @@
+diff --git a/.github/config/extensions/aws.cmake b/.github/config/extensions/aws.cmake
+index 0c4779e314..cf9536263b 100644
+--- a/.github/config/extensions/aws.cmake
++++ b/.github/config/extensions/aws.cmake
+@@ -1,6 +1,6 @@
+ if (NOT MINGW AND NOT ${WASM_ENABLED})
+     duckdb_extension_load(aws
+-            LOAD_TESTS
++            # LOAD_TESTS
+             GIT_URL https://github.com/duckdb/duckdb-aws
+             GIT_TAG 28c853c084a6e3acd36d7b8018c42438bb8c5a33
+             )
+diff --git a/.github/config/extensions/azure.cmake b/.github/config/extensions/azure.cmake
+index f1489e5260..b18ed8eb55 100644
+--- a/.github/config/extensions/azure.cmake
++++ b/.github/config/extensions/azure.cmake
+@@ -1,6 +1,6 @@
+ if (NOT MINGW AND NOT ${WASM_ENABLED})
+   duckdb_extension_load(azure
+-        LOAD_TESTS
++        # LOAD_TESTS
+         GIT_URL https://github.com/duckdb/duckdb-azure
+         GIT_TAG 003214c96d0caa39d5c3e27a9e1976a0692c7d37
+   )
+diff --git a/.github/config/extensions/excel.cmake b/.github/config/extensions/excel.cmake
+index 1c775afdc2..0b10488f7c 100644
+--- a/.github/config/extensions/excel.cmake
++++ b/.github/config/extensions/excel.cmake
+@@ -1,5 +1,5 @@
+ duckdb_extension_load(excel
+-    LOAD_TESTS
++    # LOAD_TESTS
+     GIT_URL https://github.com/duckdb/duckdb-excel
+     GIT_TAG f4c72b5ef04a03b3a78a95b5a2ee94ba93e3178d
+     INCLUDE_DIR src/excel/include
+diff --git a/.github/config/extensions/fts.cmake b/.github/config/extensions/fts.cmake
+index b931c926f7..6694c84598 100644
+--- a/.github/config/extensions/fts.cmake
++++ b/.github/config/extensions/fts.cmake
+@@ -1,6 +1,7 @@
+ duckdb_extension_load(fts
+-        LOAD_TESTS
+-        DONT_LINK
++        INCLUDE_DIR extension/fts/include
++        #LOAD_TESTS
++        #DONT_LINK
+         GIT_URL https://github.com/duckdb/duckdb-fts
+         GIT_TAG 6814ec9a7d5fd63500176507262b0dbf7cea0095
+         TEST_DIR test/sql
+diff --git a/.github/config/extensions/httpfs.cmake b/.github/config/extensions/httpfs.cmake
+index d13dd3acb1..8a477b8bed 100644
+--- a/.github/config/extensions/httpfs.cmake
++++ b/.github/config/extensions/httpfs.cmake
+@@ -1,5 +1,5 @@
+ duckdb_extension_load(httpfs
+-    LOAD_TESTS
++    # LOAD_TESTS
+     GIT_URL https://github.com/duckdb/duckdb-httpfs
+     GIT_TAG 4bc690dba4496c765777a0269d48fdbaff7cdc11
+     APPLY_PATCHES
+diff --git a/.github/config/extensions/mysql_scanner.cmake b/.github/config/extensions/mysql_scanner.cmake
+index 6750319fea..8cefffc8e8 100644
+--- a/.github/config/extensions/mysql_scanner.cmake
++++ b/.github/config/extensions/mysql_scanner.cmake
+@@ -1,9 +1,10 @@
+ if (NOT MINGW AND NOT ${WASM_ENABLED})
+     duckdb_extension_load(mysql_scanner
++	    APPLY_PATCHES
+-            DONT_LINK
+-            LOAD_TESTS
++            #DONT_LINK
++            #LOAD_TESTS
+             GIT_URL https://github.com/duckdb/duckdb-mysql
+             GIT_TAG 99c2e091b153b7f1cbd449988332232e75684b41
+             SUBMODULES database-connector
+             )
+ endif()
+diff --git a/.github/config/extensions/odbc_scanner.cmake b/.github/config/extensions/odbc_scanner.cmake
+index 799ddc5a31..1f8c3f9a9f 100644
+--- a/.github/config/extensions/odbc_scanner.cmake
++++ b/.github/config/extensions/odbc_scanner.cmake
+@@ -1,7 +1,8 @@
+ if (NOT MINGW AND NOT ${WASM_ENABLED})
+     duckdb_extension_load(odbc_scanner
++            APPLY_PATCHES
+-            DONT_LINK
++            # DONT_LINK
+             GIT_URL https://github.com/duckdb/odbc-scanner
+             GIT_TAG 7ce06c95c94b46a6984968439ca31ce968a2f473
+             )
+ endif()
+diff --git a/.github/config/extensions/postgres_scanner.cmake b/.github/config/extensions/postgres_scanner.cmake
+index 0e2b2e7cda..93f857e13f 100644
+--- a/.github/config/extensions/postgres_scanner.cmake
++++ b/.github/config/extensions/postgres_scanner.cmake
+@@ -2,9 +2,10 @@
+ #       uses a remote rds server but that's not something we want to run here.
+ if (NOT MINGW AND NOT ${WASM_ENABLED})
+     duckdb_extension_load(postgres_scanner
++	    APPLY_PATCHES
+-            DONT_LINK
++            #DONT_LINK
+             GIT_URL https://github.com/duckdb/duckdb-postgres
+             GIT_TAG 318dabb2474fc3789b0199301a2e661e19c1b4fc
+             SUBMODULES database-connector
+             )
+ endif()
+diff --git a/.github/config/extensions/sqlite_scanner.cmake b/.github/config/extensions/sqlite_scanner.cmake
+index 3d7a1a3693..e7151381a2 100644
+--- a/.github/config/extensions/sqlite_scanner.cmake
++++ b/.github/config/extensions/sqlite_scanner.cmake
+@@ -1,12 +1,13 @@
+ # Static linking on windows does not properly work due to symbol collision
+-if (WIN32)
+-    set(STATIC_LINK_SQLITE "DONT_LINK")
+-else ()
+-    set(STATIC_LINK_SQLITE "")
+-endif()
++#if (WIN32)
++#    set(STATIC_LINK_SQLITE "DONT_LINK")
++#else ()
++#    set(STATIC_LINK_SQLITE "")
++#endif()
+ duckdb_extension_load(sqlite_scanner
++        APPLY_PATCHES
+-        ${STATIC_LINK_SQLITE} LOAD_TESTS
++        # ${STATIC_LINK_SQLITE} LOAD_TESTS
+         GIT_URL https://github.com/duckdb/duckdb-sqlite
+         GIT_TAG 5274128259f73166c1f37f01190a4601f84c5525
+         SUBMODULES database-connector
+         )
+diff --git a/.github/config/extensions/spatial.cmake b/.github/config/extensions/spatial.cmake
+index f165b9dcae..7a01a33398 100644
+--- a/.github/config/extensions/spatial.cmake
++++ b/.github/config/extensions/spatial.cmake
+@@ -1,10 +1,11 @@
+ if (${BUILD_COMPLETE_EXTENSION_SET})
+ ################# SPATIAL
+ duckdb_extension_load(spatial
+-    DONT_LINK LOAD_TESTS
++    APPLY_PATCHES
++    # DONT_LINK LOAD_TESTS
+     GIT_URL https://github.com/duckdb/duckdb-spatial
+     GIT_TAG 04270fe7bb4eb412765cce8afde0276a9d81d3ba
+     INCLUDE_DIR src/spatial
+-    TEST_DIR test/sql
++    # TEST_DIR test/sql
+     )
+ endif()
+diff --git a/.github/config/extensions/vss.cmake b/.github/config/extensions/vss.cmake
+index 07e6c01faa..6cfa7cdcb6 100644
+--- a/.github/config/extensions/vss.cmake
++++ b/.github/config/extensions/vss.cmake
+@@ -1,8 +1,8 @@
+ duckdb_extension_load(vss
+-        LOAD_TESTS
+-        DONT_LINK
++        # LOAD_TESTS
++        # DONT_LINK
+         GIT_URL https://github.com/duckdb/duckdb-vss
+         GIT_TAG b833341c8737fd3f3558c7720cc575ae8fc82598
+-        TEST_DIR test/sql
++        # TEST_DIR test/sql
+         APPLY_PATCHES
+     )
+diff --git a/extension/extension_build_tools.cmake b/extension/extension_build_tools.cmake
+index 6a0507098a..c1bcf6d744 100644
+--- a/extension/extension_build_tools.cmake
++++ b/extension/extension_build_tools.cmake
+@@ -328,7 +328,37 @@ macro(register_external_extension NAME URL COMMIT DONT_LINK DONT_BUILD LOAD_TEST
+         message(STATUS "Load extension '${NAME}' from local path \"${${NAME}_extension_fc_SOURCE_DIR}\"")
+     else()
+         if (${APPLY_PATCHES})
+-            set(PATCH_COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/scripts/apply_extension_patches.py ${CMAKE_SOURCE_DIR}/.github/patches/extensions/${NAME}/)
++	    # Previous code using python
++	    #set(PATCH_COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/scripts/apply_extension_patches.py ${CMAKE_SOURCE_DIR}/.github/patches/extensions/${NAME}/)
++
++	    # New code simply using cmake
++	    # 1. Find all .patch files in the extension-specific directory
++            set(PATCH_DIR "${CMAKE_SOURCE_DIR}/.github/patches/extensions/${NAME}")
++            file(GLOB PATCH_FILES_LIST "${PATCH_DIR}/*.patch")
++
++            # 2. Sort patches alphabetically to ensure consistent and correct application order
++            list(SORT PATCH_FILES_LIST)
++
++            # 3. Dynamically construct the PATCH_COMMAND chain for FetchContent
++            set(PATCH_COMMAND "")
++            foreach(PATCH_FILE IN LISTS PATCH_FILES_LIST)
++                # FetchContent requires subsequent commands to be separated by the "COMMAND" keyword
++                if(NOT "${PATCH_COMMAND}" STREQUAL "")
++                    list(APPEND PATCH_COMMAND COMMAND)
++                endif()
++                # Idempotent: skip re-applying a patch that's already present,
++                # so a repeated populate of an already-patched source tree
++                # doesn't hard-fail the configure step.
++                list(APPEND PATCH_COMMAND ${CMAKE_COMMAND}
++                     -DGIT_EXECUTABLE=${GIT_EXECUTABLE}
++                     -DPATCH_FILE=${PATCH_FILE}
++                     -P "${CMAKE_SOURCE_DIR}/scripts/apply_patch_if_needed.cmake")
++            endforeach()
++
++            # Warning fallback if the directory contains no patches
++            if("${PATCH_COMMAND}" STREQUAL "")
++                message(WARNING "APPLY_PATCHES is enabled, but no .patch files were found in ${PATCH_DIR}")
++            endif()
+         endif()
+         FETCHCONTENT_DECLARE(
+                 ${NAME}_extension_fc
+@@ -592,10 +622,10 @@ foreach(EXT_NAME IN LISTS DUCKDB_EXTENSION_NAMES)
+         continue()
+     endif()
+ 
+-    # Warning for trying to load vcpkg extensions without having VCPKG_BUILD SET
+-    if (EXISTS "${DUCKDB_EXTENSION_${EXT_NAME_UPPERCASE}_PATH}/vcpkg.json" AND NOT DEFINED VCPKG_BUILD)
+-        message(WARNING "Extension '${EXT_NAME}' has a vcpkg.json, but build was not run with VCPKG. If build fails, check out VCPKG build instructions in 'duckdb/extension/README.md' or try manually installing the dependencies in ${DUCKDB_EXTENSION_${EXT_NAME_UPPERCASE}_PATH}/vcpkg.json")
+-    endif()
++    # # Warning for trying to load vcpkg extensions without having VCPKG_BUILD SET
++    # if (EXISTS "${DUCKDB_EXTENSION_${EXT_NAME_UPPERCASE}_PATH}/vcpkg.json" AND NOT DEFINED VCPKG_BUILD)
++    #     message(WARNING "Extension '${EXT_NAME}' has a vcpkg.json, but build was not run with VCPKG. If build fails, check out VCPKG build instructions in 'duckdb/extension/README.md' or try manually installing the dependencies in ${DUCKDB_EXTENSION_${EXT_NAME_UPPERCASE}_PATH}/vcpkg.json")
++    # endif()
+ 
+     if (NOT "${DUCKDB_EXTENSION_${EXT_NAME_UPPERCASE}_EXT_VERSION}" STREQUAL "")
+         add_definitions(-DEXT_VERSION_${EXT_NAME_UPPERCASE}="${DUCKDB_EXTENSION_${EXT_NAME_UPPERCASE}_EXT_VERSION}")
+diff --git a/scripts/apply_patch_if_needed.cmake b/scripts/apply_patch_if_needed.cmake
+new file mode 100644
+index 0000000000..8959916539
+--- /dev/null
++++ b/scripts/apply_patch_if_needed.cmake
+@@ -0,0 +1,25 @@
++# Applies PATCH_FILE to the current directory, unless it's already applied.
++# Uses the same --reverse --check trick as OneLuaPro's sqlean windirent.h
++# patch, just at patch-step time (when the checkout actually exists)
++# instead of at top-level configure time.
++# Usage: cmake -DGIT_EXECUTABLE=<path> -DPATCH_FILE=<path> -P apply_patch_if_needed.cmake
++
++execute_process(
++  COMMAND "${GIT_EXECUTABLE}" apply -p1 --reverse --check "${PATCH_FILE}"
++  RESULT_VARIABLE PATCH_ALREADY_APPLIED
++  OUTPUT_QUIET
++  ERROR_QUIET
++)
++
++if(PATCH_ALREADY_APPLIED EQUAL 0)
++  message(STATUS "Patch already applied, skipping: ${PATCH_FILE}")
++else()
++  message(STATUS "Applying patch: ${PATCH_FILE}")
++  execute_process(
++    COMMAND "${GIT_EXECUTABLE}" apply -p1 --whitespace=nowarn "${PATCH_FILE}"
++    RESULT_VARIABLE PATCH_RESULT
++  )
++  if(NOT PATCH_RESULT EQUAL 0)
++    message(FATAL_ERROR "Failed to apply patch: ${PATCH_FILE}")
++  endif()
++endif()

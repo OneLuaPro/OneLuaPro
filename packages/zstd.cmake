@@ -4,6 +4,7 @@ ExternalProject_Add(zstd
   PREFIX ${PROJECT_NAME}/zstd
   GIT_REPOSITORY https://github.com/facebook/zstd.git
   GIT_TAG "v1.5.7"
+  GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
   SOURCE_SUBDIR "build/cmake"
   CMAKE_ARGS

@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # wxLua
-#set(WXLUA_VER "origin/master")
-set(WXLUA_VER "v3.2.0.2-18-gc5e0cbb")
+set(WXLUA_VER "origin/master")
+#set(WXLUA_VER "v3.2.0.2-18-gc5e0cbb")
 ExternalProject_Add(wxLua
   PREFIX ${PROJECT_NAME}/wxLua
   GIT_REPOSITORY https://github.com/OneLuaPro/wxlua.git

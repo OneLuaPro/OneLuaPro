@@ -1,0 +1,107 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 02a6321..ca250ab 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -6,17 +6,31 @@ set(libmariadb_DIR ${CMAKE_CURRENT_LIST_DIR}/vcpkg_ports/libmariadb)
+ find_package(libmariadb REQUIRED)
+ set(EXTENSION_NAME ${TARGET_NAME}_extension)
+ 
+-set(MYSQL_INCLUDE_DIR
+-    ${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}/include/mysql)
++# set(MYSQL_INCLUDE_DIR
++#   ${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}/include/mysql)
++set(MYSQL_INCLUDE_DIR "${ONELUAPRO_BUILDROOT}/include/mariadb")
+ include_directories(${MYSQL_INCLUDE_DIR})
+ include_directories(database-connector/src/include)
+ 
+ add_subdirectory(src)
+ 
+ set(PARAMETERS "-no-warnings")
++build_static_extension(${TARGET_NAME} ${ALL_OBJECT_FILES})
+ build_loadable_extension(${TARGET_NAME} ${PARAMETERS} ${ALL_OBJECT_FILES})
+ 
+ # Loadable binary
+ target_include_directories(${TARGET_NAME}_loadable_extension
+                            PRIVATE include ${MYSQL_INCLUDE_DIR})
+ target_link_libraries(${TARGET_NAME}_loadable_extension ${MYSQL_LIBRARIES})
++
++# Static binary (needed so DuckDB can link mysql_scanner in statically)
++target_include_directories(${TARGET_NAME}_extension
++                           PRIVATE include ${MYSQL_INCLUDE_DIR})
++target_link_libraries(${TARGET_NAME}_extension ${MYSQL_LIBRARIES})
++
++# Install files
++install(
++  TARGETS ${EXTENSION_NAME}
++  EXPORT "${DUCKDB_EXPORT_SET}"
++  LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
++  ARCHIVE DESTINATION "${INSTALL_LIB_DIR}")
+diff --git a/src/storage/mysql_catalog.cpp b/src/storage/mysql_catalog.cpp
+index 7c8f866..4af5b22 100644
+--- a/src/storage/mysql_catalog.cpp
++++ b/src/storage/mysql_catalog.cpp
+@@ -68,7 +68,7 @@ string AddConnectionOption(const KeyValueSecret &kv_secret, const string &name,
+ 	return result;
+ }
+ 
+-unique_ptr<SecretEntry> GetSecret(ClientContext &context, const string &secret_name) {
++static unique_ptr<SecretEntry> GetSecret(ClientContext &context, const string &secret_name) {
+ 	auto &secret_manager = SecretManager::Get(context);
+ 	auto transaction = CatalogTransaction::GetSystemCatalogTransaction(context);
+ 	// FIXME: this should be adjusted once the `GetSecretByName` API supports this
+diff --git a/src/storage/mysql_schema_entry.cpp b/src/storage/mysql_schema_entry.cpp
+index 929518e..d77ba58 100644
+--- a/src/storage/mysql_schema_entry.cpp
++++ b/src/storage/mysql_schema_entry.cpp
+@@ -174,7 +174,7 @@ void MySQLSchemaEntry::Alter(CatalogTransaction transaction, AlterInfo &info) {
+ 	tables.AlterTable(mysql_transaction, alter);
+ }
+ 
+-bool CatalogTypeIsSupported(CatalogType type) {
++static bool CatalogTypeIsSupported(CatalogType type) {
+ 	switch (type) {
+ 	case CatalogType::INDEX_ENTRY:
+ 	case CatalogType::TABLE_ENTRY:
+diff --git a/vcpkg_ports/libmariadb/libmariadb-config.cmake b/vcpkg_ports/libmariadb/libmariadb-config.cmake
+index 74c628d..796229a 100644
+--- a/vcpkg_ports/libmariadb/libmariadb-config.cmake
++++ b/vcpkg_ports/libmariadb/libmariadb-config.cmake
+@@ -1,4 +1,36 @@
+-include(CMakeFindDependencyMacro)
+-find_dependency(unofficial-libmariadb CONFIG REQUIRED)
++#include(CMakeFindDependencyMacro)
++#find_dependency(unofficial-libmariadb CONFIG REQUIRED)
++#set(libmariadb_FOUND 1)
++#set(MYSQL_LIBRARIES unofficial::libmariadb)
++#
++# Custom replacement for the vcpkg-provided libmariadb config shim.
++# Defines unofficial::libmariadb directly from a manually installed
++# MariaDB Connector/C instead of forwarding to a vcpkg package.
++if(NOT TARGET unofficial::libmariadb)
++  add_library(unofficial::libmariadb UNKNOWN IMPORTED)
++  set_target_properties(unofficial::libmariadb PROPERTIES
++    IMPORTED_LOCATION "${ONELUAPRO_BUILDROOT}/lib/mariadb/mariadbclient.lib"
++    INTERFACE_INCLUDE_DIRECTORIES "${ONELUAPRO_BUILDROOT}/include/mariadb")
++
++  target_link_libraries(unofficial::libmariadb INTERFACE
++    "${ONELUAPRO_BUILDROOT}/lib/ssl.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/crypto.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/zlibstatic.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/zstd_static.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/libcurl.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/brotlicommon.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/brotlidec.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/nghttp2.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/nghttp3.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/ngtcp2.lib"
++    "${ONELUAPRO_BUILDROOT}/lib/ngtcp2_crypto_libressl.lib"
++    shlwapi
++    secur32
++    crypt32
++    wldap32
++    iphlpapi
++    normaliz)
++endif()
++
+ set(libmariadb_FOUND 1)
+ set(MYSQL_LIBRARIES unofficial::libmariadb)

@@ -4,6 +4,7 @@ ExternalProject_Add(nghttp2
   PREFIX ${PROJECT_NAME}/nghttp2
   GIT_REPOSITORY https://github.com/nghttp2/nghttp2.git
   GIT_TAG "v1.70.0"
+  GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"

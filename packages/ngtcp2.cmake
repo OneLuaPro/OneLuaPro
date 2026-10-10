@@ -4,6 +4,7 @@ ExternalProject_Add(ngtcp2
   PREFIX ${PROJECT_NAME}/ngtcp2
   GIT_REPOSITORY https://github.com/ngtcp2/ngtcp2.git
   GIT_TAG "v1.25.0"
+  GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"

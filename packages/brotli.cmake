@@ -4,6 +4,7 @@ ExternalProject_Add(brotli
   PREFIX ${PROJECT_NAME}/brotli
   GIT_REPOSITORY https://github.com/google/brotli.git
   GIT_TAG "v1.2.0"
+  GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"

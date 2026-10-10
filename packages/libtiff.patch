@@ -1,0 +1,42 @@
+diff --git a/cmake/tiff-config.cmake.in b/cmake/tiff-config.cmake.in
+index 19d54a72..710a1cd2 100644
+--- a/cmake/tiff-config.cmake.in
++++ b/cmake/tiff-config.cmake.in
+@@ -1,5 +1,23 @@
+ if(NOT "@BUILD_SHARED_LIBS@")
+-    # TODO: import dependencies
++  # Static build: the exported TIFF::tiff target lists its dependencies in the
++  # link interface (as $<LINK_ONLY:...>), but they are not defined for consumers.
++  # Define what is missing. The lookups are QUIET and optional: if a dependency
++  # cannot be found here, the behaviour is the same as without this block.
++  if("@ZLIB_SUPPORT@" AND NOT TARGET ZLIB::ZLIB)
++    find_package(ZLIB QUIET)
++  endif()
++  if("@ZSTD_SUPPORT@" AND NOT TARGET ZSTD::ZSTD)
++    # ZSTD::ZSTD is only an ALIAS inside the libtiff build (cmake/ZSTDCodec.cmake),
++    # it does not exist for consumers. Define it the same way for them.
++    find_package(zstd CONFIG QUIET)
++    if(TARGET zstd::libzstd_shared)
++      add_library(ZSTD::ZSTD INTERFACE IMPORTED)
++      set_target_properties(ZSTD::ZSTD PROPERTIES INTERFACE_LINK_LIBRARIES zstd::libzstd_shared)
++    elseif(TARGET zstd::libzstd_static)
++      add_library(ZSTD::ZSTD INTERFACE IMPORTED)
++      set_target_properties(ZSTD::ZSTD PROPERTIES INTERFACE_LINK_LIBRARIES zstd::libzstd_static)
++    endif()
++  endif()
+ endif()
+ 
+ function(set_variable_from_rel_or_absolute_path var root rel_or_abs_path)
+diff --git a/libtiff/CMakeLists.txt b/libtiff/CMakeLists.txt
+index aa1895c0..ada50897 100755
+--- a/libtiff/CMakeLists.txt
++++ b/libtiff/CMakeLists.txt
+@@ -182,7 +182,7 @@ if(WEBP_SUPPORT)
+   target_link_libraries(tiff PRIVATE WebP::webp)
+   string(APPEND tiff_requires_private " libwebp")
+ endif()
+-if(CMath_LIBRARY)
++if(CMath_LIBRARY AND NOT MSVC)
+   target_link_libraries(tiff PRIVATE ${CMath_LIBRARIES})
+   list(APPEND tiff_libs_private_list "${CMath_LIBRARIES}")
+ endif()

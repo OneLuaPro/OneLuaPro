@@ -1,0 +1,261 @@
+diff --git a/.gitignore b/.gitignore
+index 15a4176..9adf545 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -4,3 +4,4 @@
+ /.idea
+ /.vscode
+ /resources/scripts/__pycache__
++*.*~
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e49e40e..c2cd232 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -64,7 +64,7 @@ else()
+     find_package(ODBC REQUIRED)
+     message(STATUS "ODBC library found at: " ${ODBC_LIBRARIES})
+ 
+-    if (NOT MSVC)
++    if (NOT MSVC AND NOT (CMAKE_CXX_COMPILER_ID MATCHES "IntelLLVM"))
+         get_filename_component(ODBC_LIB_DIR ${ODBC_LIBRARIES} DIRECTORY)
+         find_library(ODBCINST_LIB NAMES odbcinst libodbcinst REQUIRED HINTS ${ODBC_LIB_DIR})
+     endif()
+@@ -73,7 +73,7 @@ endif()
+ set(CMAKE_CXX_STANDARD "11" CACHE STRING "C++ standard to enforce")
+ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+ 
+-if(MSVC) 
++if(MSVC OR (CMAKE_CXX_COMPILER_ID MATCHES "IntelLLVM"))
+     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR})
+     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR})
+@@ -121,18 +121,27 @@ set(EXTENSION_SOURCES
+     src/types/types.cpp
+     src/types/uuid_type.cpp
+     src/types/varchar_type.cpp
++    src/odbc_scanner_bridge.cpp
++    src/odbc_scanner_c_api_bridge.cpp
+ )
+ 
+-add_library(${EXTENSION_NAME} SHARED ${EXTENSION_SOURCES})
++# DuckDB's out-of-tree static-linking convention expects the extension's
++# static library TARGET (and thus its output filename) to be
++# "<name>_extension" - see the postgres_scanner/mysql_scanner/sqlite_scanner
++# patches, all of which set EXTENSION_NAME to "<name>_extension" themselves.
++# odbc-scanner instead keeps EXTENSION_NAME as the plain extension name
++# (needed verbatim for DUCKDB_EXTENSION_NAME and its metadata), so we rename
++# just the target here to match what duckdb.dll's link step looks for.
++add_library(${EXTENSION_NAME}_extension STATIC ${EXTENSION_SOURCES})
+ 
+ if(DEFINED ${EXTENSION_NAME}_CMAKE_ONLY_BUILD)
+-    add_dependencies(${EXTENSION_NAME} duckdb_platform)
+-    add_dependencies(duckdb_local_extension_repo ${EXTENSION_NAME})
++    add_dependencies(${EXTENSION_NAME}_extension duckdb_platform)
++    add_dependencies(duckdb_local_extension_repo ${EXTENSION_NAME}_extension)
+     add_custom_command(
+-        TARGET odbc_scanner
++        TARGET ${EXTENSION_NAME}_extension
+         POST_BUILD
+         COMMAND ${CMAKE_COMMAND} -E copy
+-            $<TARGET_FILE:${EXTENSION_NAME}>
++            $<TARGET_FILE:${EXTENSION_NAME}_extension>
+             ${CMAKE_CURRENT_BINARY_DIR}/${EXTENSION_NAME}.duckdb_extension
+         COMMAND ${CMAKE_COMMAND}
+             -DABI_TYPE=C_STRUCT
+@@ -155,35 +164,54 @@ elseif (APPLE)
+     set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -Wl,-x")
+ endif()
+ 
+-target_include_directories(${EXTENSION_NAME} PRIVATE
++target_include_directories(${EXTENSION_NAME}_extension PRIVATE
+     third_party/utf8cpp
+     duckdb_capi
+     ${ODBC_INCLUDE_DIRS}
+     src/include
+ )
+ 
+-if(NOT MSVC)
+-    target_compile_options(${EXTENSION_NAME} PRIVATE
++if(NOT MSVC AND NOT (CMAKE_CXX_COMPILER_ID MATCHES "IntelLLVM"))
++    target_compile_options(${EXTENSION_NAME}_extension PRIVATE
+         -Wall
+         -Werror
+         -Wextra
+     )
+     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+-        target_compile_options(${EXTENSION_NAME} PRIVATE
++        target_compile_options(${EXTENSION_NAME}_extension PRIVATE
+             -O0
+         )
+     endif()
+ else()
+-    target_compile_options(${EXTENSION_NAME} PRIVATE
++    target_compile_options(${EXTENSION_NAME}_extension PRIVATE
+         /W4
+         /WX
+     )
+-    target_compile_definitions(${EXTENSION_NAME} PRIVATE
++    target_compile_definitions(${EXTENSION_NAME}_extension PRIVATE
+         -D_CRT_SECURE_NO_WARNINGS
+     )
+ endif()
+ 
+-target_link_libraries(${EXTENSION_NAME} PRIVATE
++# duckdb.hpp is not written to be warning-clean under this project's strict
++# /W4 /WX flags (e.g. named-but-unused virtual method parameters in DuckDB's
++# own interfaces). Relax just for our two bridge files, which are otherwise
++# clean; CMake appends per-source options after the target-level ones, so
++# /WX- here correctly overrides the /WX set above for these two files only.
++set_source_files_properties(
++    src/odbc_scanner_bridge.cpp
++    src/odbc_scanner_c_api_bridge.cpp
++    PROPERTIES COMPILE_OPTIONS "/WX-;-Wno-unused-parameter"
++)
++# odbc_scanner_bridge.cpp includes the engine-side extension_api.hpp, which
++# defines the DUCKDB_EXTENSION_API_VERSION_* macros itself. Hide the pinned
++# (v1.2.0) command-line values from this one file to avoid the redefinition.
++set_property(SOURCE src/odbc_scanner_bridge.cpp APPEND PROPERTY COMPILE_OPTIONS
++    /UDUCKDB_EXTENSION_API_VERSION_MAJOR
++    /UDUCKDB_EXTENSION_API_VERSION_MINOR
++    /UDUCKDB_EXTENSION_API_VERSION_PATCH
++)
++
++target_link_libraries(${EXTENSION_NAME}_extension PRIVATE
+   ${ODBC_LIBRARIES}
+ )
+ 
+@@ -200,3 +228,9 @@ if(ENABLE_C_API_TESTS)
+ else()
+     message(STATUS ${CAPI_ERROR_MSG})
+ endif()
++
++install(
++  TARGETS ${EXTENSION_NAME}_extension
++  EXPORT "${DUCKDB_EXPORT_SET}"
++  LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
++  ARCHIVE DESTINATION "${INSTALL_LIB_DIR}")
+diff --git a/src/include/odbc_scanner_extension.hpp b/src/include/odbc_scanner_extension.hpp
+new file mode 100644
+index 0000000..8ec611a
+--- /dev/null
++++ b/src/include/odbc_scanner_extension.hpp
+@@ -0,0 +1,17 @@
++#pragma once
++
++#include "duckdb.hpp"
++
++namespace duckdb {
++
++// Bridge class expected by DuckDB's generated static-extension loader
++// (naming convention: <name>_extension.hpp -> <Name>ScannerExtension).
++class OdbcScannerExtension : public Extension {
++public:
++	std::string Name() override {
++		return "odbc_scanner";
++	}
++	void Load(ExtensionLoader &loader) override;
++};
++
++} // namespace duckdb
+diff --git a/src/odbc_scanner_bridge.cpp b/src/odbc_scanner_bridge.cpp
+new file mode 100644
+index 0000000..5338d40
+--- /dev/null
++++ b/src/odbc_scanner_bridge.cpp
+@@ -0,0 +1,34 @@
++// C++ side of the bridge. Only ever sees duckdb.hpp / extension_api.hpp,
++// never duckdb_extension.h - keeps the two duckdb_ext_api_v1 definitions apart.
++#include "duckdb.hpp"
++#include "duckdb/main/capi/extension_api.hpp"
++#include "odbc_scanner_extension.hpp"
++
++#include <stdexcept>
++#include <string>
++
++// Implemented in odbc_scanner_c_api_bridge.cpp, which only sees duckdb_extension.h.
++extern "C" bool odbc_scanner_run_init(const void *api_table_bytes, size_t api_table_size,
++                                       duckdb_connection connection, std::string *out_error);
++
++namespace duckdb {
++
++void OdbcScannerExtension::Load(ExtensionLoader &loader) {
++	// Local, not static: odbc-scanner's own capi_entry_point.cpp connects,
++	// initializes, and disconnects within a single function call, so the
++	// registration functions don't keep the connection around afterwards.
++	Connection conn(loader.GetDatabaseInstance());
++
++	// Build the real function-pointer table from DuckDB's own C++ side and
++	// hand it to the C-API side as raw bytes.
++	auto api_table = CreateAPIv1();
++	std::string error;
++	bool ok = odbc_scanner_run_init(&api_table, sizeof(api_table), reinterpret_cast<duckdb_connection>(&conn),
++	                                 &error);
++	if (!ok) {
++		throw std::runtime_error("odbc_scanner: " + error);
++	}
++	// conn is destroyed automatically here, mirroring the upstream duckdb_disconnect().
++}
++
++} // namespace duckdb
+diff --git a/src/odbc_scanner_c_api_bridge.cpp b/src/odbc_scanner_c_api_bridge.cpp
+new file mode 100644
+index 0000000..b06f71e
+--- /dev/null
++++ b/src/odbc_scanner_c_api_bridge.cpp
+@@ -0,0 +1,56 @@
++// C-API side of the bridge. Only ever sees duckdb_extension.h, never duckdb.hpp.
++#include <cstring>
++#include <string>
++
++#include "duckdb_extension.h"
++#include "capi_entry_point.hpp"
++
++// The one real definition of this global lives in odbc-scanner's own,
++// unmodified capi_entry_point.cpp - we only reference it here.
++extern duckdb_ext_api_v1 duckdb_ext_api;
++
++namespace {
++
++  // duckdb_extension_info is an opaque pointer per duckdb.h - we're free to
++  // give it our own content instead of relying on DuckDB's internal format.
++  struct BridgeInfo {
++    std::string *error_out;
++  };
++
++  // Plain C function, never throws - it's called from inside the catch block
++  // of initiaize_odbc_scanner(), which is declared noexcept.
++  void bridge_set_error(duckdb_extension_info info, const char *error) {
++    auto *bi = reinterpret_cast<BridgeInfo *>(info);
++    if (bi && bi->error_out) {
++      *bi->error_out = error ? error : "unknown error";
++    }
++  }
++
++  // get_database/get_api are left null: verified (via grep across the whole
++  // odbc-scanner source) that nothing calls access->get_database or
++  // access->get_api in this init path - the extension pulls everything it
++  // needs through the already-populated duckdb_ext_api table instead.
++  duckdb_extension_access g_access = {bridge_set_error, nullptr, nullptr};
++
++} // namespace
++
++extern "C" bool odbc_scanner_run_init(const void *api_table_bytes, size_t api_table_size,
++                                       duckdb_connection connection, std::string *out_error) {
++  // duckdb_extension.h pins this extension to a fixed API version (v1.2.0);
++  // extension_api.hpp always hands us the engine's full, current struct.
++  // Per DuckDB's own ABI contract (api_spec/README: new fields are only
++  // ever appended, never inserted), the smaller, pinned struct is
++  // guaranteed to be a prefix of the larger one - so copying only as many
++  // bytes as our own struct expects is safe and correct, not a truncation bug.
++  if (api_table_size < sizeof(duckdb_ext_api_v1)) {
++    if (out_error) {
++      *out_error = "duckdb_ext_api_v1: engine API table smaller than expected "
++	"(engine older than the pinned extension API version?)";
++    }
++    return false;
++  }
++  std::memcpy(&duckdb_ext_api, api_table_bytes, sizeof(duckdb_ext_api_v1));
++  
++  BridgeInfo bi{out_error};
++  return initiaize_odbc_scanner(connection, reinterpret_cast<duckdb_extension_info>(&bi), &g_access);
++}

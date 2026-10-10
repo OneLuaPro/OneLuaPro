@@ -6,6 +6,7 @@ ExternalProject_Add(curl
   PREFIX ${PROJECT_NAME}/curl
   GIT_REPOSITORY https://github.com/curl/curl.git
   GIT_TAG "curl-8_21_0"
+  GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"

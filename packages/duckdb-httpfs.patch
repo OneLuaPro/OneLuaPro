@@ -1,0 +1,72 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c21cdbd..199372e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -40,6 +40,30 @@ else()
+                         ${OPENSSL_LIBRARIES})
+   target_link_libraries(httpfs_extension duckdb_mbedtls ${OPENSSL_LIBRARIES})
+ 
++  # Transitive dependencies of our statically linked libcurl build.
++  # libcurl itself doesn't bundle these - same chain already needed for
++  # mariadbclient/libcurl in mysql_scanner.
++  target_link_libraries(httpfs_loadable_extension
++      "${ONELUAPRO_BUILDROOT}/lib/zlibstatic.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/zstd_static.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/brotlicommon.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/brotlidec.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/nghttp2.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/nghttp3.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/ngtcp2.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/ngtcp2_crypto_libressl.lib"
++      shlwapi secur32 crypt32 wldap32 iphlpapi normaliz)
++  target_link_libraries(httpfs_extension
++      "${ONELUAPRO_BUILDROOT}/lib/zlibstatic.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/zstd_static.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/brotlicommon.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/brotlidec.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/nghttp2.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/nghttp3.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/ngtcp2.lib"
++      "${ONELUAPRO_BUILDROOT}/lib/ngtcp2_crypto_libressl.lib"
++      shlwapi secur32 crypt32 wldap32 iphlpapi normaliz)
++
+   if(MINGW)
+     find_package(ZLIB)
+     target_link_libraries(httpfs_loadable_extension ZLIB::ZLIB -lcrypt32)
+@@ -47,7 +71,6 @@ else()
+   endif()
+ endif()
+ 
+-
+ install(
+   TARGETS httpfs_extension
+   EXPORT "${DUCKDB_EXPORT_SET}"
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index ef57ab8..1a4f022 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -18,3 +18,24 @@ add_library(httpfs_library OBJECT ${HTTPFS_SOURCES})
+ set(ALL_OBJECT_FILES
+     ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:httpfs_library>
+     PARENT_SCOPE)
++
++if(WIN32)
++  # wincrypt.h (pulled in transitively via <windows.h>) #defines X509_NAME,
++  # colliding with LibreSSL's own X509_NAME type. Must be set here, not on
++  # httpfs_extension/httpfs_loadable_extension in the root CMakeLists.txt -
++  # those only link the already-compiled objects from this target.
++  target_compile_definitions(httpfs_library PRIVATE NOCRYPT WIN32_LEAN_AND_MEAN)
++  #
++  # Without this, curl.h declares its API as __declspec(dllimport) on Windows,
++  # so the compiler emits __imp_curl_* references expecting a curl DLL -
++  # but our libcurl.lib is a true static archive, causing LNK2019 for every
++  # curl_* symbol. Needed regardless of how libcurl.lib was found
++  # (module-mode CURL_LIBRARY hint vs. CURLConfig.cmake's CURL::libcurl).
++  target_compile_definitions(httpfs_library PRIVATE CURL_STATICLIB)
++  #
++  # httplib.hpp includes <wincrypt.h> itself (and #undefs the clashing macros)
++  # before the LibreSSL headers, so LibreSSL's guard reports "overriding
++  # WinCrypt defines" although nothing is wrong. This switch only silences
++  # the message; the protective #undefs stay active.
++  target_compile_definitions(httpfs_library PRIVATE LIBRESSL_DISABLE_OVERRIDE_WINCRYPT_DEFINES_WARNING)
++endif()

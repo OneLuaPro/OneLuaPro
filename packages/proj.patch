@@ -1,0 +1,40 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9159e399..feb84f64 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -107,7 +107,7 @@ elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC")
+   add_definitions(/D_CRT_SECURE_NO_WARNINGS) # Eliminate deprecation warnings
+   set(PROJ_C_WARN_FLAGS
+     /W4
+-    /wd4706  # Suppress warning about assignment within conditional expression
++    /wd4706  # Suppress warning about assignment within conitional expression
+     /wd4996  # Suppress warning about sprintf, etc., being unsafe
+   )
+   if("$ENV{VSCMD_ARG_TGT_ARCH}" STREQUAL "arm64")
+@@ -124,13 +124,24 @@ elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "Intel")
+     set(PROJ_C_WARN_FLAGS -Wall)
+     set(PROJ_CXX_WARN_FLAGS -Wall)
+   endif()
++elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "IntelLLVM" AND MSVC)
++  # clang-cl style command line: the CRT headers mark strcpy, getenv, etc. as
++  # deprecated, same as for MSVC above
++  add_definitions(/D_CRT_SECURE_NO_WARNINGS)
+ endif()
+ 
+ if (CMAKE_CXX_COMPILER_ID STREQUAL "IntelLLVM")
+   # Intel CXX compiler based on clang defaults to -ffast-math, which
+   # breaks std::isinf(), std::isnan(), etc.
+-  string(APPEND CMAKE_C_FLAGS " -fno-fast-math")
+-  string(APPEND CMAKE_CXX_FLAGS " -fno-fast-math")
++  if(MSVC)
++    # MSVC-like command line (icx on Windows): -fno-fast-math is an unknown
++    # argument there, the equivalent is /fp:precise
++    string(APPEND CMAKE_C_FLAGS " /fp:precise")
++    string(APPEND CMAKE_CXX_FLAGS " /fp:precise")
++  else()
++    string(APPEND CMAKE_C_FLAGS " -fno-fast-math")
++    string(APPEND CMAKE_CXX_FLAGS " -fno-fast-math")
++  endif()
+ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND
+        CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 13 AND
+        CMAKE_SIZEOF_VOID_P EQUAL 4)

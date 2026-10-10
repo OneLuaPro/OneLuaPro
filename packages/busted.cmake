@@ -17,7 +17,7 @@ ExternalProject_Add(busted
   "-DCMAKE_STATIC_LINKER_FLAGS=${SUPERBUILD_STATIC_LINKER_FLAGS}"
   ${GENERATOR_ARGS}
 )
-add_dependencies(busted lua)
+add_dependencies(busted lua Penlight luassert say cliargs mediator_lua luasystem lua-term dkjson)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
   "busted;busted/index.html;Unit Testing Framework;🧪;Software Engineering & Testing;${BUSTED_VER}"

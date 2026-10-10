@@ -31,7 +31,7 @@
 # Basic instructions for out-of-source build and install with Intel LLVM
 # ----------------------------------------------------------------------
 # mkdir build64 && cd build64
-# cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icx .. -DCODE_SIGN_ID="Open Source Developer" -DWITH_IPO=OFF
+# cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icx ..  -DWITH_IPO=OFF -DCODE_SIGN_ID="Open Source Developer"
 # cmake --build . > 00_log.txt
 # echo %errorlevel%
 # cpack
@@ -59,8 +59,8 @@ cmake_minimum_required(VERSION 3.31 FATAL_ERROR)
 set(LUA_VERSION_MAJOR 5)
 set(LUA_VERSION_MINOR 5)
 set(LUA_VERSION_PATCH 1)
-set(ONELUAPRO_RELEASE 0)
-set(ONELUAPRO_CANDIDATE "")	# e.g. "-RC1", leave "" for no RC
+set(ONELUAPRO_RELEASE 1)
+set(ONELUAPRO_CANDIDATE "-RC1")	# e.g. "-RC1", leave "" for no RC
 set(LUA_VERSION ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_PATCH})
 set(ONELUAPRO_VERSION ${LUA_VERSION}.${ONELUAPRO_RELEASE})
 
@@ -107,6 +107,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "IntelLLVM")
   ### set(SUPERBUILD_OPT_FLAGS "/O2")
   set(SUPERBUILD_LIGHT_C_FLAGS "${SUPERBUILD_C_FLAGS} ${SUPERBUILD_LIGHT_OPT_FLAGS} /EHsc")
   set(SUPERBUILD_C_FLAGS "${SUPERBUILD_C_FLAGS} ${SUPERBUILD_OPT_FLAGS} /EHsc")
+  set(SUPERBUILD_LIGHT_CXX_FLAGS "${SUPERBUILD_CXX_FLAGS} ${SUPERBUILD_LIGHT_OPT_FLAGS} /EHsc")
   set(SUPERBUILD_CXX_FLAGS "${SUPERBUILD_CXX_FLAGS} ${SUPERBUILD_OPT_FLAGS} /EHsc")
   set(SUPERBUILD_EXE_LINKER_FLAGS "${SUPERBUILD_EXE_LINKER_FLAGS} /Qlibs-static")
   set(SUPERBUILD_SHARED_LINKER_FLAGS "${SUPERBUILD_SHARED_LINKER_FLAGS} /Qlibs-static")
@@ -115,6 +116,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "IntelLLVM")
   endif()
 elseif(MSVC)
   set(SUPERBUILD_LIGHT_C_FLAGS "${SUPERBUILD_C_FLAGS}")
+  set(SUPERBUILD_LIGHT_CXX_FLAGS "${SUPERBUILD_CXX_FLAGS}")
   if(WITH_IPO)
     set(SUPERBUILD_IPO_OPTS "")
   endif()
@@ -125,6 +127,7 @@ endif()
 message(STATUS "SUPERBUILD_C_FLAGS = ${SUPERBUILD_C_FLAGS}")
 message(STATUS "SUPERBUILD_LIGHT_C_FLAGS = ${SUPERBUILD_LIGHT_C_FLAGS}")
 message(STATUS "SUPERBUILD_CXX_FLAGS = ${SUPERBUILD_CXX_FLAGS}")
+message(STATUS "SUPERBUILD_LIGHT_CXX_FLAGS = ${SUPERBUILD_LIGHT_CXX_FLAGS}")
 message(STATUS "SUPERBUILD_IPO_OPTS = ${SUPERBUILD_IPO_OPTS}")
 message(STATUS "SUPERBUILD_EXE_LINKER_FLAGS = ${SUPERBUILD_EXE_LINKER_FLAGS}")
 message(STATUS "SUPERBUILD_SHARED_LINKER_FLAGS = ${SUPERBUILD_SHARED_LINKER_FLAGS}")
@@ -151,6 +154,11 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 include(ExternalProject)
 set_property(GLOBAL PROPERTY ONELUAPRO_DOC_LIST "")
 file(GLOB ONELUAPRO_PACKAGES "packages/*.cmake")
+# Partial build: -DBUILD_ONLY="pkg1;pkg2" builds these packages and everything they
+# depend on, an unknown name aborts. Empty (default) builds everything.
+set(BUILD_ONLY "" CACHE STRING "Build only these packages and their dependencies (empty = all)")
+include(PackageSelection)
+olp_select_packages(FILES ONELUAPRO_PACKAGES TARGETS ONELUAPRO_PACKAGE_TARGETS ONLY ${BUILD_ONLY})
 foreach(PKG ${ONELUAPRO_PACKAGES})
   get_filename_component(BASENAME ${PKG} NAME_WE)
   message(STATUS "Adding OneLuaPro package : ${BASENAME}")
@@ -181,9 +189,8 @@ if (CODE_SIGN_ID)
       -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/SignDllExe.cmake
     )
     # Add deps to this target to enforce file signing is always done last
-    foreach (PKG ${ONELUAPRO_PACKAGES})
-      get_filename_component(BASENAME ${PKG} NAME_WE)
-      add_dependencies(signDllExe ${BASENAME})
+    foreach (TGT ${ONELUAPRO_PACKAGE_TARGETS})
+      add_dependencies(signDllExe ${TGT})
     endforeach()
     # --------------------------------------------------------------------------
     # Part 2: Preparations for signing the installer and de-installer

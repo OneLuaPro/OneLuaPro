@@ -17,7 +17,7 @@ ExternalProject_Add(luassert
   "-DCMAKE_SHARED_LINKER_FLAGS=${SUPERBUILD_SHARED_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
   ${GENERATOR_ARGS}
 )
-add_dependencies(luassert lua)
+add_dependencies(luassert lua say)
 # Help Center registration
 set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
   "luassert;luassert/README.html;Assertion Library for Testing;🧪;Software Engineering & Testing;${LUASSERT_VER}"
