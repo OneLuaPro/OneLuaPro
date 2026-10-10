@@ -38,4 +38,4 @@ ExternalProject_Add(curl
   "-DCMAKE_STATIC_LINKER_FLAGS=${SUPERBUILD_STATIC_LINKER_FLAGS}"
   ${GENERATOR_ARGS}
 )
-add_dependencies(curl zlib-ng libressl brotli zstd nghttp2 ngtcp2 nghttp3)
+add_dependencies(curl zlib-ng libressl brotli zstd nghttp2 ngtcp2 nghttp3 ca-bundle)

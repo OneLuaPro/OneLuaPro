@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # sqlean
-set(SQLEAN_VER "origin/main")
-# set(SQLEAN_VER "0.28.4-19-gb20d4d3")
+# set(SQLEAN_VER "origin/main")
+set(SQLEAN_VER "0.28.4-19-gb20d4d3")
 # Disable dynamic CPU dispatch for sqlean and in particular for sqlite3 by
 # using SUPERBUILD_LIGHT_C_FLAGS from top-level CMake
 ExternalProject_Add(sqlean

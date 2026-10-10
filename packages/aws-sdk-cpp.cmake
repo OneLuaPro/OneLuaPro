@@ -29,7 +29,8 @@ ExternalProject_Add(aws-sdk-cpp
   # Options
   # Release is explicit on purpose: single-config generator
   "-DCMAKE_BUILD_TYPE=Release"
-  "-DBUILD_ONLY=core|sso|sts|identity-management|rds|redshift|cloudformation"
+  # "-DBUILD_ONLY=core|sso|sts|identity-management|rds|redshift|cloudformation"
+  "-DBUILD_ONLY=core|sso|sts|identity-management|rds"
   "-DBUILD_SHARED_LIBS=OFF"
   "-DFORCE_SHARED_CRT=OFF"
   "-DENABLE_TESTING=OFF"
