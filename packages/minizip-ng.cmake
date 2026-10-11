@@ -2,6 +2,13 @@
 # minizip-ng - zip library, static, OpenSSL (LibreSSL) crypto
 # Needed by duckdb's excel extension: find_package(minizip-ng CONFIG) and
 # target MINIZIP::minizip-ng
+if(WIN32)
+  # Windows 7: with the default (newest) target, minizip-ng calls CreateFile2(),
+  # which Windows 7 does not have; with 0x0601 it uses CreateFileW()
+  set(EXTRA_MINIZIP_DEFS "/D_WIN32_WINNT=0x0601")
+else()
+  set(EXTRA_MINIZIP_DEFS "")
+endif()
 ExternalProject_Add(minizip-ng
   PREFIX ${PROJECT_NAME}/minizip-ng
   GIT_REPOSITORY https://github.com/zlib-ng/minizip-ng.git
@@ -25,7 +32,7 @@ ExternalProject_Add(minizip-ng
 
   "-G${CMAKE_GENERATOR}"
   "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
-  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS} ${SUPERBUILD_IPO_OPTS}"
+  "-DCMAKE_C_FLAGS=${SUPERBUILD_C_FLAGS} ${EXTRA_MINIZIP_DEFS} ${SUPERBUILD_IPO_OPTS}"
   "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
   "-DCMAKE_EXE_LINKER_FLAGS=${SUPERBUILD_EXE_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
   "-DCMAKE_STATIC_LINKER_FLAGS=${SUPERBUILD_STATIC_LINKER_FLAGS}"
