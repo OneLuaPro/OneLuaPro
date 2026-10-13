@@ -17,7 +17,7 @@ ExternalProject_Add(luasql
   "-DCMAKE_SHARED_LINKER_FLAGS=${SUPERBUILD_SHARED_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
   ${GENERATOR_ARGS}
 )
-add_dependencies(luasql lua sqlean mariadb-connector-c postgres-connector-c duckdb)
+add_dependencies(luasql lua sqlean mariadb-connector-c postgres-connector-c duckdb firebird)
 # Help Center registration
 # FIXME
 #set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
