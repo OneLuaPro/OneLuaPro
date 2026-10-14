@@ -18,6 +18,7 @@
 # written in src/jrd/build_no.h. The build number grows with every build, so it
 # also tells whether another snapshot is newer.
 set(FIREBIRD_COMMIT "5976482c2769c5b7d2f066afef0c63ba95eaf4ca")
+find_package(Git REQUIRED)
 
 # fix_fbclient_static.bat needs llvm-ar, llvm-nm and llvm-objcopy in the PATH.
 # The Intel oneAPI compiler brings them, in the folder "compiler" below the
@@ -58,16 +59,15 @@ file(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}/firebird-build.bat"
 
 ExternalProject_Add(firebird
   PREFIX ${PROJECT_NAME}/firebird
-  GIT_REPOSITORY https://github.com/FirebirdSQL/firebird.git
-  GIT_TAG ${FIREBIRD_COMMIT}
-  # A shallow clone of a commit id needs a CMake that fetches the commit
-  # directly; older ones fail unless the commit is the tip of a branch. If it
-  # fails here, set GIT_SHALLOW to FALSE (full clone, much bigger).
-  GIT_SHALLOW TRUE
-  GIT_PROGRESS FALSE
-  # Firebird's only submodule is vcpkg: big and not needed. The empty list means
-  # "no submodules" only with policy CMP0097 NEW (CMake 3.16 or newer as minimum).
-  GIT_SUBMODULES ""
+  # A shallow clone of a commit id only gets the tips of the branches, so it
+  # fails as soon as master has moved on (cmake 3.31 does not fetch the id
+  # directly). Fetch exactly this commit. No submodules (vcpkg is not needed).
+  DOWNLOAD_COMMAND
+  ${GIT_EXECUTABLE} init -q <SOURCE_DIR>
+  COMMAND ${GIT_EXECUTABLE} -C <SOURCE_DIR> fetch --depth 1
+  https://github.com/FirebirdSQL/firebird.git ${FIREBIRD_COMMIT}
+  COMMAND ${GIT_EXECUTABLE} -C <SOURCE_DIR> checkout -q FETCH_HEAD
+  UPDATE_COMMAND ""
   # Firebird builds in its own tree (temp\, output_x64_release\)
   BUILD_IN_SOURCE TRUE
   # make_all.bat calls "timeout /t 1 /nobreak", which refuses to run without a
