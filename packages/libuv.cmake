@@ -16,7 +16,7 @@ ExternalProject_Add(libuv
   GIT_REPOSITORY https://github.com/libuv/libuv.git
   GIT_TAG "v1.52.1"
   GIT_PROGRESS FALSE
-  PATCH_COMMAND git apply -p1 "${CMAKE_CURRENT_SOURCE_DIR}/packages/libuv.patch"
+  PATCH_COMMAND ${CMAKE_COMMAND} -DGIT=git "-DPATCH_FILE=${CMAKE_CURRENT_SOURCE_DIR}/packages/libuv.patch" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/ApplyPatchOnce.cmake"
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
   "-DBUILD_TESTING=OFF"

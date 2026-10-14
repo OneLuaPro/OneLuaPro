@@ -9,7 +9,7 @@ ExternalProject_Add(wxWidgets
   GIT_TAG "v3.2.11"
   GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
-  PATCH_COMMAND git apply -p1 "${CMAKE_CURRENT_SOURCE_DIR}/packages/wxWidgets.patch"
+  PATCH_COMMAND ${CMAKE_COMMAND} -DGIT=git "-DPATCH_FILE=${CMAKE_CURRENT_SOURCE_DIR}/packages/wxWidgets.patch" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/ApplyPatchOnce.cmake"
   CMAKE_ARGS
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_BUILDROOT}"
   "-DwxBUILD_SHARED=OFF"

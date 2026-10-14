@@ -11,7 +11,7 @@ ExternalProject_Add(duckdb
   GIT_SHALLOW TRUE
   GIT_PROGRESS FALSE
   # Apply core patch to be able to build duckdb for OneLuaPro
-  PATCH_COMMAND git apply -p1 --whitespace=nowarn "${CMAKE_CURRENT_SOURCE_DIR}/packages/duckdb-core.patch"
+  PATCH_COMMAND ${CMAKE_COMMAND} -DGIT=git -DAPPLY_ARGS=--whitespace=nowarn "-DPATCH_FILE=${CMAKE_CURRENT_SOURCE_DIR}/packages/duckdb-core.patch" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/ApplyPatchOnce.cmake"
   #
   # Create patch directory for duckdb-mysql
   COMMAND ${CMAKE_COMMAND} -E make_directory "<SOURCE_DIR>/.github/patches/extensions/mysql_scanner"
