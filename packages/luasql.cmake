@@ -9,6 +9,8 @@ ExternalProject_Add(luasql
   GIT_PROGRESS FALSE
   CMAKE_ARGS "-DLUA_HINTS=${ONELUAPRO_BUILDROOT}"
   "-DCMAKE_INSTALL_PREFIX=${ONELUAPRO_PREFIX}"
+  "-DORACLE_INCLUDE_DIR=${INSTANTCLIENT_SDK_ROOT}/include"
+  "-DORACLE_LIBRARY=${INSTANTCLIENT_SDK_ROOT}/lib/msvc/oci.lib"
   "-G${CMAKE_GENERATOR}"
   "-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}"
   "-DCMAKE_MSVC_RUNTIME_LIBRARY=${CMAKE_MSVC_RUNTIME_LIBRARY}"
@@ -17,9 +19,8 @@ ExternalProject_Add(luasql
   "-DCMAKE_SHARED_LINKER_FLAGS=${SUPERBUILD_SHARED_LINKER_FLAGS} ${SUPERBUILD_IPO_OPTS}"
   ${GENERATOR_ARGS}
 )
-add_dependencies(luasql lua sqlean mariadb-connector-c postgres-connector-c duckdb firebird luacom)
+add_dependencies(luasql lua sqlean mariadb-connector-c postgres-connector-c duckdb firebird luacom instantclient-sdk ldoc)
 # Help Center registration
-# FIXME
-#set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST 
-#  "luasql;luasql/luasql.html;SQLite Database Interface;🗄️;Database Interfaces;${LUASQL_VER}"
-#)
+set_property(GLOBAL APPEND PROPERTY ONELUAPRO_DOC_LIST
+  "luasql;luasql/index.html;Database Access for Lua;🗄️;Database Interfaces;${LUASQL_VER}"
+)

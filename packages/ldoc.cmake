@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # ldoc
 #set(LDOC_VER "origin/master")
-set(LDOC_VER "v1.5.0-27-g5ab93b2")
+set(LDOC_VER "v1.5.0-30-g920c6e8")
 ExternalProject_Add(ldoc
   PREFIX ${PROJECT_NAME}/ldoc
   GIT_REPOSITORY https://github.com/OneLuaPro/ldoc.git
